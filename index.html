@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overdrive — Championship Simulator</title>
+<style>
+:root{--red:#8B1A1A;--rl:#B02020;--dk:#141414;--pn:#1c1c1c;--cd:#222;--bd:#2e2e2e;
+  --lt:#f0f0ee;--mt:#888;--gd:#c9920a;--gn:#1a6b1a;--bl:#1a3a6c;--or:#c95a0a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--dk);color:var(--lt);font-family:Arial,sans-serif;font-size:13px;}
+header{background:linear-gradient(135deg,#0a0a0a,#180505);border-bottom:3px solid var(--red);
+  padding:12px 18px;display:flex;align-items:center;gap:14px;}
+header h1{font-size:1.9rem;color:var(--red);letter-spacing:3px;font-weight:900;}
+.hsub{color:#666;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
+.hright{margin-left:auto;display:flex;gap:8px;}
+.tabs{display:flex;background:#0f0f0f;border-bottom:2px solid var(--red);}
+.tab{padding:9px 16px;cursor:pointer;font-size:.7rem;letter-spacing:1px;text-transform:uppercase;
+  color:#555;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;}
+.tab:hover{color:#bbb;}.tab.on{color:var(--red);border-bottom-color:var(--red);font-weight:700;}
+.panel{display:none;padding:14px 18px;}.panel.on{display:block;}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:6px;padding:13px;margin-bottom:11px;}
+.ct{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:7px;font-weight:700;}
+.btn{background:var(--red);color:#fff;border:none;padding:7px 14px;border-radius:4px;cursor:pointer;
+  font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:background .15s;}
+.btn:hover{background:var(--rl);}.btn.sec{background:#2e2e2e;}.btn.sec:hover{background:#3e3e3e;}
+.btn.ok{background:var(--gn);}.btn.ok:hover{background:#267026;}
+.btn.gd{background:#6b4a05;}.btn.gd:hover{background:#8a6008;}
+.btn:disabled{opacity:.35;cursor:default;}
+input,select{background:#111;border:1px solid #3a3a3a;color:#fff;padding:6px 8px;border-radius:4px;font-size:.8rem;}
+input[type=number]{width:80px;}input[type=text]{width:140px;}
+.badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:.6rem;font-weight:700;text-transform:uppercase;}
+.br{background:#2a0a0a;color:var(--red);border:1px solid var(--red);}
+.bg{background:#2a1a00;color:var(--gd);border:1px solid var(--gd);}
+.bgn{background:#0a2a0a;color:#4caf50;border:1px solid #4caf50;}
+.bbl{background:#0a1a2a;color:#5aaeee;border:1px solid #5aaeee;}
+.info{background:#101828;border:1px solid #1a3a6c;border-radius:5px;padding:8px 11px;font-size:.72rem;color:#aac4ee;margin:7px 0;line-height:1.6;}
+.warn{background:#1a1200;border:1px solid var(--gd);border-radius:5px;padding:8px 11px;font-size:.72rem;color:#d4aa60;margin:7px 0;line-height:1.6;}
+.ok{background:#0a1a0a;border:1px solid var(--gn);border-radius:5px;padding:8px 11px;font-size:.72rem;color:#90c890;margin:7px 0;line-height:1.6;}
+.danger{background:#1a0a0a;border:1px solid var(--red);border-radius:5px;padding:8px 11px;font-size:.72rem;color:#e08080;margin:7px 0;}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;margin:9px 0;}
+.ccard{background:var(--pn);border:2px solid var(--bd);border-radius:7px;padding:11px;cursor:pointer;transition:all .15s;}
+.ccard:hover:not(.claimed){border-color:var(--red);background:#2a1010;}
+.ccard.won{border-color:var(--gd);background:#1e1600;}
+.ccard.claimed{opacity:.5;cursor:default;}
+.cname{font-size:.88rem;font-weight:700;margin-bottom:2px;}
+.cid{font-size:.62rem;color:var(--gd);margin-bottom:7px;font-style:italic;}
+.smini{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.sm{background:#111;border-radius:3px;padding:3px;text-align:center;}
+.sl{font-size:.52rem;color:var(--mt);text-transform:uppercase;}
+.sv{font-size:.95rem;font-weight:700;color:var(--gd);}
+.ph{display:flex;gap:4px;margin-bottom:11px;flex-wrap:wrap;}
+.pp{padding:3px 9px;border-radius:10px;font-size:.6rem;text-transform:uppercase;letter-spacing:1px;
+  border:1px solid var(--bd);color:#444;}
+.pp.on{background:var(--red);color:#fff;border-color:var(--red);font-weight:700;}
+.pp.dn{color:#4caf50;border-color:#2a5c2a;}
+.cal{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0;}
+.cs{background:#111;border:1px solid var(--bd);border-radius:4px;padding:7px 9px;min-width:105px;}
+.cs.cur{border-color:var(--red);background:#1a0808;}
+.cs.dn{border-color:#333;opacity:.55;}
+.rn{font-size:.52rem;color:var(--red);font-weight:700;text-transform:uppercase;margin-bottom:1px;}
+.rname{font-size:.7rem;font-weight:700;}.rtype{font-size:.56rem;color:var(--mt);margin-top:1px;}
+.boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:11px;}
+.pb{background:var(--pn);border-radius:7px;padding:12px;border:2px solid var(--bd);}
+.pname{font-size:.92rem;font-weight:700;margin-bottom:2px;}
+.pcar{font-size:.65rem;color:var(--gd);font-style:italic;margin-bottom:8px;}
+.srow{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;}
+.sp{background:#111;border-radius:10px;padding:3px 7px;font-size:.67rem;}
+.sp span{color:var(--gd);font-weight:700;}
+.rrow{display:flex;gap:9px;font-size:.67rem;color:#bbb;flex-wrap:wrap;margin-bottom:6px;}
+.hbar{display:flex;gap:2px;margin:5px 0;}
+.hp{width:10px;height:10px;border-radius:50%;background:#222;border:1px solid #333;}
+.hp.on{background:#cc4400;border-color:#ff6600;}.hp.hot{background:#ff2200;border-color:#ff4400;}
+.ulist{font-size:.62rem;color:var(--mt);}
+.uchip{display:inline-block;background:#1e1e1e;border:1px solid var(--bd);border-radius:3px;padding:2px 5px;margin:2px 2px 2px 0;}
+.cpb{font-size:1.4rem;font-weight:700;color:var(--gd);}
+.stbl{width:100%;border-collapse:collapse;}
+.stbl th{text-align:left;padding:7px 8px;font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--mt);border-bottom:1px solid var(--bd);}
+.stbl td{padding:7px 8px;border-bottom:1px solid #1a1a1a;font-size:.77rem;}
+.rlog{background:#0a0a0a;border:1px solid #202020;border-radius:5px;padding:11px;
+  max-height:500px;overflow-y:auto;font-family:monospace;font-size:.7rem;line-height:1.8;}
+.rlog .lh{color:var(--red);font-weight:700;margin-top:10px;border-top:1px solid #2a2a2a;padding-top:6px;}
+.rlog .ls{color:var(--gd);font-weight:700;margin-top:5px;}
+.rlog .lw{color:#4caf50;font-weight:700;}.rlog .lx{color:#ff8c00;}
+.rlog .ld{color:#ff3333;font-weight:700;}.rlog .li{color:#666;}
+.rlog .lm{color:#5bc4ff;}.rlog .lk{color:#cc99ff;}.rlog .ln{color:#99ff99;}.rlog .lr{color:#ff9944;}
+.rlog .la{color:var(--gd);}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:7px;margin:8px 0;}
+.spr{background:#111;border:1px solid var(--bd);border-radius:5px;padding:8px;}
+.spr.win{border-color:var(--gd);background:#1a1200;}.spr.dnf{opacity:.4;}
+.sbig{font-size:1.5rem;font-weight:700;color:var(--gd);margin-top:4px;}
+.sbig.neg{color:#555;}
+.rpan{background:#1a0800;border:2px solid var(--or);border-radius:6px;padding:11px;margin:8px 0;}
+.pdr{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid #2a1500;}
+.rbtn{background:#2a1000;border:2px solid #6a2a00;color:#ff8c44;padding:5px 13px;border-radius:20px;
+  cursor:pointer;font-size:.7rem;font-weight:700;text-transform:uppercase;transition:all .15s;}
+.rbtn.on{background:#8B2200;border-color:#ff4400;color:#fff;}
+.dcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:6px;margin:8px 0;max-height:280px;overflow-y:auto;}
+.dc{background:#1a1a1a;border:1px solid var(--bd);border-radius:4px;padding:7px;cursor:pointer;transition:all .15s;}
+.dc:hover{border-color:var(--gd);background:#1a1400;}.dc.na{opacity:.45;cursor:default;}
+.acard{background:#1a1a1a;border:1px solid var(--bd);border-radius:5px;padding:8px;margin-bottom:5px;cursor:pointer;transition:all .15s;}
+.acard:hover{border-color:var(--gd);}.acard.chosen{border-color:var(--gd);background:#1a1600;}
+.spcard{background:#1a1a1a;border:1px solid var(--bd);border-radius:5px;padding:9px;margin-bottom:6px;}
+.spcard:hover{border-color:var(--gd);cursor:pointer;}.spcard.held{border-color:var(--gd);background:#1a1600;}
+.abtabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.abtab{padding:5px 12px;border-radius:4px;cursor:pointer;font-size:.7rem;background:#1a1a1a;border:1px solid #333;color:#888;}
+.abtab.on{background:var(--red);color:#fff;border-color:var(--red);}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+@media(max-width:600px){.split{grid-template-columns:1fr;}.cgrid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>OVERDRIVE</h1><div class="hsub">Australian Performance Racing Championship</div></div>
+  <div class="hright">
+    <span id="rLabel" class="badge br">Setup</span>
+    <span id="phLabel" class="badge bg">—</span>
+  </div>
+</header>
+<div class="tabs">
+  <div class="tab on" onclick="ST('setup')">Setup & Auction</div>
+  <div class="tab" onclick="ST('race')">Race</div>
+  <div class="tab" onclick="ST('boards')">Boards</div>
+  <div class="tab" onclick="ST('standings')">Standings</div>
+  <div class="tab" onclick="ST('log')">Log</div>
+  <div class="tab" onclick="ST('rules')">Rules</div>
+</div>
+
+<!-- SETUP -->
+<div id="tab-setup" class="panel on">
+  <div class="card"><div class="ct">1 — Players</div>
+    <div style="display:flex;gap:7px;margin-bottom:9px;">
+      <button class="btn sec" onclick="setP(2)">2P</button>
+      <button class="btn sec" onclick="setP(3)">3P</button>
+      <button class="btn sec" onclick="setP(4)">4P</button>
+    </div>
+    <div id="psetup"></div>
+  </div>
+  <div class="card"><div class="ct">2 — Race Calendar (revealed before auction)</div>
+    <div class="info">Study the circuits before bidding on cars. Technical calendar → MX-5/TT advantage. High-Speed → Mustang/370Z advantage.</div>
+    <button class="btn" style="margin-bottom:8px;" onclick="shuffleCal()">🎲 Shuffle Calendar</button>
+    <div id="calDisp" class="cal"></div>
+  </div>
+  <div class="card"><div class="ct">3 — Car Auction</div>
+    <div class="warn"><strong>Auction rules:</strong> Cars revealed one at a time. All players bid from their starting <strong>12 Credits</strong>. Opening bid: 1 Cr. Highest bidder wins and pays. Remaining credits used for Race 1 purchases. AI players bid automatically.</div>
+    <div id="aucArea"></div>
+    <div id="carGrid" class="cgrid"></div>
+  </div>
+  <div class="card"><div class="ct">4 — Start</div>
+    <div id="startMsg" class="warn">Complete the auction to continue.</div>
+    <button class="btn ok" id="startBtn" disabled onclick="startGame()">🏁 Start Championship</button>
+  </div>
+</div>
+
+<!-- RACE -->
+<div id="tab-race" class="panel">
+  <div class="ph" id="phStrip"></div>
+  <div class="card" id="rHdr"></div>
+  <div id="phContent"></div>
+</div>
+
+<!-- BOARDS -->
+<div id="tab-boards" class="panel"><div id="boardsGrid" class="boards"></div></div>
+
+<!-- STANDINGS -->
+<div id="tab-standings" class="panel">
+  <div class="card"><div class="ct">Championship Standings</div>
+    <table class="stbl" id="stbl"></table>
+  </div>
+</div>
+
+<!-- LOG -->
+<div id="tab-log" class="panel">
+  <div class="ct" style="margin-bottom:8px;">Race Log</div>
+  <div id="raceLog" class="rlog">No races yet.</div>
+</div>
+
+<!-- RULES -->
+<div id="tab-rules" class="panel">
+  <div class="card"><div class="ct">Cars at a Glance</div>
+    <div id="rcars" class="cgrid"></div>
+  </div>
+  <div class="split" style="margin-top:11px;">
+    <div class="card"><div class="ct">Segment Score</div>
+      <div style="background:#0a0a14;border:1px solid #1a3a6c;border-radius:4px;padding:9px 11px;font-family:monospace;font-size:.72rem;color:#aac4ee;line-height:1.8;">
+        Score = (Stat A − Demand A)<br>+ (Stat B − Demand B)<br>+ Reckless +2<br>− Fatigue (−1 per token)<br>± Weather / Hazard
+      </div>
+      <div class="info" style="margin-top:6px;">Negative scores are normal early-season. Only the difference matters.</div>
+    </div>
+    <div class="card"><div class="ct">Round Sequence</div>
+      <div style="font-size:.75rem;line-height:2;color:#bbb;">
+        1. <strong style="color:#fff">Income</strong> — collect Cr + Sponsor bonuses<br>
+        2. <strong style="color:#fff">Fuel Station</strong> — optional swap<br>
+        3. <strong style="color:#fff">Market</strong> — buy upgrades, hire staff, Sponsor<br>
+        4. <strong style="color:#fff">Workshop</strong> — install, repair, search deck<br>
+        5. <strong style="color:#fff">Race</strong> — Overheat → Seg 1→2→3<br>
+        6. <strong style="color:#fff">End Phase</strong> — CP, Fatigue, advance
+      </div>
+    </div>
+    <div class="card"><div class="ct">Reckless Driving</div>
+      <div style="font-size:.75rem;line-height:1.9;color:#bbb;">
+        Declare before each Segment (simultaneous)<br>
+        <strong style="color:#ff9944;">Benefit:</strong> +2 Segment Score<br>
+        <strong style="color:#ff4444;">Risk:</strong> D6 — 1 or 2 = −1 Reliability<br>
+        +1 Reckless Counter (never resets)<br>
+        Counter ≥5 → Fatigue Token<br>
+        Each token: −1/Seg this Race
+      </div>
+    </div>
+    <div class="card"><div class="ct">Overheat Check</div>
+      <div style="font-size:.75rem;line-height:1.9;color:#bbb;">
+        Check: Heat > Cooling?<br>
+        Step 1: −1 Reliability (always)<br>
+        Step 2: Roll D6<br>
+        Roll ≥ Overtemp: safe<br>
+        Roll < Overtemp: −2 more R this Race<br>
+        R ≤ 0 = DNF (−1 CP, −1 Cr)
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:11px;"><div class="ct">Ability Cards</div>
+    <div class="abtabs" id="abilTabs"></div>
+    <div id="abilContent"></div>
+  </div>
+  <div class="card" style="margin-top:11px;"><div class="ct">Sponsors (20 cards)</div>
+    <div class="split">
+      <div>
+        <div style="font-size:.65rem;color:var(--gd);font-weight:700;margin-bottom:6px;">PERFORMANCE</div>
+        <div style="font-size:.72rem;color:#bbb;line-height:1.8;">
+          Red Bull Racing AU — +1 Cr/Seg won | 10+ Segs: +3 CP<br>
+          Shell V-Power — +1 Power this Race | P≥10: +2 CP<br>
+          Michelin Motorsport — Handling −1 Cr | H≥10: +2 CP<br>
+          Brembo — Ignore 1st Brake Fade | B≥8: +2 CP<br>
+          HKS Performance — Engine −1 Cr | P≥9: +2 CP<br>
+          Bilstein Suspension — +1 Handling Seg 1 | H≥9: +2 CP
+        </div>
+      </div>
+      <div>
+        <div style="font-size:.65rem;color:var(--gd);font-weight:700;margin-bottom:6px;">CONSISTENCY</div>
+        <div style="font-size:.72rem;color:#bbb;line-height:1.8;">
+          Toyota Gazoo Racing — Clean race: +2 Cr | Rel Master: +3 CP<br>
+          Bridgestone — Pump 98 finish: +1 Cr | Clean Driver: +2 CP<br>
+          Castrol EDGE — +1 Cooling permanent | No Overheat DNF: +2 CP<br>
+          Motul — Repairs −1 Cr | 3+ repairs: +2 CP<br>
+          Pirelli — +1 R each race start | Top 2 in 5 races: +2 CP
+        </div>
+        <div style="font-size:.65rem;color:var(--gd);font-weight:700;margin:8px 0 4px;">AGGRESSION</div>
+        <div style="font-size:.72rem;color:#bbb;line-height:1.8;">
+          Monster Energy — Reckless win: +2 Cr | 8+ Reckless: +3 CP<br>
+          Nitro Circus — 1st Reckless/Race: skip R roll | 6+ Reckless: +2 CP<br>
+          GoPro — 1st place: +1 Cr | Win 3 races: +2 CP<br>
+          Haltech ECU — −1 Heat after install | No Overheat DNF: +2 CP
+        </div>
+        <div style="font-size:.65rem;color:var(--gd);font-weight:700;margin:8px 0 4px;">SPECIALIST</div>
+        <div style="font-size:.72rem;color:#bbb;line-height:1.8;">
+          Garrett Turbo — FI: −1 Heat | 2+ FI: +3 CP<br>
+          APR Performance — Aero −1 Cr | A≥6: +2 CP<br>
+          Cusco Japan — Drivetrain −1 Cr | 2+ DT: +2 CP<br>
+          PWR Cooling — Overtemp −1 | C≥7: +2 CP<br>
+          Haltech+Link — Electronics −1 Cr | 2+ Elec: +3 CP<br>
+          Yokohama — Seg win: view 1 Sponsor | 4 tracks: +2 CP
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+const DECKS={
+  gt86:[{n:"HKS Super Hybrid Intake",c:"Engine",g:"Intake System",b:2,w:1,s:"P",v:1,h:0,t:false,e:"Gain +1 Power."},{n:"XForce Catback Exhaust",c:"Engine",g:"Exhaust System",b:3,w:1,s:"P",v:1,h:0,t:false,e:"Gain +1 Power and +1 Reliability."},{n:"Tomei UEL Headers",c:"Engine",g:"Headers",b:3,w:1,s:"P",v:2,h:1,t:false,e:"Gain +2 Power. +1 Heat."},{n:"High-Flow Cat Pipe",c:"Engine",g:"High-Flow Catalytic",b:2,w:1,s:"P",v:1,h:0,t:false,e:"Gain +1 Power."},{n:"ECUTek Tune",c:"Engine",g:"Engine Tune",b:3,w:1,s:"P",v:2,h:0,t:false,e:"Gain +2 Power."},{n:"Haltech Elite ECU",c:"Engine",g:"ECU Upgrade",b:4,w:2,s:"R",v:1,h:0,t:false,e:"Unlock advanced fuels. Gain +1 Reliability.",x:"unlock_fuels"},{n:"Kelford Camshafts",c:"Engine",g:"Camshafts",b:4,w:2,s:"P",v:2,h:0,t:false,e:"Gain +2 Power at high speed segments.",x:"hs_only"},{n:"Oil Pickup Baffle",c:"Engine",g:"Engine Reliability",b:2,w:1,s:"R",v:1,h:0,t:false,e:"Gain +1 Reliability."},{n:"Lightweight Crank Pulley",c:"Engine",g:"Rotational Mass",b:2,w:1,s:"P",v:1,h:0,t:false,e:"Gain +1 Power in Segment 1."},{n:"Radiator Fan Upgrade",c:"Cooling",g:"Cooling Fans",b:2,w:1,s:"C",v:1,h:0,t:false,e:"Gain +1 Cooling."},{n:"MCA Pro Comfort Coilovers",c:"Handling",g:"Coilovers",b:4,w:2,s:"H",v:2,h:0,t:false,e:"Gain +2 Handling."},{n:"Tein Flex Z Coilovers",c:"Handling",g:"Coilovers",b:3,w:2,s:"H",v:2,h:0,t:false,e:"Gain +2 Handling."},{n:"Whiteline Sway Bars",c:"Handling",g:"Sway Bars",b:2,w:1,s:"H",v:1,h:0,t:false,e:"Gain +1 Handling."},{n:"Adjustable Rear Arms",c:"Handling",g:"Alignment Kit",b:3,w:1,s:"H",v:2,h:0,t:false,e:"Once per race gain +2 Handling margin."},{n:"Polyurethane Bush Kit",c:"Handling",g:"Solid Bushings",b:2,w:1,s:"R",v:1,h:0,t:false,e:"Gain +1 Reliability and Handling."},{n:"Steering Rack Lockdown",c:"Handling",g:"Steering Geometry",b:2,w:1,s:"",v:0,h:0,t:false,e:"Ignore first Handling penalty each race.",x:"ignore_handling"},{n:"Michelin Pilot Sport Cup 2",c:"Handling",g:"Tyres",b:4,w:1,s:"H",v:2,h:0,t:false,e:"Gain +2 Handling."},{n:"Yokohama AD09",c:"Handling",g:"Tyres",b:3,w:1,s:"H",v:1,h:0,t:false,e:"Gain +1 Handling and +1 Reliability."},{n:"Enkei RPF1 Wheels",c:"Handling",g:"Wheels",b:3,w:1,s:"",v:0,h:0,t:false,e:"After winning a segment gain 1 Cr.",x:"cr_per_seg_win"},{n:"Rays Gram Lights",c:"Handling",g:"Wheels",b:3,w:1,s:"H",v:1,h:0,t:false,e:"Gain +1 Handling."},{n:"Exedy Heavy Duty Clutch",c:"Drivetrain",g:"Performance Clutch",b:3,w:1,s:"R",v:1,h:0,t:false,e:"Gain +1 Reliability."},{n:"Toda Lightweight Flywheel",c:"Drivetrain",g:"Lightweight Flywheel",b:3,w:1,s:"P",v:1,h:0,t:false,e:"Gain +1 Power Segment 1."},{n:"Cusco LSD",c:"Drivetrain",g:"Limited Slip Differential",b:4,w:2,s:"H",v:2,h:0,t:false,e:"Gain +2 Handling exiting corners."},{n:"Final Drive 4.56",c:"Drivetrain",g:"Final Drive Ratio",b:3,w:2,s:"P",v:2,h:0,t:false,e:"Gain +2 Power low-speed segments."},{n:"Brembo GT Kit",c:"Brakes",g:"Big Brake Kit",b:5,w:2,s:"B",v:2,h:0,t:false,e:"Gain +2 Brakes and +1 Reliability."},{n:"DBA T3 Rotors",c:"Brakes",g:"Performance Rotors",b:3,w:1,s:"B",v:1,h:0,t:false,e:"Gain +1 Brakes."},{n:"Endless MX72 Pads",c:"Brakes",g:"Track Brake Pads",b:2,w:1,s:"",v:0,h:0,t:false,e:"Ignore brake penalties once per race.",x:"ignore_brake"},{n:"HEL Braided Lines",c:"Brakes",g:"Brake Lines",b:2,w:1,s:"R",v:1,h:0,t:false,e:"Gain +1 Reliability in Segment 3."},{n:"PWR Aluminium Radiator",c:"Cooling",g:"Performance Radiator",b:4,w:2,s:"C",v:2,h:0,t:false,e:"Gain +2 Cooling."},{n:"Setrab Oil Cooler",c:"Cooling",g:"Oil Cooler",b:3,w:1,s:"",v:0,h:0,t:false,e:"Reduce Overheat value by 1.",x:"reduce_ot"},{n:"Jackson Racing Oil Pan",c:"Cooling",g:"Oil Control",b:3,w:1,s:"R",v:1,h:0,t:false,e:"Gain +1 Reliability."},{n:"Verus Front Splitter",c:"Aero",g:"Front Splitter",b:3,w:1,s:"A",v:1,h:0,t:false,e:"Gain +1 Aero."},{n:"APR GTC-200 Wing",c:"Aero",g:"Rear Wing",b:4,w:2,s:"A",v:2,h:0,t:false,e:"Gain +2 Aero. Lose 1 Power on straights."},{n:"TRD Rear Spoiler",c:"Aero",g:"Rear Spoiler",b:2,w:1,s:"A",v:1,h:0,t:false,e:"Gain +1 Aero."},{n:"Rear Diffuser Kit",c:"Aero",g:"Rear Diffuser",b:3,w:1,s:"A",v:1,h:0,t:false,e:"Gain +1 Aero and +1 Cooling."},{n:"Flat Floor Panels",c:"Aero",g:"Flat Floor",b:4,w:2,s:"A",v:2,h:0,t:false,e:"Gain +2 Aero."},{n:"Canard Kit",c:"Aero",g:"Canards",b:2,w:1,s:"A",v:1,h:0,t:false,e:"Gain +1 Aero in Segment 2."},{n:"Zeitronix Flex Fuel Kit",c:"Fuel",g:"Flex Fuel Kit",b:4,w:1,s:"",v:0,h:0,t:false,e:"Allows E85 fuel.",x:"unlock_e85"},{n:"DeatschWerks Injectors",c:"Fuel",g:"High-Flow Injectors",b:3,w:1,s:"C",v:1,h:0,t:false,e:"Gain +1 Cooling when using E85."},{n:"Reinforced Fuel Lines",c:"Fuel",g:"Reinforced Fuel System",b:3,w:1,s:"",v:0,h:0,t:false,e:"Required for Methanol fuel.",x:"unlock_methanol"},{n:"AIM Solo DL Logger",c:"Electronics",g:"Data Logger",b:3,w:1,s:"",v:0,h:0,t:false,e:"Reroll one Heat check per race.",x:"reroll_heat"},{n:"Launch Control Module",c:"Electronics",g:"Launch Control",b:3,w:1,s:"P",v:2,h:0,t:false,e:"Gain +2 Power Segment 1."},{n:"Sprintex Twin-Screw Supercharger",c:"Engine",g:"Supercharger",b:9,w:3,s:"P",v:4,h:1,t:true,e:"Gain +4 Power. +1 Heat."},{n:"Harrop Roots Supercharger",c:"Engine",g:"Supercharger",b:9,w:3,s:"P",v:3,h:0,t:true,e:"Gain +3 Power and +1 Reliability."},{n:"HKS GTIII Turbo Kit",c:"Engine",g:"Turbocharger",b:10,w:3,s:"P",v:5,h:2,t:true,e:"Gain +5 Power. +2 Heat."},{n:"Garrett G25 Turbo Kit",c:"Engine",g:"Turbocharger",b:10,w:3,s:"P",v:4,h:0,t:true,e:"Gain +4 Power and +1 Cooling penalty."},{n:"Built FA20 Forged Engine",c:"Engine",g:"Internal Engine Build",b:9,w:3,s:"P",v:1,h:0,t:true,e:"Forced induction gains +1 Power.",x:"fi_bonus"},{n:"Sequential Gearbox Conversion",c:"Drivetrain",g:"Sequential Gearbox",b:9,w:3,s:"P",v:2,h:0,t:true,e:"Gain +2 Power each segment.",x:"all_segs"},{n:"Nitrous Express Kit",c:"Fuel",g:"Nitrous Kit",b:8,w:2,s:"P",v:4,h:0,t:true,e:"Once per race gain +4 Power.",x:"nitrous"},{n:"Full Carbon Aero Package",c:"Aero",g:"Flat Floor",b:8,w:3,s:"A",v:3,h:0,t:true,e:"Gain +3 Aero."},{n:"Motorsport Cooling Suite",c:"Cooling",g:"Cooling Suite",b:7,w:2,s:"C",v:3,h:0,t:true,e:"Gain +3 Cooling."},{n:"LS3 Engine Swap",c:"Engine",g:"Engine Swap",b:12,w:3,s:"P",v:6,h:0,t:true,e:"Gain +6 Power. Lose 2 Reliability. Remove other Engine upgrades."}],
+  '370z':[{n:"Motordyne Shockwave Catback",c:"Minor",g:"Engine",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Stillen Gen 3 Long-Tube Intake",c:"Major",g:"Engine",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Z1 Intake Post-MAF Tubes",c:"Minor",g:"Engine",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"UpRev Performance Tune [Upgraded ECU]",c:"Major",g:"Engine",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Haltech Elite ECU [Upgraded ECU]",c:"Major",g:"Engine",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Race ECU Conversion [Upgraded ECU]",c:"Major",g:"Engine",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Z1 Oil Gallery Gasket Upgrade",c:"Major",g:"Engine",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Mishimoto Oil Catch Can",c:"Minor",g:"Engine",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Z1 34-Row Oil Cooler Kit",c:"Major",g:"Cooling",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Setrab Thermostatic Oil Cooler",c:"Minor",g:"Cooling",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"CSF Aluminium Radiator",c:"Major",g:"Cooling",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Diff Oil Cooler",c:"Minor",g:"Cooling",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Transmission Cooler",c:"Minor",g:"Cooling",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Zeitronix Flex Fuel Kit",c:"Major",g:"Fuel",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"High-Flow Injectors",c:"Minor",g:"Fuel",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Reinforced Fuel Lines (PTFE)",c:"Minor",g:"Fuel",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"CJ Motorsports Return Fuel System (Methanol-Compatible)",c:"Major",g:"Fuel",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Nitrous Wet Kit",c:"Major",g:"Fuel",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"CSC Delete Kit (Clutch Slave)",c:"Minor",g:"Transmission",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Exedy Heavy Duty Clutch",c:"Minor",g:"Transmission",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Lightweight Flywheel",c:"Minor",g:"Transmission",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Short Ratio Final Drive",c:"Major",g:"Transmission",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"NISMO LSD (Factory Spec)",c:"Major",g:"Transmission",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Z1 Diff Brace & Bushings",c:"Minor",g:"Transmission",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"KW Variant 3 Coilovers",c:"Major",g:"Suspension",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"MCA Pro Sport Coilovers",c:"Major",g:"Suspension",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Hotchkis Sway Bars",c:"Minor",g:"Suspension",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"SPL Adjustable Arms",c:"Minor",g:"Suspension",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Subframe Collars",c:"Minor",g:"Suspension",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Rays Forged Wheels",c:"Minor",g:"Suspension",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Brake Cooling Ducts",c:"Minor",g:"Brakes",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Akebono Sport Brake Upgrade",c:"Major",g:"Brakes",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"DBA T3 Rotors",c:"Minor",g:"Brakes",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Endless Pads",c:"Minor",g:"Brakes",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"NISMO Front Lip",c:"Minor",g:"Aero",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Varis/Amuse Style Rear Wing",c:"Major",g:"Aero",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Lightweight Battery",c:"Minor",g:"Suspension",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Chassis Brace Kit",c:"Minor",g:"Suspension",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"AAM Competition Twin Turbo Kit",c:"Engine",g:"1.0",b:10,w:2,s:"",v:0,h:0,t:true,e:"3.0"},{n:"Boosted Performance Single Turbo",c:"Engine",g:"1.0",b:10,w:2,s:"",v:0,h:0,t:true,e:"3.0"},{n:"Built VQ37 Long Block",c:"Engine",g:"1.0",b:10,w:3,s:"",v:0,h:0,t:true,e:"2.0"},{n:"Quaife Sequential Gearbox",c:"Transmission",g:"1.0",b:9,w:2,s:"",v:0,h:0,t:true,e:"1.0"},{n:"OS Giken Super Lock LSD",c:"Transmission",g:"1.0",b:8,w:2,s:"",v:0,h:0,t:true,e:""},{n:"NISMO R-Tune Suspension",c:"Suspension",g:"1.0",b:8,w:2,s:"",v:0,h:0,t:true,e:""},{n:"AP Racing Front BBK",c:"Brakes",g:"1.0",b:8,w:2,s:"",v:0,h:0,t:true,e:""},{n:"PWR Race Cooling Suite",c:"Cooling",g:"1.0",b:7,w:2,s:"",v:0,h:0,t:true,e:""},{n:"Zeitronix + Race Fuel Integration",c:"Fuel",g:"1.0",b:8,w:2,s:"",v:0,h:0,t:true,e:"1.0"}],
+  auditt:[{n:"RacingLine Downpipe",c:"Major",g:"Engine",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Unitronic Stage 2 Tune [Upgraded ECU]",c:"Major",g:"Electronics",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"APR ECU Tune [Upgraded ECU]",c:"Major",g:"Electronics",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"DSG Software Tune",c:"Major",g:"Transmission",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Haldex Controller Upgrade",c:"Major",g:"Electronics",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Zeitronix Flex Fuel Kit",c:"Major",g:"Fuel",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"High-Flow Injectors",c:"Minor",g:"Fuel",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Reinforced Fuel Lines",c:"Minor",g:"Fuel",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Nitrous Wet Kit",c:"Major",g:"Fuel",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Sachs Performance Clutch",c:"Minor",g:"Transmission",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Quaife ATB Differential",c:"Major",g:"Transmission",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Lightweight Driveshaft",c:"Minor",g:"Transmission",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"KW Variant 3 Coilovers",c:"Major",g:"Suspension",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"RacingLine Springs",c:"Minor",g:"Suspension",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Adjustable Control Arms",c:"Minor",g:"Suspension",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Michelin Pilot Sport Cup 2 Tyres",c:"Major",g:"Tyres & Wheels",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Yokohama AD09 Tyres",c:"Minor",g:"Tyres & Wheels",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Forged Lightweight Wheels",c:"Minor",g:"Tyres & Wheels",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Akebono Brake Upgrade",c:"Major",g:"Brakes",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"DBA T3 Rotors",c:"Minor",g:"Brakes",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Endless Pads",c:"Minor",g:"Brakes",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"HEL Brake Lines",c:"Minor",g:"Brakes",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"CSF Radiator",c:"Major",g:"Cooling",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Wagner Intercooler",c:"Major",g:"Cooling",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Oil Cooler Kit",c:"Minor",g:"Cooling",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Front Splitter",c:"Minor",g:"Aero",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Rear Wing",c:"Major",g:"Aero",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Flat Floor Panels",c:"Major",g:"Aero",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Rear Chassis Brace",c:"Minor",g:"Chassis",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Subframe Inserts",c:"Minor",g:"Chassis",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Weight Reduction Stage 1",c:"Major",g:"Chassis",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Launch Control Upgrade",c:"Major",g:"Electronics",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Traction Control Calibration",c:"Minor",g:"Electronics",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Data Logging System",c:"Minor",g:"Electronics",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Adaptive Damper Module",c:"Major",g:"Electronics",b:1,w:2,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Carbon Rear Diffuser",c:"Minor",g:"Aero",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Lightweight Battery",c:"Minor",g:"Chassis",b:1,w:1,s:"",v:0,h:0,t:false,e:"1.0"},{n:"Garrett GTX Turbo Conversion",c:"Forced Induction",g:"1.0",b:10,w:2,s:"",v:0,h:0,t:true,e:"3.0"},{n:"DSG Race Gearset",c:"Transmission",g:"1.0",b:9,w:2,s:"",v:0,h:0,t:true,e:"1.0"},{n:"Haldex Race Controller",c:"Electronics",g:"1.0",b:8,w:2,s:"",v:0,h:0,t:true,e:""},{n:"KW Clubsport Suspension",c:"Suspension",g:"1.0",b:8,w:2,s:"",v:0,h:0,t:true,e:""},{n:"AP Racing Big Brake Kit",c:"Brakes",g:"1.0",b:8,w:2,s:"",v:0,h:0,t:true,e:""},{n:"Wagner Competition Cooling Suite",c:"Cooling",g:"1.0",b:7,w:2,s:"",v:0,h:0,t:true,e:""},{n:"Full Carbon Aero Package",c:"Aero",g:"1.0",b:8,w:2,s:"",v:0,h:0,t:true,e:""},{n:"MoTeC AWD Integration System",c:"Electronics",g:"1.0",b:9,w:2,s:"",v:0,h:0,t:true,e:"1.0"},{n:"Built EA888 Engine",c:"Engine",g:"1.0",b:10,w:3,s:"",v:0,h:0,t:true,e:"1.0"}],
+  mx5:[{n:"Coilovers",c:"Handling",g:"Coilovers",b:4,w:1,s:"H",v:2,h:0,t:false,e:"+2 Handling"},{n:"Lightweight Wheels",c:"Handling",g:"Wheels",b:3,w:1,s:"H",v:1,h:0,t:false,e:"+1 Handling"},{n:"Brake Kit",c:"Brakes",g:"Big Brake Kit",b:3,w:1,s:"B",v:2,h:0,t:false,e:"+2 Brakes"},{n:"Sway Bars",c:"Handling",g:"Sway Bars",b:2,w:1,s:"H",v:1,h:0,t:false,e:"+1 Handling"},{n:"Aluminium Radiator",c:"Cooling",g:"Radiator",b:3,w:1,s:"C",v:2,h:0,t:false,e:"+2 Cooling"},{n:"Chassis Brace",c:"Drivetrain",g:"Chassis Brace",b:4,w:1,s:"R",v:1,h:0,t:false,e:"+1 Reliability"},{n:"ECU Tune",c:"Engine",g:"Engine Tune",b:3,w:1,s:"P",v:1,h:1,t:false,e:"+1 Power +1 Heat"},{n:"Front Splitter",c:"Aero",g:"Front Splitter",b:3,w:1,s:"A",v:2,h:0,t:false,e:"+2 Aero"},{n:"Polyurethane Bushings",c:"Handling",g:"Solid Bushings",b:2,w:1,s:"H",v:1,h:0,t:false,e:"+1 Handling"},{n:"Whiteline Bars",c:"Handling",g:"Anti-Roll Bars",b:2,w:1,s:"H",v:1,h:0,t:false,e:"+1 Handling"},{n:"DBA Rotors",c:"Brakes",g:"Performance Rotors",b:3,w:1,s:"B",v:1,h:0,t:false,e:"+1 Brakes"},{n:"Oil Cooler",c:"Cooling",g:"Oil Cooler",b:3,w:1,s:"C",v:1,h:0,t:false,e:"+1 Cooling"},{n:"Rays Wheels",c:"Handling",g:"Wheels",b:3,w:1,s:"H",v:1,h:0,t:false,e:"+1 Handling"},{n:"Flex Fuel Kit",c:"Fuel",g:"Flex Fuel Kit",b:4,w:1,s:"",v:0,h:0,t:false,e:"Allows E85 fuel",x:"unlock_e85"},{n:"AIM Logger",c:"Electronics",g:"Data Logger",b:3,w:1,s:"",v:0,h:0,t:false,e:"Reroll one Heat check per race"},{n:"Turbo Conversion",c:"Engine",g:"Turbocharger",b:8,w:3,s:"P",v:3,h:2,t:true,e:"+3 Power +2 Heat"},{n:"Motorsport Cooling Suite",c:"Cooling",g:"Cooling Suite",b:7,w:2,s:"C",v:3,h:0,t:true,e:"+3 Cooling"},{n:"Full Carbon Aero",c:"Aero",g:"Flat Floor",b:8,w:3,s:"A",v:3,h:0,t:true,e:"+3 Aero"},{n:"Sequential Gearbox",c:"Drivetrain",g:"Sequential Gearbox",b:9,w:3,s:"P",v:2,h:0,t:true,e:"+2 Power each segment"},{n:"Nitrous Express Kit",c:"Fuel",g:"Nitrous Kit",b:8,w:2,s:"P",v:4,h:0,t:true,e:"Once per race +4 Power",x:"nitrous"}],
+  mustang:[{n:"Cold Air Intake",c:"Engine",g:"Intake System",b:3,w:1,s:"P",v:1,h:0,t:false,e:"+1 Power"},{n:"Performance Exhaust",c:"Engine",g:"Exhaust System",b:4,w:1,s:"P",v:2,h:1,t:false,e:"+2 Power +1 Heat"},{n:"Track Coilovers",c:"Handling",g:"Coilovers",b:4,w:1,s:"H",v:2,h:0,t:false,e:"+2 Handling"},{n:"Brembo Brakes",c:"Brakes",g:"Big Brake Kit",b:5,w:2,s:"B",v:2,h:0,t:false,e:"+2 Brakes +1 Reliability"},{n:"Oil Cooler",c:"Cooling",g:"Oil Cooler",b:4,w:2,s:"C",v:2,h:0,t:false,e:"+2 Cooling"},{n:"Aluminium Radiator",c:"Cooling",g:"Radiator",b:4,w:2,s:"C",v:2,h:0,t:false,e:"+2 Cooling"},{n:"Rear Wing",c:"Aero",g:"Rear Wing",b:3,w:1,s:"A",v:2,h:0,t:false,e:"+2 Aero"},{n:"Sway Bars",c:"Handling",g:"Sway Bars",b:2,w:1,s:"H",v:1,h:0,t:false,e:"+1 Handling"},{n:"ECU Tune",c:"Engine",g:"Engine Tune",b:3,w:1,s:"P",v:2,h:1,t:false,e:"+2 Power +1 Heat"},{n:"Forged Internals",c:"Engine",g:"Forged Internals",b:5,w:2,s:"R",v:1,h:0,t:false,e:"+1 Reliability"},{n:"Lightweight Wheels",c:"Handling",g:"Wheels",b:3,w:1,s:"H",v:1,h:0,t:false,e:"+1 Handling"},{n:"Flex Fuel Kit",c:"Fuel",g:"Flex Fuel Kit",b:4,w:1,s:"",v:0,h:0,t:false,e:"Allows E85 fuel",x:"unlock_e85"},{n:"Nitrous Kit",c:"Fuel",g:"Nitrous Kit",b:5,w:1,s:"P",v:4,h:0,t:false,e:"Once per race +4 Power",x:"nitrous"},{n:"DBA Rotors",c:"Brakes",g:"Performance Rotors",b:3,w:1,s:"B",v:1,h:0,t:false,e:"+1 Brakes"},{n:"Exhaust Headers",c:"Engine",g:"Headers",b:3,w:1,s:"P",v:2,h:1,t:false,e:"+2 Power +1 Heat"},{n:"Whipple Supercharger",c:"Engine",g:"Supercharger",b:10,w:3,s:"P",v:5,h:3,t:true,e:"+5 Power +3 Heat"},{n:"Garrett Turbo",c:"Engine",g:"Turbocharger",b:9,w:3,s:"P",v:4,h:2,t:true,e:"+4 Power +2 Heat",x:"nitrous"},{n:"Sequential Gearbox",c:"Drivetrain",g:"Sequential Gearbox",b:9,w:3,s:"P",v:2,h:0,t:true,e:"+2 Power each segment"},{n:"Motorsport Cooling Suite",c:"Cooling",g:"Cooling Suite",b:7,w:2,s:"C",v:3,h:0,t:true,e:"+3 Cooling"},{n:"Full Carbon Aero",c:"Aero",g:"Flat Floor",b:8,w:3,s:"A",v:3,h:0,t:true,e:"+3 Aero"}],
+};
+const ABILITIES={
+  gt86:[{n:"Late Braker",e:"Gain +1 Brakes during Segment 3."},{n:"Lightweight Philosophy",e:"Each time you install a Suspension upgrade, gain 1 Credit."},{n:"Corner Exit Specialist",e:"If Handling exceeds Power, gain +1 Power in Segment 2."},{n:"Driver Feedback",e:"Ignore the first Handling penalty each race."},{n:"Spec Racer",e:"If you install no S-Tier upgrades, gain +1 Championship Point at game end."},{n:"Cool Factor",e:"After winning a Segment, gain 1 Credit for each Aero upgrade installed (max 3)."},{n:"Momentum Driver",e:"If you win Segment 1, gain +1 Handling in Segment 2."},{n:"Budget Builder",e:"The first Minor upgrade you install each round costs 1 Credit less."},{n:"Data Analyst",e:"Once per round, you may draw 1 additional upgrade into your Workshop."},{n:"Perfect Balance",e:"If your Power and Handling differ by 1 or less, gain +1 Reliability."}],
+  '370z':[{n:"Quattro Grip",e:"Ignore Crosswind and Wet Track penalties."},{n:"Precision Engineering",e:"Upgraded ECU installations cost 1 Credit less."},{n:"Launch Control",e:"Gain +2 Power during Segment 1 only."},{n:"Data Logging",e:"Once per race reroll a Heat check die."},{n:"Clinical Efficiency",e:"If you win exactly one Segment, gain 2 Credits."}],
+  auditt:[{n:"American Muscle",e:"Gain +1 Power when Heat is higher than Cooling."},{n:"Crowd Favourite",e:"After winning a race, gain 3 additional Credits."},{n:"Straight-Line Hunter",e:"Gain +2 Power in High-Speed segments."},{n:"Oversteer Control",e:"Once per race convert a Handling loss into no effect."},{n:"Go Big or Go Home",e:"S-Tier upgrades cost 1 Credit less but generate +1 Heat."}],
+  mx5:[{n:"Torque Monster",e:"If Heat equals Cooling at race start, gain +1 Power for the race."},{n:"Track Weapon",e:"During Segment 3, gain +1 Reliability and +1 Brakes."},{n:"Boost Confidence",e:"Forced Induction upgrades generate 1 less Heat (minimum 0)."},{n:"NISMO Heritage",e:"Factory (NISMO) upgrades cost 1 Credit less to install."},{n:"Endurance Mindset",e:"After resolving Overheat checks, gain 1 Credit if you did not DNF."}],
+  mustang:[],
+};
+
+// ═══════════════════════════════════════════════════════
+// GAME DATA
+// ═══════════════════════════════════════════════════════
+const CARS=[
+  {id:'gt86',  name:'Toyota GT86',  sub:'The Experimenter',   P:3,H:5,B:3,A:2,C:2,R:5,col:'#c47c1a'},
+  {id:'370z',  name:'Nissan 370Z',  sub:'The Torque Monster', P:4,H:4,B:4,A:2,C:3,R:5,col:'#cc3333'},
+  {id:'auditt',name:'Audi TT',      sub:'The Technologist',   P:3,H:4,B:4,A:4,C:3,R:5,col:'#2266cc'},
+  {id:'mx5',   name:'Mazda MX-5',   sub:'The Pure Driver',    P:2,H:6,B:4,A:2,C:2,R:5,col:'#cc5522'},
+  {id:'mustang',name:'Mustang GT',  sub:'The Crowd Favourite',P:5,H:3,B:3,A:1,C:3,R:4,col:'#228833'},
+];
+const TRACKS=[
+  {name:'Mount Panorama',    ty:'Mixed ★★★',   sg:[['P',6,'A',4],['H',7,'B',6],['P',5,'H',5]],sp:'mountain',st:'Lose Seg by 3+: -1R'},
+  {name:'Phillip Island',    ty:'High-Speed ★★',sg:[['P',7,'A',5],['P',6,'A',4],['H',6,'B',4]],sp:'crosswind',st:'Aero added as 3rd stat all Segs'},
+  {name:'Sydney Motorsport', ty:'Technical ★★', sg:[['H',6,'B',5],['H',7,'B',5],['P',5,'H',5]],sp:'rough',   st:'Brakes Demand +1 all Segs'},
+  {name:'Sandown Raceway',   ty:'Mixed ★',      sg:[['P',5,'H',5],['H',6,'B',5],['P',6,'A',3]],sp:'endurance',st:'DNF with R≥3: earn 1 CP'},
+  {name:'The Bend',          ty:'Long ★★★',     sg:[['P',7,'A',4],['H',7,'B',6],['P',6,'H',5]],sp:'longest',  st:'All Demands +1'},
+  {name:'Queensland Raceway',ty:'Power/Tech ★★',sg:[['P',6,'A',3],['H',6,'B',5],['H',5,'B',4]],sp:'hot',     st:'+1 Heat all at race start'},
+  {name:'Winton',            ty:'Technical ★★', sg:[['H',7,'B',5],['H',6,'B',6],['H',6,'B',4]],sp:'winton',  st:'Sweep all 3 Segs: +2 bonus CP'},
+  {name:'Hidden Valley',     ty:'Fast ★',       sg:[['P',6,'A',3],['P',5,'H',5],['H',5,'B',5]],sp:'darwin',  st:'Cooling -1 this Race'},
+  {name:'Adelaide Street',   ty:'Technical ★★★',sg:[['H',7,'B',7],['H',6,'B',5],['P',7,'A',4]],sp:'adelaide',st:'DNF = extra -1 CP (total -2)'},
+  {name:'Albert Park',       ty:'Flowing ★★',   sg:[['P',7,'A',5],['P',5,'H',6],['H',6,'B',5]],sp:'albert',  st:'Race winner: +1 bonus CP'},
+  {name:'Wakefield Park',    ty:'Tight ★',      sg:[['H',6,'B',5],['H',5,'B',5],['H',6,'B',4]],sp:'wakefield',st:'Aero penalties doubled'},
+  {name:'Mallala',           ty:'Fast ★',       sg:[['P',6,'A',4],['P',5,'H',5],['H',5,'B',5]],sp:'mallala', st:'Brakes Demand +1 Seg 1'},
+  {name:'Barbagallo',        ty:'Fast ★★',      sg:[['P',7,'A',4],['P',5,'H',6],['H',6,'B',4]],sp:'perth',   st:'Always +1 Heat (Perth)'},
+  {name:'Hampton Downs NZ',  ty:'Balanced ★★',  sg:[['P',6,'H',5],['H',7,'B',5],['P',6,'A',5]],sp:'hampton', st:'Rain: Handling Demand +2 not +1'},
+  {name:'Highlands NZ',      ty:'Technical ★★★',sg:[['P',6,'A',6],['H',6,'B',6],['P',5,'H',6]],sp:'highlands',st:'Brakes always 3rd stat'},
+];
+const WEATHERS=[
+  {name:'Light Rain',   hd_all:1, desc:'Handling Demand +1 all Segs'},
+  {name:'Heavy Rain',   pd_all:1, desc:'Power margins -1 all Segs'},
+  {name:'Heatwave',     heat:1,   desc:'+1 Heat all cars'},
+  {name:'Overcast',               desc:'No effect'},
+  {name:'Clear Skies',  p_seg1:1, desc:'+1 Power margin Seg 1'},
+  {name:'Crosswind',    aero_third:true, desc:'Aero as 3rd stat all Segs'},
+  {name:'Dusty Surface',bd_all:1, desc:'Brake margins -1 all Segs'},
+  {name:'Fog',          score_all:-1, desc:'All scores -1'},
+  {name:'Cold Track',   hd_seg1:1, desc:'Handling Demand +1 Seg 1'},
+  {name:'Humid',        cool_pen:1, desc:'Cooling -1 this Race'},
+  {name:'Scorching',    heat:2, cool_pen:1, desc:'+2 Heat + Cooling -1'},
+  {name:'Hailstorm',   rel_hit:-1, bd_all:1, desc:'-1R all + Brakes Demand +1'},
+  {name:'Wet Track',    hd_all:1, desc:'Handling Demand +1 all Segs'},
+  {name:'Headwind',     headwind:true, desc:'Aero replaces 2nd stat in HS'},
+  {name:'Perfect',      bonus_s1:1, desc:'+1 all margins Seg 1'},
+];
+const HAZARDS=[
+  {name:'Safety Car',      seg1_no:true,  desc:'Seg 1: no CP or Cr'},
+  {name:'Brake Fade',      brake_s3:true, desc:'Brake margins -1 Seg 3'},
+  {name:'Yellow Flag',     seg2_ncp:true, desc:'Seg 2: no CP'},
+  {name:'Tire Wear',       hand_s3:true,  desc:'Handling margins -1 Seg 3'},
+  {name:'Fuel Spike',      pow_s2:true,   desc:'Power margins -1 Seg 2'},
+  {name:'Track Evolution', dem_s3:true,   desc:'Demands +1 Seg 3'},
+  {name:'Oil on Track',    oil:true,      desc:'Lowest Handling in Seg 1: -1R'},
+  {name:'Tech Failure',    techfail:true, desc:'Each player D6, on 1: -1R'},
+  {name:'Mech Inspection', mech:true,     desc:'Highest Heat car: extra Overheat'},
+  {name:'No Hazard',       none:true,     desc:'Clear track'},
+  {name:'Debris',          debris:true,   desc:'D6, on 1-2: -1 Brakes this Race'},
+  {name:'Gravel Trap',     gravel:true,   desc:'Win Seg 1 by 4+: -1R'},
+  {name:'Red Flag',        redflag:true,  desc:'Seg 2 replayed at Demands+1'},
+  {name:'Kerb Strike',     kerb:true,     desc:'Lowest Brakes margin: -1R'},
+  {name:'Pace Car',        pace:true,     desc:'Seg win Cr halved'},
+];
+const SPONSORS=[
+  {name:'Red Bull Racing AU',  fee:2, cat:'perf',  bonus:'+1 Cr/Seg won',        cond:'10+ Seg wins', cp:3, ongoing:'cr_per_seg'},
+  {name:'Shell V-Power',       fee:1, cat:'perf',  bonus:'+1 Power this Race',   cond:'Power ≥ 10',   cp:2, ongoing:'power_bonus'},
+  {name:'Michelin Motorsport', fee:2, cat:'perf',  bonus:'Handling -1 Cr to buy',cond:'Handling ≥ 10',cp:2, ongoing:'handling_disc'},
+  {name:'Brembo',              fee:1, cat:'perf',  bonus:'Ignore 1st Brake Fade',cond:'Brakes ≥ 8',   cp:2, ongoing:'brake_immune'},
+  {name:'HKS Performance',     fee:2, cat:'perf',  bonus:'Engine upgrades -1 Cr',cond:'Power ≥ 9',    cp:2, ongoing:'engine_disc'},
+  {name:'Bilstein Suspension', fee:1, cat:'perf',  bonus:'+1 Handling Seg 1',    cond:'Handling ≥ 9', cp:2, ongoing:'handling_s1'},
+  {name:'Toyota Gazoo Racing', fee:0, cat:'consist',bonus:'Clean race: +2 Cr',   cond:'Rel Master',   cp:3, ongoing:'clean_race_cr'},
+  {name:'Bridgestone',         fee:1, cat:'consist',bonus:'Pump 98 finish: +1 Cr',cond:'Clean Driver',cp:2, ongoing:'pump98_cr'},
+  {name:'Castrol EDGE',        fee:0, cat:'consist',bonus:'+1 Cooling permanent', cond:'No OH DNF',    cp:2, ongoing:'cooling_bonus'},
+  {name:'Motul',               fee:1, cat:'consist',bonus:'Repairs -1 Cr',        cond:'3+ repairs',   cp:2, ongoing:'repair_disc'},
+  {name:'Pirelli',             fee:0, cat:'consist',bonus:'+1 R each race start', cond:'Top 2 ×5',     cp:2, ongoing:'rel_bonus'},
+  {name:'Monster Energy',      fee:0, cat:'aggress',bonus:'Reckless win: +2 Cr',  cond:'8+ Reckless',  cp:3, ongoing:'reckless_win_cr'},
+  {name:'Nitro Circus',        fee:0, cat:'aggress',bonus:'Skip 1st Reckless roll',cond:'6+ Reckless', cp:2, ongoing:'skip_reckless_roll'},
+  {name:'GoPro',               fee:0, cat:'aggress',bonus:'1st place: +1 Cr',     cond:'3 race wins',  cp:2, ongoing:'race_win_cr'},
+  {name:'Haltech ECU',         fee:2, cat:'aggress',bonus:'-1 Heat after install', cond:'No OH DNF',    cp:2, ongoing:'install_heat'},
+  {name:'Garrett Turbo',       fee:2, cat:'spec',   bonus:'FI: -1 Heat on install',cond:'2+ FI',       cp:3, ongoing:'fi_heat'},
+  {name:'APR Performance',     fee:1, cat:'spec',   bonus:'Aero upgrades -1 Cr',  cond:'Aero ≥ 6',     cp:2, ongoing:'aero_disc'},
+  {name:'Cusco Japan',         fee:1, cat:'spec',   bonus:'Drivetrain -1 Cr',     cond:'2+ Drivetrain',cp:2, ongoing:'dt_disc'},
+  {name:'PWR Cooling',         fee:1, cat:'spec',   bonus:'Overtemp -1',           cond:'Cooling ≥ 7',  cp:2, ongoing:'overtemp_pen'},
+  {name:'Haltech+Link ECU',    fee:2, cat:'spec',   bonus:'Electronics -1 Cr',    cond:'2+ Electronics',cp:3, ongoing:'elec_disc'},
+];
+const AI_PROFILES=[
+  {label:'Aggressive',   rc:0.55, prio:'P', hire:'late',  desc:'High risk, Power-focused'},
+  {label:'Conservative', rc:0.10, prio:'H', hire:'early', desc:'Safe, hires staff early'},
+  {label:'Balanced',     rc:0.30, prio:'B', hire:'mid',   desc:'Well-rounded decisions'},
+  {label:'Tech',         rc:0.20, prio:'C', hire:'early', desc:'Cooling priority, avoids overheating'},
+];
+const PC=['#8B1A1A','#1a3a6c','#1a5c1a','#7c6010'];
+const MED=['🥇','🥈','🥉','   '];
+const SN={P:'Power',H:'Handling',B:'Brakes',A:'Aero',C:'Cooling',R:'Reliability'};
+
+// ═══ UTILS ═════════════════════════════════════════════
+const rnd=()=>Math.random();
+const d6=()=>Math.ceil(rnd()*6);
+const pick=a=>a[Math.floor(rnd()*a.length)];
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+const $=id=>document.getElementById(id);
+const isAI=i=>G.players[i]&&G.players[i].ai!==null;
+
+function log(msg,cls=''){
+  const el=$('raceLog');
+  if(el.innerHTML==='No races yet.')el.innerHTML='';
+  el.innerHTML+='<div class="'+(cls?'l'+cls:'')+'">'+(cls==='h'?'\n':'')+msg+'</div>';
+  el.scrollTop=el.scrollHeight;
+}
+
+// ═══ STATE ═════════════════════════════════════════════
+const G={
+  np:4, players:[], cal:[],
+  raceNum:0, phase:'setup', standings:[],
+  aucQueue:[], aucIdx:0, aucBids:{},
+  w:null, hz:null,
+  segIdx:0, segWins:{}, segTot:{}, dnf:{}, lastSegs:{},
+  reck:{},  // pidx->bool for current seg
+  sponsorDeck:[], sponsorFaceUp:[],
+};
+
+// ═══ INIT ══════════════════════════════════════════════
+function init(){
+  setP(4); shuffleCal(); renderRulesCars(); renderAbilTabs('gt86');
+  // Setup sponsor deck
+  G.sponsorDeck=shuffle([...SPONSORS]);
+  G.sponsorFaceUp=G.sponsorDeck.splice(0,3);
+}
+
+function setP(n){
+  G.np=n; G.players=[];
+  const names=['Player 1','Player 2','Player 3','Player 4'];
+  for(let i=0;i<n;i++) G.players.push({
+    name:names[i],col:PC[i],
+    ai:i===0?null:1,  // P1=human, rest=Conservative AI
+    carId:null,carDef:null,
+    P:0,H:0,B:0,A:0,C:0,R:0,base_r:0,heat:0,
+    credits:12,cp:0,mechanics:1,engineers:0,
+    rc:0,fatigue:0,reckThisRace:false,
+    installed:[],garage:[],deck:[],
+    ability:null, sponsor:null, sponsorData:null,
+    segWinsTotal:0, dnfCount:0, repairCount:0,
+    topTwoCount:0, raceWins:0, segTracks:[],
+    nitrousUsed:false,
+  });
+  renderSetup();
+}
+
+// ═══ SETUP RENDERS ═════════════════════════════════════
+function renderSetup(){
+  $('psetup').innerHTML=G.players.map((p,i)=>
+    '<div style="display:flex;gap:7px;align-items:center;margin-bottom:7px;flex-wrap:wrap;">'
+    +'<div style="width:11px;height:11px;border-radius:50%;background:'+p.col+';flex-shrink:0;"></div>'
+    +'<input type="text" value="'+p.name+'" onchange="G.players['+i+'].name=this.value">'
+    +'<select onchange="G.players['+i+'].ai=this.value===\'-1\'?null:parseInt(this.value)" style="font-size:.72rem;padding:5px;">'
+    +'<option value="-1"'+(p.ai===null?' selected':'')+'>👤 Human</option>'
+    +AI_PROFILES.map((a,ai)=>'<option value="'+ai+'"'+(p.ai===ai?' selected':'')+'">🤖 AI: '+a.label+'</option>').join('')
+    +'</select>'
+    +(p.ai===null?'<span class="badge bgn">YOU</span>':'<span class="badge bbl">AI: '+AI_PROFILES[p.ai].label+'</span>')
+    +'</div>'
+  ).join('');
+}
+
+function shuffleCal(){
+  G.cal=shuffle([...TRACKS]).slice(0,8); renderCal();
+}
+
+function renderCal(){
+  $('calDisp').innerHTML=G.cal.map((t,i)=>
+    '<div class="cs'+(i===G.raceNum-1?' cur':i<G.raceNum-1?' dn':'')+'">'
+    +'<div class="rn">Race '+(i+1)+'</div>'
+    +'<div class="rname">'+t.name+'</div>'
+    +'<div class="rtype">'+t.ty+'</div>'
+    +'<div style="font-size:.54rem;color:#444;margin-top:2px;">'+t.st+'</div>'
+    +'</div>'
+  ).join('');
+}
+
+// ═══ AUCTION ═══════════════════════════════════════════
+function resetAuction(){
+  G.aucQueue=shuffle([...CARS]); G.aucIdx=0; G.aucBids={};
+  CARS.forEach(c=>{c.owner=null;c.paid=0;});
+  G.players.forEach(p=>{p.carId=null;p.carDef=null;p.credits=12;p.ability=null;});
+  renderCG(); renderAuc(); checkReady();
+}
+
+function renderCG(){
+  $('carGrid').innerHTML=CARS.map(c=>
+    '<div class="ccard'+(c.owner!==null?' claimed':c.owner===null&&G.aucQueue[G.aucIdx]&&G.aucQueue[G.aucIdx].id===c.id?' ':'')
+    +'" id="cc-'+c.id+'">'
+    +'<div style="display:flex;justify-content:space-between;">'
+    +'<div class="cname" style="color:'+c.col+'">'+c.name+'</div>'
+    +(c.owner!==null?'<span class="badge bg">CLAIMED</span>':G.aucQueue[G.aucIdx]&&G.aucQueue[G.aucIdx].id===c.id?'<span class="badge br">BIDDING</span>':'')
+    +'</div>'
+    +'<div class="cid">'+c.sub+'</div>'
+    +'<div class="smini">'+['P','H','B','A','C','R'].map(s=>'<div class="sm"><div class="sl">'+s+'</div><div class="sv">'+c[s]+'</div></div>').join('')+'</div>'
+    +(c.owner!==null?'<div style="margin-top:6px;font-size:.65rem;color:'+G.players[c.owner].col+';">'+G.players[c.owner].name+' — <span style="color:var(--gd)">'+c.paid+' Cr</span></div>':'<div style="margin-top:6px;font-size:.62rem;color:#444;">'+DECKS[c.id].length+' upgrade cards available</div>')
+    +'</div>'
+  ).join('');
+}
+
+function renderAuc(){
+  const el=$('aucArea');
+  // Skip already-owned cars
+  while(G.aucIdx<G.aucQueue.length&&G.aucQueue[G.aucIdx].owner!==null) G.aucIdx++;
+  if(G.aucIdx>=G.aucQueue.length||CARS.every(c=>c.owner!==null)){
+    el.innerHTML='<div class="ok">✓ All cars auctioned!</div>'; checkReady(); return;
+  }
+  const car=G.aucQueue[G.aucIdx];
+  const cur=G.aucBids[car.id];
+  const curAmt=cur?cur.amt:0; const curP=cur?cur.p:-1;
+
+  // AI auto-bid
+  G.players.forEach((p,i)=>{
+    if(!isAI(i)||p.carId!==null) return;
+    const ai=AI_PROFILES[p.ai];
+    // AI bids if they want this car type
+    const wantsCar=(ai.prio==='P'&&['mustang','370z'].includes(car.id))
+      ||(ai.prio==='H'&&['mx5','gt86','auditt'].includes(car.id))
+      ||(ai.prio==='C'&&['auditt','370z'].includes(car.id))
+      ||(ai.prio==='B'&&['auditt','370z'].includes(car.id));
+    const bid=wantsCar?Math.min(curAmt+2+Math.floor(rnd()*3),p.credits):Math.min(curAmt+1,p.credits);
+    if(bid>curAmt&&bid>0&&p.credits>=bid&&(!cur||bid>curAmt)){
+      G.aucBids[car.id]={amt:bid,p:i};
+    }
+  });
+
+  const cur2=G.aucBids[car.id];
+  const curAmt2=cur2?cur2.amt:0; const curP2=cur2?cur2.p:-1;
+
+  let h='<div style="background:#1a1400;border:2px solid var(--gd);border-radius:7px;padding:13px;margin-bottom:13px;">'
+    +'<div style="font-size:.95rem;font-weight:700;color:var(--gd);margin-bottom:7px;">🏎 Auctioning: <span style="color:'+car.col+'">'+car.name+'</span> <span style="font-size:.7rem;color:var(--mt);">('+( G.aucIdx+1)+' of '+CARS.length+')</span></div>'
+    +'<div style="font-size:.72rem;color:#bbb;margin-bottom:9px;">'+car.sub+' — P'+car.P+' H'+car.H+' B'+car.B+' A'+car.A+' C'+car.C+' R'+car.R+' | '+DECKS[car.id].filter(c=>!c.t).length+' Minor/Major cards + '+DECKS[car.id].filter(c=>c.t).length+' S-Tier</div>'
+    +'<div style="background:#0f0f0f;border:1px solid var(--gd);border-radius:5px;padding:9px;margin-bottom:9px;">'
+    +'<div style="font-size:.7rem;color:var(--mt);">Current highest bid:</div>'
+    +'<div style="font-size:1.15rem;font-weight:700;color:var(--gd);">'
+    +(curAmt2>0?curAmt2+' Cr — '+G.players[curP2].name:(curAmt2===0?'No bids yet (opens at 1 Cr)':'—'))+'</div></div>';
+
+  G.players.forEach((p,i)=>{
+    if(p.carId!==null){h+='<div style="display:flex;gap:8px;align-items:center;padding:5px 0;opacity:.4;font-size:.72rem;"><div style="color:'+p.col+';font-weight:700;width:90px;">'+p.name+'</div><div>Has '+p.carDef.name+'</div></div>';return;}
+    const minBid=curAmt2+1||1;
+    const canBid=p.credits>=minBid&&!isAI(i);
+    const aiHasBid=isAI(i)&&G.aucBids[car.id]&&G.aucBids[car.id].p===i;
+    h+='<div style="display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #1a1a00;flex-wrap:wrap;">'
+      +'<div style="color:'+p.col+';font-weight:700;width:90px;">'+p.name+(isAI(i)?' [AI]':'')+'</div>'
+      +'<div style="color:var(--gd);font-size:.7rem;width:60px;">'+p.credits+' Cr</div>';
+    if(isAI(i)){
+      h+=aiHasBid?'<span class="badge bg">AI bid: '+G.aucBids[car.id].amt+' Cr</span>':'<span style="font-size:.68rem;color:#555;">AI passing</span>';
+    } else if(canBid){
+      h+='<input type="number" id="bid'+i+'" min="'+minBid+'" max="'+p.credits+'" value="'+Math.min(minBid,p.credits)+'">'
+        +'<button class="btn" style="font-size:.65rem;padding:5px 9px;" onclick="placeBid('+i+',\''+car.id+'\')">Bid</button>';
+    } else {
+      h+='<span style="font-size:.68rem;color:#555;">Can\'t afford min ('+minBid+' Cr)</span>';
+    }
+    h+='</div>';
+  });
+  h+='<div style="margin-top:10px;display:flex;gap:8px;">'
+    +'<button class="btn ok" onclick="closeAuc(\''+car.id+'\')" '+(curAmt2===0?'disabled':'')+'>✓ Close — '+(curAmt2>0?G.players[curP2].name+' wins at '+curAmt2+' Cr':'No bids yet')+'</button>'
+    +'<button class="btn sec" onclick="skipAuc(\''+car.id+'\')">Skip this car</button>'
+    +'</div></div>';
+  el.innerHTML=h;
+}
+
+function placeBid(pidx,carId){
+  const amt=parseInt($('bid'+pidx).value);
+  const cur=G.aucBids[carId]?G.aucBids[carId].amt:0;
+  const p=G.players[pidx];
+  if(isNaN(amt)||amt<=cur||amt>p.credits){alert('Invalid. Must be > '+cur+' and ≤ '+p.credits+' Cr');return;}
+  G.aucBids[carId]={amt,p:pidx};
+  log(p.name+' bids '+amt+' Cr on '+CARS.find(c=>c.id===carId).name,'a');
+  renderAuc(); renderCG();
+}
+
+function closeAuc(carId){
+  const b=G.aucBids[carId];if(!b)return;
+  const car=CARS.find(c=>c.id===carId);
+  const p=G.players[b.p];
+  car.owner=b.p; car.paid=b.amt;
+  p.carId=carId; p.carDef=car;
+  p.credits-=b.amt;
+  p.P=car.P;p.H=car.H;p.B=car.B;p.A=car.A;p.C=car.C;p.R=car.R;p.base_r=car.R;
+  p.deck=shuffle([...DECKS[carId]]);
+  // Show ability selection for human players
+  if(!isAI(b.p)) showAbilSelect(b.p);
+  else {
+    // AI picks first ability
+    const abils=ABILITIES[carId]||[];
+    if(abils.length) p.ability=abils[0];
+  }
+  log('🏎 '+p.name+' wins '+car.name+' for '+b.amt+' Cr ('+p.credits+' Cr left)','a');
+  G.aucIdx++; renderCG(); renderAuc(); checkReady();
+}
+
+function skipAuc(carId){
+  log(CARS.find(c=>c.id===carId).name+' — no winner','i');
+  G.aucIdx++; renderAuc(); renderCG(); checkReady();
+}
+
+function showAbilSelect(pidx){
+  const p=G.players[pidx];
+  const abils=ABILITIES[p.carId]||[];
+  let h='<div style="background:#1a1a00;border:2px solid var(--gd);border-radius:7px;padding:13px;margin-bottom:11px;">'
+    +'<div style="font-size:.88rem;font-weight:700;color:var(--gd);margin-bottom:8px;">'+p.name+' — Choose Your Ability Card</div>'
+    +'<div style="font-size:.72rem;color:#bbb;margin-bottom:8px;">Select one ability for the Championship. Choose based on your build strategy and the calendar.</div>';
+  abils.forEach((a,i)=>{
+    h+='<div class="acard" onclick="selectAbility('+pidx+','+i+')">'
+      +'<div style="font-weight:700;color:var(--gd);margin-bottom:3px;">'+a.n+'</div>'
+      +'<div style="font-size:.72rem;color:#bbb;">'+a.e+'</div>'
+      +'</div>';
+  });
+  h+='</div>';
+  $('aucArea').innerHTML=h+$('aucArea').innerHTML;
+}
+
+function selectAbility(pidx,abilIdx){
+  const p=G.players[pidx];
+  p.ability=(ABILITIES[p.carId]||[])[abilIdx];
+  log(p.name+' chose ability: '+p.ability.n,'a');
+  // Remove the ability selector
+  const el=$('aucArea');
+  const d=el.querySelector('div[style*="background:#1a1a00"]');
+  if(d) el.removeChild(d);
+  checkReady();
+}
+
+function checkReady(){
+  const ok=G.players.every(p=>p.carId!==null);
+  $('startBtn').disabled=!ok;
+  const msg=$('startMsg');
+  if(ok){
+    msg.className='ok';
+    msg.innerHTML='✓ Ready! '+G.players.map(p=>p.name+': '+p.carDef.name
+      +' (paid '+p.carDef.paid+' Cr, '+p.credits+' Cr left)'
+      +(p.ability?' | Ability: '+p.ability.n:'')).join('<br>');
+  } else {
+    msg.className='warn';
+    msg.innerHTML='Auction all cars to start. <span style="color:#555">(Close each bidding round with the ✓ button)</span>';
+  }
+}
+
+// ═══ GAME START ════════════════════════════════════════
+function startGame(){
+  G.raceNum=1;
+  G.standings=G.players.map((_,i)=>i);
+  G.lastSegs={}; G.players.forEach((_,i)=>G.lastSegs[i]=0);
+  // Reveal 3 sponsors at start
+  G.sponsorDeck=shuffle([...SPONSORS]);
+  G.sponsorFaceUp=G.sponsorDeck.splice(0,3);
+  ST('race'); newRace();
+}
+
+function newRace(){
+  const t=G.cal[G.raceNum-1];
+  G.w=pick(WEATHERS); G.hz=pick(HAZARDS);
+  G.segIdx=0; G.reck={};
+  G.segWins={}; G.segTot={}; G.dnf={};
+  G.players.forEach((_,i)=>{G.segWins[i]=0;G.segTot[i]=0;G.dnf[i]=false;});
+  G.phase='income';
+  log('=== RACE '+G.raceNum+'/8: '+t.name.toUpperCase()+' ===','h');
+  log('Weather: '+G.w.name+' — '+G.w.desc,'i');
+  log('Hazard: '+G.hz.name+' — '+G.hz.desc,'i');
+  if(G.raceNum===8) log('★★ FINALE — Position CP doubled! ★★','h');
+  renderCal(); renderRace();
+}
+
+// ═══ RENDER DISPATCH ═══════════════════════════════════
+function renderRace(){
+  const t=G.cal[G.raceNum-1];
+  $('rLabel').textContent='Race '+G.raceNum+'/8';
+  $('phLabel').textContent=G.phase.toUpperCase();
+  const phases=['income','fuel','market','workshop','seg','end','gameover'];
+  const labels=['Income','Fuel','Market','Workshop','Segments','End','Final'];
+  const ci=G.phase==='seg'?4:phases.indexOf(G.phase);
+  $('phStrip').innerHTML=phases.map((p,i)=>'<div class="pp'+(i===ci?' on':i<ci?' dn':'')+'">'+(i===4?'Seg '+(G.segIdx+1)+'/3':labels[i])+'</div>').join('');
+  $('rHdr').innerHTML='<div class="ct">Race '+G.raceNum+'/8 — '+t.name+'</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:5px;">'
+    +'<span class="badge bg">'+G.w.name+'</span><span class="badge br">'+G.hz.name+'</span>'
+    +(G.raceNum===8?'<span class="badge bgn">FINALE</span>':'')+'</div>'
+    +'<div style="font-size:.68rem;color:#777;">'+t.st+' | Segs: '+t.sg.map((s,i)=>'Seg '+(i+1)+': '+s[0]+s[1]+'|'+s[2]+s[3]).join('  ')+'</div>';
+  const el=$('phContent');
+  if(G.phase==='income')   renderIncome(el);
+  else if(G.phase==='fuel')renderFuel(el);
+  else if(G.phase==='market')renderMarket(el);
+  else if(G.phase==='workshop')renderWorkshop(el);
+  else if(G.phase==='seg') renderSeg(el);
+  else if(G.phase==='end') renderEnd(el);
+  else if(G.phase==='gameover')renderGameOver(el);
+  renderBoards(); renderStandings();
+}
+
+// ═══ PHASE 1 — INCOME ══════════════════════════════════
+function renderIncome(el){
+  const r1=G.raceNum===1;
+  const order=r1?G.players.map((_,i)=>i):[...G.standings].reverse();
+  let h='<div class="card"><div class="ct">Phase 1 — Income</div>'
+    +'<div class="info">Market order: <strong>'+order.map(i=>G.players[i].name).join(' → ')+'</strong> (last place first)</div>'
+    +'<div style="margin:9px 0;">';
+  G.standings.forEach((pi,pos)=>{
+    const p=G.players[pi];
+    const inc=r1?4:[8,6,4,3][Math.min(pos,3)];
+    const sb=G.lastSegs[pi]||0;
+    // Sponsor bonuses
+    let spBonus=0;
+    if(p.sponsorData){
+      if(p.sponsorData.ongoing==='clean_race_cr'&&!p.reckThisRace&&!G.dnf[pi]) spBonus+=2;
+      if(p.sponsorData.ongoing==='pump98_cr') spBonus+=1; // simplified
+      if(p.sponsorData.ongoing==='race_win_cr'&&pos===0) spBonus+=1;
+    }
+    h+='<div style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid #1e1e1e;">'
+      +'<div style="width:10px;height:10px;border-radius:50%;background:'+p.col+';flex-shrink:0;"></div>'
+      +'<div style="flex:1"><strong>'+p.name+'</strong>'+(p.carDef?'<span style="color:#555;font-size:.68rem;"> '+p.carDef.name+'</span>':'')+'</div>'
+      +'<div style="color:var(--gd)">+'+inc+' Cr'+(sb?' +'+sb+' segs':'')+(spBonus?' +'+spBonus+' sponsor':'')+'</div>'
+      +'<div style="color:#666;font-size:.68rem;">→ '+(p.credits+inc+sb+spBonus)+' Cr</div>'
+      +'</div>';
+  });
+  h+='</div><button class="btn" onclick="doIncome()">✓ Collect Income</button></div>';
+  el.innerHTML=h;
+}
+
+function doIncome(){
+  const r1=G.raceNum===1;
+  G.standings.forEach((pi,pos)=>{
+    const p=G.players[pi];
+    const inc=r1?4:[8,6,4,3][Math.min(pos,3)];
+    const sb=G.lastSegs[pi]||0;
+    p.credits+=inc+sb;
+    log(p.name+': +'+(inc+sb)+' Cr → '+p.credits+' Cr','m');
+  });
+  G.phase='fuel'; renderRace();
+}
+
+// ═══ PHASE 2 — FUEL ════════════════════════════════════
+function renderFuel(el){
+  el.innerHTML='<div class="card"><div class="ct">Phase 2 — Fuel Station</div>'
+    +'<div class="warn"><strong>Fuel Options:</strong> Pump 98 (free, always) | E85 (1 Cr, needs Flex Fuel Kit, FI: +2P NA: +1P) | Leaded (1 Cr, needs ECU+Headers, +2P, -1R/race) | Methanol (2 Cr, +3P, -1 Heat, -2R/race, needs ECU+Fuel System) | Nitrous (2 Cr, +4P one Seg, +2 Heat after, needs Nitrous Kit+ECU)</div>'
+    +'<div class="info">Track fuel changes manually. For this simulator all players default to Pump 98.</div>'
+    +'<button class="btn" onclick="G.phase=\'market\';renderRace()">✓ Continue to Market Phase</button></div>';
+}
+
+// ═══ PHASE 3 — MARKET ══════════════════════════════════
+function renderMarket(el){
+  // AI acts first
+  G.players.forEach((p,i)=>{if(isAI(i)) aiMarket(i);});
+  const order=[...G.standings].reverse();
+  let h='<div class="card"><div class="ct">Phase 3 — Market Phase</div>'
+    +'<div class="info">Order: <strong>'+order.map(i=>G.players[i].name).join(' → ')+'</strong> — AI players have taken their turns. Available sponsors: '+G.sponsorFaceUp.map(s=>s.name).join(', ')+'</div>';
+  G.players.forEach((p,i)=>{
+    if(isAI(i)){
+      h+='<div style="background:#1a1a1a;border:1px solid #333;border-radius:5px;padding:8px;margin-bottom:6px;opacity:.7;font-size:.72rem;">'
+        +'<span style="color:'+p.col+';font-weight:700;">'+p.name+' [AI: '+AI_PROFILES[p.ai].label+']</span>'
+        +' — '+p.credits+' Cr | '+p.mechanics+' Mech | Garage: '+(p.garage.map(u=>u.n).join(', ')||'empty')
+        +'</div>';
+      return;
+    }
+    h+='<div style="background:#1a1a1a;border:1px solid '+p.col+'44;border-radius:6px;padding:11px;margin-bottom:8px;">'
+      +'<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px;">'
+      +'<strong style="color:'+p.col+'">'+p.name+'</strong>'
+      +'<span class="badge bg">'+p.credits+' Cr</span>'
+      +'<span style="font-size:.65rem;color:var(--mt);">'+p.mechanics+' Mech ('+p.mechanics*2+' WU) | '+p.engineers+' Eng</span>'
+      +(p.ability?'<span style="font-size:.65rem;color:var(--gd);">Ability: '+p.ability.n+'</span>':'')
+      +(p.sponsorData?'<span class="badge bg">Sponsor: '+p.sponsorData.name+'</span>':'')
+      +'</div>'
+      +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">'
+      +(p.mechanics<3?'<button class="btn sec" style="font-size:.62rem;padding:4px 8px;" onclick="hireMech('+i+')" '+(p.credits<6?'disabled':'')+'>Hire Mechanic ('+(p.mechanics===1?6:8)+' Cr)</button>':'')
+      +(p.engineers<2?'<button class="btn sec" style="font-size:.62rem;padding:4px 8px;" onclick="hireEng('+i+')" '+(p.credits<7?'disabled':'')+'>Hire Engineer ('+(p.engineers===0?7:9)+' Cr)</button>':'')
+      +'<button class="btn gd" style="font-size:.62rem;padding:4px 8px;" onclick="showBuy('+i+')">Buy Upgrade</button>'
+      +(p.engineers>0?'<button class="btn gd" style="font-size:.62rem;padding:4px 8px;" onclick="showDeckSearch('+i+')">🔍 Deck Search</button>':'')
+      +(!p.sponsorData&&G.sponsorFaceUp.length>0?'<button class="btn sec" style="font-size:.62rem;padding:4px 8px;" onclick="showSponsors('+i+')">Claim Sponsor</button>':'')
+      +'</div>'
+      +(p.garage.length?'<div style="font-size:.65rem;color:#888;margin-bottom:5px;">Garage: '+p.garage.map(u=>u.n).join(', ')+'</div>':'')
+      +'<div id="buyArea'+i+'"></div>'
+      +'</div>';
+  });
+  h+='<button class="btn" style="margin-top:10px;" onclick="G.phase=\'workshop\';renderRace()">✓ Continue to Workshop</button></div>';
+  el.innerHTML=h;
+}
+
+function hireMech(i){const p=G.players[i];const c=p.mechanics===1?6:8;if(p.credits<c){alert('Need '+c+' Cr');return;}p.credits-=c;p.mechanics++;log(p.name+': Hired Mechanic '+p.mechanics+' ('+c+' Cr). '+p.mechanics*2+' WU/round.','k');renderRace();}
+function hireEng(i){const p=G.players[i];const c=p.engineers===0?7:9;if(p.credits<c){alert('Need '+c+' Cr');return;}p.credits-=c;p.engineers++;log(p.name+': Hired Engineer ('+c+' Cr). S-Tier unlocked.','k');renderRace();}
+
+function showBuy(pidx){
+  const p=G.players[pidx];
+  const used=new Set([...p.installed,...p.garage].map(u=>u.g));
+  const opts=p.deck.filter(u=>!used.has(u.g)&&!u.t);
+  const sopts=p.deck.filter(u=>!used.has(u.g)&&u.t&&p.engineers>0);
+  let h='<div style="background:#111;border:1px solid var(--gd);border-radius:5px;padding:11px;">'
+    +'<div style="color:var(--gd);font-weight:700;margin-bottom:6px;">'+p.name+' — Buy Upgrade ('+p.credits+' Cr)</div>';
+  if(sopts.length) h+='<div style="font-size:.62rem;color:#5aaeee;margin-bottom:5px;">S-Tier (Engineer required):</div>'
+    +'<div class="dcards">'+sopts.map(u=>'<div class="dc'+(u.b>p.credits?' na':'')+'" onclick="buyCard('+pidx+','+JSON.stringify(u.n)+')">'
+      +'<div style="font-weight:700;font-size:.75rem;color:var(--gd);">'+u.n+'</div>'
+      +'<div style="font-size:.6rem;color:#5aaeee;">★ S-TIER</div>'
+      +'<div style="font-size:.6rem;color:#bbb;">'+u.e.slice(0,50)+'</div>'
+      +'<div style="font-size:.6rem;color:var(--gd);">'+u.b+' Cr | '+u.w+' WU</div>'
+      +(u.b>p.credits?'<div style="font-size:.58rem;color:#ff4444;">Need '+u.b+' Cr</div>':'')
+      +'</div>').join('')+'</div>';
+  h+='<div class="dcards">'+opts.map(u=>'<div class="dc'+(u.b>p.credits?' na':'')+'" onclick="buyCard('+pidx+','+JSON.stringify(u.n)+')">'
+    +'<div style="font-weight:700;font-size:.75rem;">'+u.n+'</div>'
+    +'<div style="font-size:.6rem;color:var(--gd);">'+(u.s?'+'+u.v+' '+SN[u.s]:'')+' '+(u.h?'+'+u.h+'🔥':'')+'</div>'
+    +'<div style="font-size:.6rem;color:#777;">'+u.e.slice(0,45)+'</div>'
+    +'<div style="font-size:.6rem;color:#888;">'+u.b+' Cr | '+u.c+' | '+u.w+' WU</div>'
+    +(u.b>p.credits?'<div style="font-size:.58rem;color:#ff4444;">Need '+u.b+' Cr</div>':'')
+    +'</div>').join('')+'</div>'
+    +'<button class="btn sec" style="font-size:.65rem;margin-top:7px;" onclick="$(\'buyArea'+pidx+'\').innerHTML=\'\'">Done buying</button></div>';
+  $('buyArea'+pidx).innerHTML=h;
+}
+
+function showDeckSearch(pidx){
+  const p=G.players[pidx];
+  const used=new Set([...p.installed,...p.garage].map(u=>u.g));
+  const all=p.deck.filter(u=>!used.has(u.g));
+  let h='<div style="background:#111;border:1px solid var(--gd);border-radius:5px;padding:11px;">'
+    +'<div style="color:var(--gd);font-weight:700;margin-bottom:4px;">🔍 Engineer Deck Search — '+p.name+'</div>'
+    +'<div style="font-size:.7rem;color:#aac4ee;margin-bottom:7px;">Browse your full deck. Pick any card, pay Buy cost. Take nothing = free.</div>'
+    +'<div class="dcards">'+all.map(u=>'<div class="dc'+(u.b>p.credits?' na':'')+'" onclick="buyCard('+pidx+','+JSON.stringify(u.n)+')">'
+      +'<div style="font-weight:700;font-size:.75rem;'+(u.t?'color:var(--gd)':'')+'">'+(u.t?'★ ':'')+u.n+'</div>'
+      +'<div style="font-size:.6rem;color:var(--gd);">'+(u.s?'+'+u.v+' '+SN[u.s]:'')+' '+(u.h?'+'+u.h+'🔥':'')+'</div>'
+      +'<div style="font-size:.6rem;color:#777;">'+u.e.slice(0,50)+'</div>'
+      +'<div style="font-size:.6rem;color:#888;">'+u.b+' Cr | '+u.w+' WU</div>'
+      +(u.b>p.credits?'<div style="font-size:.58rem;color:#ff4444;">Need '+u.b+' Cr</div>':'')
+      +'</div>').join('')+'</div>'
+    +'<button class="btn sec" style="font-size:.65rem;margin-top:7px;" onclick="$(\'buyArea'+pidx+'\').innerHTML=\'\'">Close (take nothing)</button></div>';
+  $('buyArea'+pidx).innerHTML=h;
+}
+
+function buyCard(pidx,uname){
+  const p=G.players[pidx];
+  const idx=p.deck.findIndex(u=>u.n===uname);
+  if(idx===-1)return;
+  const u=p.deck[idx];
+  if(u.b>p.credits){alert('Need '+u.b+' Cr');return;}
+  p.credits-=u.b; p.garage.push(u); p.deck.splice(idx,1);
+  log(p.name+': BOUGHT '+u.n+' ('+u.b+' Cr) → Garage. '+p.credits+' Cr left','k');
+  $('buyArea'+pidx).innerHTML='';
+  renderRace();
+}
+
+function showSponsors(pidx){
+  const p=G.players[pidx];
+  let h='<div style="background:#1a1200;border:1px solid var(--gd);border-radius:5px;padding:11px;">'
+    +'<div style="color:var(--gd);font-weight:700;margin-bottom:6px;">Available Sponsors</div>';
+  G.sponsorFaceUp.forEach((sp,si)=>{
+    const canAfford=p.credits>=sp.fee;
+    h+='<div class="spcard'+(canAfford?'':' na')+'" '+(canAfford?'onclick="claimSponsor('+pidx+','+si+')"':'')+' style="'+(canAfford?'':'opacity:.5;cursor:default;')+'">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;">'
+      +'<strong style="color:var(--gd);">'+sp.name+'</strong>'
+      +'<span class="badge bg">'+sp.fee+' Cr</span>'
+      +'</div>'
+      +'<div style="font-size:.68rem;color:#bbb;margin-top:4px;">'+sp.bonus+'</div>'
+      +'<div style="font-size:.62rem;color:#666;margin-top:2px;">End-game: '+sp.cond+' → +'+sp.cp+' CP</div>'
+      +'</div>';
+  });
+  h+='<button class="btn sec" style="font-size:.65rem;margin-top:7px;" onclick="$(\'buyArea'+pidx+'\').innerHTML=\'\'">Cancel</button></div>';
+  $('buyArea'+pidx).innerHTML=h;
+}
+
+function claimSponsor(pidx,spIdx){
+  const p=G.players[pidx];
+  const sp=G.sponsorFaceUp[spIdx];
+  if(sp.fee>p.credits){alert('Need '+sp.fee+' Cr');return;}
+  p.credits-=sp.fee;
+  if(p.sponsorData) log(p.name+' dropped '+p.sponsorData.name,'i');
+  p.sponsorData=sp;
+  G.sponsorFaceUp.splice(spIdx,1);
+  if(G.sponsorDeck.length>0) G.sponsorFaceUp.push(G.sponsorDeck.shift());
+  log(p.name+': Claimed Sponsor: '+sp.name+' ('+sp.fee+' Cr). '+sp.bonus,'k');
+  $('buyArea'+pidx).innerHTML='';
+  renderRace();
+}
+
+// ═══ AI MARKET ═════════════════════════════════════════
+function aiMarket(i){
+  const p=G.players[i]; const ai=AI_PROFILES[p.ai];
+  if(ai.hire==='early'&&p.mechanics===1&&p.credits>=6&&G.raceNum<=3){p.credits-=6;p.mechanics++;log('[AI] '+p.name+': Hired Mech 2 (6 Cr)','k');}
+  else if(ai.hire==='mid'&&p.mechanics===1&&p.credits>=6&&G.raceNum<=5){p.credits-=6;p.mechanics++;log('[AI] '+p.name+': Hired Mech 2 (6 Cr)','k');}
+  if(p.engineers===0&&p.credits>=7&&G.raceNum>=3&&ai.hire!=='late'){p.credits-=7;p.engineers++;log('[AI] '+p.name+': Hired Engineer (7 Cr)','k');}
+  // Buy sponsor
+  if(!p.sponsorData&&G.sponsorFaceUp.length>0){
+    const sp=G.sponsorFaceUp.find(s=>s.fee<=p.credits);
+    if(sp){const si=G.sponsorFaceUp.indexOf(sp);p.credits-=sp.fee;p.sponsorData=sp;G.sponsorFaceUp.splice(si,1);if(G.sponsorDeck.length>0)G.sponsorFaceUp.push(G.sponsorDeck.shift());log('[AI] '+p.name+': Claimed Sponsor: '+sp.name,'k');}
+  }
+  // Buy card
+  const used=new Set([...p.installed,...p.garage].map(u=>u.g));
+  const opts=p.deck.filter(u=>!used.has(u.g)&&u.b<=p.credits&&!u.t);
+  if(!opts.length) return;
+  let pick=null;
+  if(p.heat>=p.C){const c=opts.filter(u=>u.s==='C');if(c.length)pick=c[0];}
+  if(!pick&&p.R<=2){const r=opts.filter(u=>u.s==='R');if(r.length)pick=r[0];}
+  if(!pick){const pref=opts.filter(u=>u.s===ai.prio);if(pref.length)pick=pref.sort((a,b)=>b.v-a.v)[0];}
+  if(!pick) pick=opts.sort((a,b)=>a.b-b.b)[0];
+  if(pick){p.credits-=pick.b;p.garage.push(pick);p.deck.splice(p.deck.indexOf(pick),1);log('[AI] '+p.name+': Bought '+pick.n+' ('+pick.b+' Cr)','k');}
+}
+
+// ═══ PHASE 4 — WORKSHOP ════════════════════════════════
+function renderWorkshop(el){
+  G.players.forEach((p,i)=>{if(isAI(i))aiWorkshop(i);});
+  let h='<div class="card"><div class="ct">Phase 4 — Workshop Phase</div>'
+    +'<div class="info">AI players have installed upgrades. Human players act below. 1 Mechanic = 2 WU/round. Engineer = Deck Search + specialist actions.</div>';
+  G.players.forEach((p,i)=>{
+    if(isAI(i)){
+      h+='<div style="background:#1a1a1a;border:1px solid #333;border-radius:5px;padding:8px;margin-bottom:6px;opacity:.75;font-size:.7rem;">'
+        +'<strong style="color:'+p.col+'">'+p.name+' [AI]</strong> P'+p.P+' H'+p.H+' B'+p.B+' A'+p.A+' C'+p.C+' R'+p.R+' Heat='+p.heat
+        +' | '+p.installed.length+' installed'
+        +(p.heat>p.C?'<span class="badge br" style="margin-left:5px;">OVERHEATING</span>':'')+'</div>';
+      return;
+    }
+    h+='<div style="background:#1a1a1a;border:1px solid '+p.col+'44;border-radius:6px;padding:11px;margin-bottom:8px;">'
+      +'<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:7px;">'
+      +'<strong style="color:'+p.col+'">'+p.name+'</strong>'
+      +'<span class="badge bbl">'+p.mechanics*2+' WU</span>'
+      +'<span style="font-size:.65rem;color:#888;">R='+p.R+' Heat='+p.heat+' Cool='+p.C+'</span>'
+      +(p.heat>p.C?'<span class="badge br">⚠ OVERHEATING</span>':'')
+      +'</div>';
+    if(p.garage.length){
+      h+='<div style="font-size:.65rem;color:#999;margin-bottom:5px;font-weight:700;">Garage (click to install):</div>';
+      p.garage.forEach((u,gi)=>{
+        const hasBetter=p.installed.find(x=>x.g===u.g);
+        h+='<div style="display:inline-flex;align-items:center;gap:6px;background:#111;border:1px solid '+(u.t?'var(--gd)':'#333')+';border-radius:4px;padding:5px 8px;margin:2px;font-size:.67rem;">'
+          +(u.t?'<span style="color:var(--gd);font-size:.58rem;">★</span>':'')
+          +'<div><strong>'+u.n+'</strong>'+(hasBetter?'<span style="color:#ff6600;font-size:.58rem;"> (replaces '+hasBetter.n+')</span>':'')
+          +' <span style="color:var(--gd);">'+(u.s?'+'+u.v+' '+SN[u.s]:'')+' '+(u.h?'+'+u.h+'🔥':'')+'</span>'
+          +' <span style="color:#666;">'+u.w+'WU</span></div>'
+          +'<button class="btn" style="font-size:.58rem;padding:3px 7px;" onclick="humanInstall('+i+','+gi+')">Install</button>'
+          +'</div>';
+      });
+    } else {
+      h+='<div style="font-size:.7rem;color:#333;margin-bottom:6px;">Garage empty</div>';
+    }
+    h+='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;">';
+    if(p.R<p.base_r) h+='<button class="btn sec" style="font-size:.62rem;padding:4px 8px;" onclick="repairCar('+i+',1)" '+(p.credits<2?'disabled':'')+'>Repair +1R (1WU+2Cr)</button>'
+      +'<button class="btn sec" style="font-size:.62rem;padding:4px 8px;" onclick="repairCar('+i+',3)" '+(p.credits<5?'disabled':'')+'>Full Service (2WU+5Cr)</button>';
+    if(p.engineers>0) h+='<button class="btn gd" style="font-size:.62rem;padding:4px 8px;" onclick="engAction('+i+')">Engineer Actions</button>';
+    if(p.credits>=1) h+='<button class="btn sec" style="font-size:.62rem;padding:4px 8px;" onclick="scoutDeck('+i+')">Scout Deck (1Cr)</button>';
+    h+='</div>'
+    +'<div style="font-size:.6rem;color:#444;margin-top:5px;">Installed: '+(p.installed.map(u=>u.n).join(', ')||'None')+'</div>'
+    +'<div id="wArea'+i+'"></div></div>';
+  });
+  h+='<button class="btn ok" style="margin-top:10px;" onclick="startRacePhase()">✓ Workshop Done — Start Race!</button></div>';
+  el.innerHTML=h;
+}
+
+function humanInstall(pidx,gidx){
+  const p=G.players[pidx]; const u=p.garage[gidx];
+  const ci=p.installed.findIndex(x=>x.g===u.g);
+  if(ci!==-1){if(!confirm('Replace '+p.installed[ci].n+'?'))return;
+    const old=p.installed.splice(ci,1)[0];
+    if(old.s)p[old.s]-=old.v; p.heat-=(old.h||0);
+    log(p.name+': Removed '+old.n,'n');}
+  if(u.s)p[u.s]+=u.v; p.heat+=(u.h||0);
+  p.installed.push(u); p.garage.splice(gidx,1);
+  // Castrol bonus
+  if(p.sponsorData&&p.sponsorData.ongoing==='cooling_bonus') p.C+=1;
+  log(p.name+': INSTALLED '+u.n+'. P'+p.P+' H'+p.H+' B'+p.B+' A'+p.A+' C'+p.C+' R'+p.R+' Heat='+p.heat,'n');
+  renderRace();
+}
+
+function repairCar(pidx,mode){
+  const p=G.players[pidx];
+  let cost=0,wu=0,gain=0;
+  if(mode===1){cost=2;wu=1;gain=1;}else{cost=5;wu=2;gain=p.base_r-p.R;}
+  if(p.sponsorData&&p.sponsorData.ongoing==='repair_disc') cost=Math.max(1,cost-1);
+  if(p.credits<cost){alert('Need '+cost+' Cr');return;}
+  p.R=Math.min(p.base_r,p.R+gain); p.credits-=cost; p.repairCount++;
+  log(p.name+': Repair +'+gain+'R ('+cost+'Cr). R='+p.R,'n'); renderRace();
+}
+
+function engAction(pidx){
+  const p=G.players[pidx];
+  $('wArea'+pidx).innerHTML='<div class="card" style="margin-top:7px;"><div class="ct">Engineer Actions — choose one</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;">'
+    +'<button class="btn gd" style="font-size:.62rem;padding:4px 9px;" onclick="showDeckSearchW('+pidx+')">Deck Search</button>'
+    +'<button class="btn sec" style="font-size:.62rem;padding:4px 9px;" onclick="engHeatRed('+pidx+')">-1 Heat on install</button>'
+    +'<button class="btn sec" style="font-size:.62rem;padding:4px 9px;" onclick="engFreeRepair('+pidx+')">Free +1R</button>'
+    +'</div></div>';
+}
+
+function showDeckSearchW(pidx){
+  const p=G.players[pidx];
+  const used=new Set([...p.installed,...p.garage].map(u=>u.g));
+  const all=p.deck.filter(u=>!used.has(u.g));
+  let h='<div style="background:#111;border:1px solid var(--gd);border-radius:5px;padding:10px;margin-top:7px;">'
+    +'<div style="color:var(--gd);font-weight:700;margin-bottom:5px;">🔍 Deck Search ('+p.name+')</div>'
+    +'<div class="dcards">'+all.map(u=>'<div class="dc'+(u.b>p.credits?' na':'')+'" onclick="deckSearchInstant('+pidx+','+JSON.stringify(u.n)+')">'
+      +'<div style="font-weight:700;font-size:.75rem;'+(u.t?'color:var(--gd)':'')+'">'+(u.t?'★ ':'')+u.n+'</div>'
+      +'<div style="font-size:.6rem;color:var(--gd);">'+(u.s?'+'+u.v+' '+SN[u.s]:'')+' '+(u.h?'+'+u.h+'🔥':'')+'</div>'
+      +'<div style="font-size:.6rem;color:#888;">'+u.b+' Cr | '+u.w+' WU to install</div>'
+      +(u.b>p.credits?'<div style="font-size:.58rem;color:#ff4444;">Need '+u.b+' Cr</div>':'')
+      +'</div>').join('')+'</div>'
+    +'<button class="btn sec" style="font-size:.65rem;margin-top:6px;" onclick="$(\'wArea'+pidx+'\').innerHTML=\'\'">Close</button></div>';
+  $('wArea'+pidx).innerHTML=h;
+}
+
+function deckSearchInstant(pidx,uname){
+  const p=G.players[pidx];const idx=p.deck.findIndex(u=>u.n===uname);
+  if(idx===-1)return;const u=p.deck[idx];
+  if(u.b>p.credits){alert('Need '+u.b+' Cr');return;}
+  p.credits-=u.b;p.garage.push(u);p.deck.splice(idx,1);
+  log(p.name+' [DECK SEARCH]: BOUGHT '+u.n+' ('+u.b+' Cr) → Garage. '+p.credits+' Cr left','n');
+  $('wArea'+pidx).innerHTML=''; renderRace();
+}
+
+function engHeatRed(pidx){
+  G.players[pidx]._heatRed=true;
+  log(G.players[pidx].name+': Engineer will reduce Heat on next install','n');
+  $('wArea'+pidx).innerHTML='';
+}
+
+function engFreeRepair(pidx){
+  const p=G.players[pidx];
+  p.R=Math.min(p.base_r,p.R+1);p.repairCount++;
+  log(p.name+': Engineer free +1R. R='+p.R,'n');
+  $('wArea'+pidx).innerHTML=''; renderRace();
+}
+
+function scoutDeck(pidx){
+  const p=G.players[pidx];
+  if(p.credits<1){alert('Need 1 Cr');return;}
+  p.credits-=1;
+  const top3=p.deck.slice(0,Math.min(3,p.deck.length)).map(u=>u.n).join(', ');
+  log(p.name+': Scout top 3: '+top3,'n');
+  alert(p.name+"'s top 3 deck cards:\n"+top3+"\n\nReorder them manually if desired.");
+  renderRace();
+}
+
+// ═══ AI WORKSHOP ═══════════════════════════════════════
+function aiWorkshop(i){
+  const p=G.players[i];
+  let wu=p.mechanics*2;
+  if(p.R<=2&&wu>=1&&p.credits>=2){p.R=Math.min(p.base_r,p.R+1);p.credits-=2;wu--;p.repairCount++;log('[AI] '+p.name+': Repair +1R','n');}
+  [...p.garage].sort((a,b)=>(b.v||0)-(a.v||0)).forEach(u=>{
+    if(wu<=0)return;
+    const ci=p.installed.findIndex(x=>x.g===u.g);
+    if(ci!==-1){if((u.v||0)<=(p.installed[ci].v||0))return;
+      const old=p.installed.splice(ci,1)[0];if(old.s)p[old.s]-=old.v;p.heat-=(old.h||0);}
+    if(u.s)p[u.s]+=u.v; p.heat+=(u.h||0);
+    p.installed.push(u); p.garage.splice(p.garage.indexOf(u),1); wu--;
+    log('[AI] '+p.name+': INSTALLED '+u.n+'. P'+p.P+' H'+p.H+' B'+p.B+' A'+p.A+' C'+p.C+' R'+p.R+' Heat='+p.heat,'n');
+  });
+}
+
+// ═══ RACE PHASE — PRE-RACE ═════════════════════════════
+function startRacePhase(){
+  const t=G.cal[G.raceNum-1]; const w=G.w; const hz=G.hz;
+  if(t.sp==='hot'||t.sp==='perth'){G.players.forEach(p=>p.heat+=1);log('Track ('+t.sp+'): All cars +1 Heat','x');}
+  if(w.heat){G.players.forEach(p=>p.heat+=w.heat);log('Weather '+w.name+': +'+w.heat+' Heat all','x');}
+  if(w.rel_hit){G.players.forEach(p=>p.R+=w.rel_hit);log('Weather '+w.name+': '+w.rel_hit+'R all','x');}
+  if(hz.techfail){G.players.forEach((p,i)=>{const r=d6();if(r===1){p.R-=1;log(p.name+' Tech Failure: D6=1 → -1R. R='+p.R,'x');}});}
+  if(hz.mech){
+    const hottest=G.players.reduce((a,b,i)=>b.heat>G.players[a].heat?i:a,0);
+    checkOverheat(hottest,'Mech Inspection extra check',0);
+  }
+  // Pirelli sponsor
+  G.players.forEach(p=>{if(p.sponsorData&&p.sponsorData.ongoing==='rel_bonus'){p.R=Math.min(p.base_r+2,p.R+1);log(p.name+' Pirelli: +1R at race start','k');}});
+  // Overheat checks
+  const cp=((t.sp==='darwin')||(w.cool_pen))?1:0;
+  G.players.forEach((p,i)=>checkOverheat(i,'Overheat Check',cp));
+  G.segIdx=0; G.phase='seg';
+  setAIReck();
+  renderRace();
+}
+
+function checkOverheat(i,label,coolPen){
+  const p=G.players[i]; if(G.dnf[i]) return;
+  // PWR Cooling sponsor
+  const otPen=p.sponsorData&&p.sponsorData.ongoing==='overtemp_pen'?-1:0;
+  const eff=p.C-coolPen;
+  if(p.heat>eff){
+    const ot=Math.max(1,p.heat-eff+otPen); p.R-=1;
+    const roll=d6(); const fail=roll<ot;
+    if(fail) p.R-=2;
+    log(p.name+' '+label+': OT='+ot+' D6='+roll+(fail?' FAIL -2R':' PASS')+' → R='+p.R,fail?'d':'x');
+    if(p.R<=0) doDNF(i);
+  }
+}
+
+function doDNF(i){
+  const t=G.cal[G.raceNum-1];
+  G.dnf[i]=true; G.players[i].dnfCount++; G.players[i].cp-=1;
+  G.players[i].credits=Math.max(0,G.players[i].credits-1);
+  if(t.sp==='adelaide') G.players[i].cp-=1;
+  // Sandown endurance: if R was >=3 at start, still earn 1 CP
+  log('☠ '+G.players[i].name+' DNF! -1 CP'+(t.sp==='adelaide'?' -1 extra CP (Adelaide)':''),'d');
+}
+
+// ═══ SEGMENT ════════════════════════════════════════════
+function setAIReck(){
+  const t=G.cal[G.raceNum-1];
+  G.players.forEach((p,i)=>{
+    if(!isAI(i)||G.dnf[i]){return;}
+    const ai=AI_PROFILES[p.ai];
+    let ch=ai.rc;
+    if(p.fatigue>=2||p.R<=1)ch=0;
+    if(p.rc>=4)ch*=0.5;
+    // Skip first reckless roll (Nitro Circus sponsor)
+    G.reck[i]=rnd()<ch;
+  });
+}
+
+function renderSeg(el){
+  const t=G.cal[G.raceNum-1]; const w=G.w; const hz=G.hz;
+  const sn=G.segIdx+1; const seg=t.sg[G.segIdx];
+  let da=seg[1],db=seg[3];
+  // Demand adjustments
+  if(t.sp==='longest'){da++;db++;}
+  if(t.sp==='rough'&&seg[2]==='B')db++;
+  if(t.sp==='rough'&&seg[0]==='B')da++;
+  if(t.sp==='mallala'&&sn===1&&seg[2]==='B')db++;
+  if(hz.dem_s3&&sn===3){da++;db++;}
+  if(w.hd_all&&seg[0]==='H')da+=w.hd_all;
+  if(w.hd_all&&seg[2]==='H')db+=w.hd_all;
+  if(w.pd_all&&seg[0]==='P')da+=w.pd_all;
+  if(w.bd_all&&seg[2]==='B')db+=w.bd_all;
+  if(w.hd_seg1&&sn===1&&seg[0]==='H')da++;
+  if(hz.brake_s3&&sn===3&&seg[2]==='B')db++;
+  if(hz.pow_s2&&sn===2&&seg[0]==='P')da++;
+  if(hz.hand_s3&&sn===3&&seg[0]==='H')da++;
+  // Highlands elevation: Brakes always 3rd stat (add brakes to scoring)
+  const addBrakes=t.sp==='highlands';
+  // Crosswind: Aero always 3rd
+  const addAero=(w.aero_third||t.sp==='crosswind');
+  const noAwards=hz.seg1_no&&sn===1;
+  const noCp=hz.seg2_ncp&&sn===2;
+
+  // Calc scores
+  const scores=G.players.map((p,i)=>{
+    if(G.dnf[i]) return null;
+    let a=p[seg[0]]-da, b=p[seg[2]]-db;
+    // Sponsor: Shell +1P, Bilstein +1H Seg1
+    if(p.sponsorData){
+      if(p.sponsorData.ongoing==='power_bonus'&&seg[0]==='P') a+=1;
+      if(p.sponsorData.ongoing==='handling_s1'&&sn===1&&seg[0]==='H') a+=1;
+    }
+    // Ability effects  
+    if(p.ability){
+      const ae=p.ability.e.toLowerCase();
+      if(ae.includes('+1 power')&&p.heat>p.C) a+=1; // american muscle
+      if(ae.includes('+2 power in high-speed')&&t.sg[G.segIdx][0]==='P') a+=2; // straight-line hunter
+      if(ae.includes('+1 brakes during segment 3')&&sn===3&&seg[2]==='B') b+=1; // late braker
+      if(ae.includes('+1 handling in segment 2')&&sn===2&&seg[0]==='H') a+=1; // corner exit
+      if(ae.includes('+2 power during segment 1')&&sn===1&&seg[0]==='P') a+=2; // launch control
+    }
+    const r=G.reck[i]||false;
+    let s=a+b+(r?2:0)-p.fatigue;
+    if(addBrakes) s+=(p.B-db); // elevation brakes bonus
+    if(addAero) s+=p.A;
+    if(w.score_all) s+=w.score_all;
+    if(w.p_seg1&&sn===1&&seg[0]==='P') s+=1;
+    if(w.bonus_s1&&sn===1) s+=1;
+    if(w.score_all) s+=w.score_all;
+    return {s,a,b,r};
+  });
+
+  let h='<div class="card"><div class="ct">Segment '+sn+' of 3 — '+(G.raceNum===8?'FINALE ':'')+'Race '+G.raceNum+'</div>'
+    +'<div style="display:flex;gap:8px;align-items:center;margin-bottom:9px;flex-wrap:wrap;">'
+    +'<strong>'+SN[seg[0]]+' vs '+da+'</strong><span style="color:#555"> + </span><strong>'+SN[seg[2]]+' vs '+db+'</strong>'
+    +(addBrakes?'<span class="badge bbl">+ Brakes (Elevation)</span>':'')
+    +(addAero?'<span class="badge bbl">+ Aero</span>':'')
+    +(noAwards?'<span class="badge br">NO AWARDS (Safety Car)</span>':'')
+    +(noCp?'<span class="badge br">NO CP (Yellow Flag)</span>':'')
+    +(hz.pace?'<span class="badge br">Cr halved (Pace Car)</span>':'')
+    +'</div>';
+
+  // Human reckless declaration
+  const humans=G.players.filter((_,i)=>!isAI(i)&&!G.dnf[i]);
+  if(humans.length){
+    h+='<div class="rpan"><div style="color:var(--or);font-weight:700;margin-bottom:5px;">⚡ Declare Reckless Drive?</div>'
+      +'<div style="font-size:.68rem;color:#bbb;margin-bottom:7px;">+2 to Segment Score. Risk: D6 roll 1 or 2 = -1R. +1 Reckless Counter.</div>';
+    G.players.forEach((p,i)=>{
+      if(isAI(i)||G.dnf[i])return;
+      const on=G.reck[i]||false;
+      h+='<div class="pdr"><div style="color:'+p.col+';font-weight:700;width:100px;">'+p.name+'</div>'
+        +(p.fatigue>0?'<span class="badge br">'+p.fatigue+' Fatigue</span>':'')
+        +(p.R<=1?'<span class="badge br">R=1 ⚠</span>':'')
+        +(p.ability?'<span style="font-size:.6rem;color:#666;">'+p.ability.n+'</span>':'')
+        +'<button class="rbtn'+(on?' on':'')+'" onclick="togReck('+i+')">'+(on?'🔥 RECKLESS!':'Stay Clean')+'</button></div>';
+    });
+    h+='</div>';
+  }
+
+  // Score display
+  h+='<div class="sgrid">';
+  G.players.forEach((p,i)=>{
+    if(G.dnf[i]){h+='<div class="spr dnf"><div style="color:'+p.col+';font-weight:700;">'+p.name+'</div><div style="color:#555;margin-top:4px;">DNF</div></div>';return;}
+    const sc=scores[i]; const r=G.reck[i];
+    const aiInfo=isAI(i)?'<span style="font-size:.58rem;color:#5aaeee;"> [AI/'+(r?'RECKLESS':'Clean')+']</span>':'';
+    h+='<div class="spr"><div style="color:'+p.col+';font-weight:700;margin-bottom:3px;">'+p.name+aiInfo+'</div>'
+      +'<div style="font-size:.65rem;color:#888;">'+SN[seg[0]]+' '+p[seg[0]]+'-'+da+'='+sc.a+'</div>'
+      +'<div style="font-size:.65rem;color:#888;">'+SN[seg[2]]+' '+p[seg[2]]+'-'+db+'='+sc.b+'</div>'
+      +(r?'<div style="font-size:.65rem;color:var(--or);">Reckless +2</div>':'')
+      +(p.fatigue?'<div style="font-size:.65rem;color:#ff4444;">Fatigue -'+p.fatigue+'</div>':'')
+      +(p.sponsorData&&p.sponsorData.ongoing==='power_bonus'&&seg[0]==='P'?'<div style="font-size:.62rem;color:var(--gd);">Shell +1P</div>':'')
+      +'<div class="sbig'+(sc.s<0?' neg':'')+'" style="margin-top:3px;">'+sc.s+'</div>'
+      +'</div>';
+  });
+  h+='</div><button class="btn ok" onclick="resolveSeg()">✓ Resolve Segment '+sn+'</button></div>';
+  el.innerHTML=h;
+}
+
+function togReck(i){G.reck[i]=!G.reck[i];renderRace();}
+
+function resolveSeg(){
+  const t=G.cal[G.raceNum-1]; const w=G.w; const hz=G.hz;
+  const sn=G.segIdx+1; const seg=t.sg[G.segIdx];
+  let da=seg[1],db=seg[3];
+  if(t.sp==='longest'){da++;db++;}
+  if(t.sp==='rough'&&seg[2]==='B')db++;
+  if(t.sp==='mallala'&&sn===1&&seg[2]==='B')db++;
+  if(hz.dem_s3&&sn===3){da++;db++;}
+  if(w.hd_all&&seg[0]==='H')da+=w.hd_all;
+  if(w.pd_all&&seg[0]==='P')da+=w.pd_all;
+  if(w.hd_seg1&&sn===1&&seg[0]==='H')da++;
+  if(hz.brake_s3&&sn===3&&seg[2]==='B')db++;
+  if(hz.pow_s2&&sn===2&&seg[0]==='P')da++;
+  if(hz.hand_s3&&sn===3&&seg[0]==='H')da++;
+  const addBrakes=t.sp==='highlands';
+  const addAero=(w.aero_third||t.sp==='crosswind');
+  const noAwards=hz.seg1_no&&sn===1;
+  const noCp=hz.seg2_ncp&&sn===2;
+
+  // Resolve reckless
+  G.players.forEach((p,i)=>{
+    if(G.dnf[i]||!G.reck[i])return;
+    // Nitro Circus: skip first roll
+    const skipRoll=p.sponsorData&&p.sponsorData.ongoing==='skip_reckless_roll'&&!p._nitroUsed;
+    if(!skipRoll){const roll=d6();if(roll<=2){p.R-=1;log(p.name+(isAI(i)?' [AI]':'')+' RECKLESS: D6='+roll+' → -1R. R='+p.R,'r');}
+      else log(p.name+(isAI(i)?' [AI]':'')+' RECKLESS: D6='+roll+' → safe. RC='+(p.rc+1),'r');
+    } else {log(p.name+' RECKLESS: Roll skipped (Nitro Circus). RC='+(p.rc+1),'r');}
+    p.rc++;p.reckThisRace=true;
+    if([5,8,11,14].includes(p.rc)){p.fatigue++;log('⚡ '+p.name+' FATIGUE TOKEN! RC='+p.rc+' Fat='+p.fatigue,'x');}
+    if(p.R<=0)doDNF(i);
+  });
+
+  // Calc final scores
+  const scores=G.players.map((p,i)=>{
+    if(G.dnf[i])return null;
+    let a=p[seg[0]]-da, b=p[seg[2]]-db;
+    if(p.sponsorData){
+      if(p.sponsorData.ongoing==='power_bonus'&&seg[0]==='P')a+=1;
+      if(p.sponsorData.ongoing==='handling_s1'&&sn===1&&seg[0]==='H')a+=1;
+    }
+    if(p.ability){
+      const ae=p.ability.e.toLowerCase();
+      if(ae.includes('+1 power')&&p.heat>p.C)a+=1;
+      if(ae.includes('+2 power in high-speed')&&t.ty.includes('High'))a+=2;
+      if(ae.includes('+1 brakes during segment 3')&&sn===3&&seg[2]==='B')b+=1;
+      if(ae.includes('+2 power during segment 1')&&sn===1&&seg[0]==='P')a+=2;
+    }
+    const r=G.reck[i]||false;
+    let s=a+b+(r?2:0)-p.fatigue;
+    if(addBrakes)s+=(p.B-db);
+    if(addAero)s+=p.A;
+    if(w.score_all)s+=w.score_all;
+    if(w.p_seg1&&sn===1&&seg[0]==='P')s+=1;
+    if(w.bonus_s1&&sn===1)s+=1;
+    return {s,a,b,r,i};
+  }).filter(Boolean);
+
+  scores.forEach(({s,i})=>log(G.players[i].name+(isAI(i)?' [AI]':'')+': '+SN[seg[0]]+G.players[i][seg[0]]+'-'+da+'='+scores.find(x=>x.i===i).a+'  '+SN[seg[2]]+G.players[i][seg[2]]+'-'+db+'='+scores.find(x=>x.i===i).b+(G.reck[i]?' +2(R)':'')+(G.players[i].fatigue?' -'+G.players[i].fatigue+'(F)':'')+' = '+s,'i'));
+
+  if(scores.length){
+    const best=Math.max(...scores.map(x=>x.s));
+    let winners=scores.filter(x=>x.s===best);
+    // Tiebreak: Reliability, Heat, Aero
+    if(winners.length>1){
+      const maxR=Math.max(...winners.map(x=>G.players[x.i].R));
+      winners=winners.filter(x=>G.players[x.i].R===maxR);
+      if(winners.length>1){
+        const minH=Math.min(...winners.map(x=>G.players[x.i].heat));
+        winners=winners.filter(x=>G.players[x.i].heat===minH);
+      }
+    }
+    winners.forEach(({i})=>{
+      G.segWins[i]++; G.lastSegs[i]=(G.lastSegs[i]||0)+1;
+      G.players[i].segWinsTotal++; G.players[i].segTracks.push(t.name);
+      const cr=hz.pace?0:1;
+      if(!noAwards&&!noCp){G.players[i].cp++;G.players[i].credits+=cr;}
+      else if(noCp) G.players[i].credits+=cr;
+      // Reckless win bonuses
+      const rb=G.reck[i]&&!noAwards?1:0;
+      if(rb) G.players[i].credits+=rb;
+      // Sponsor: Red Bull +1 Cr/seg, Monster Energy +2 Cr if reckless win
+      if(G.players[i].sponsorData){
+        if(G.players[i].sponsorData.ongoing==='cr_per_seg'&&!noAwards) G.players[i].credits+=1;
+        if(G.players[i].sponsorData.ongoing==='reckless_win_cr'&&G.reck[i]&&!noAwards) G.players[i].credits+=2;
+      }
+      log('★ Seg '+sn+' WIN: '+G.players[i].name+' ('+best+')'+(noAwards?' — no awards':noCp?' — +1Cr only':' → +1CP +1Cr'+(rb?' +Reckless bonus':'')),'w');
+    });
+
+    // Hazard: Oil on Track - lowest handling seg1 loses 1R
+    if(hz.oil&&sn===1){
+      const minH=Math.min(...scores.map(x=>G.players[x.i].H));
+      scores.filter(x=>G.players[x.i].H===minH).forEach(x=>{G.players[x.i].R-=1;log(G.players[x.i].name+' Oil on Track: lowest H → -1R','x');if(G.players[x.i].R<=0)doDNF(x.i);});
+    }
+    // Gravel trap
+    if(hz.gravel&&sn===1){
+      const maxScore=best; if(maxScore>=4) winners.forEach(({i})=>{G.players[i].R-=1;log(G.players[i].name+' Gravel Trap: won by big margin → -1R','x');});
+    }
+    // Kerb strike
+    if(hz.kerb){
+      const minB=Math.min(...scores.map(x=>G.players[x.i].B));
+      scores.filter(x=>G.players[x.i].B===minB).forEach(x=>{G.players[x.i].R-=1;log(G.players[x.i].name+' Kerb Strike: lowest B → -1R','x');if(G.players[x.i].R<=0)doDNF(x.i);});
+    }
+    // Mountain Panorama: lose seg by 3+ loses 1R
+    if(t.sp==='mountain'){
+      scores.forEach(({s,i})=>{if(best-s>=3){G.players[i].R-=1;log(G.players[i].name+' The Mountain: lost Seg by '+(best-s)+' → -1R','x');if(G.players[i].R<=0)doDNF(i);}});
+    }
+    // Winton sweep
+    if(t.sp==='winton'&&sn===3){
+      G.players.forEach((_,i)=>{if(G.segWins[i]===3){G.players[i].cp+=2;log('★★ '+G.players[i].name+' WINTON TRIPLE SWEEP +2CP!','w');}});
+    }
+  }
+
+  G.segIdx++; G.reck={};
+  if(G.segIdx>=3) G.phase='end';
+  else setAIReck();
+  renderRace();
+}
+
+// ═══ END PHASE ══════════════════════════════════════════
+function renderEnd(el){
+  const t=G.cal[G.raceNum-1]; const finale=G.raceNum===8;
+  const rank=[...G.players.map((_,i)=>i)].sort((a,b)=>G.dnf[a]!==G.dnf[b]?(G.dnf[a]?1:-1):G.segWins[b]-G.segWins[a]);
+  const pcp=finale?[6,4,2,0]:[3,2,1,0];
+  let h='<div class="card"><div class="ct">End of Race '+G.raceNum+(finale?' — FINALE':'')+'</div>';
+  rank.forEach((pi,pos)=>{
+    const p=G.players[pi]; const dnf=G.dnf[pi];
+    const cp=dnf?0:pcp[Math.min(pos,3)];
+    const prestige=t.sp==='albert'&&pos===0&&!dnf;
+    h+='<div style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid #1a1a1a;">'
+      +'<div style="font-size:1rem;">'+MED[Math.min(pos,3)]+'</div>'
+      +'<div style="color:'+p.col+';font-weight:700;min-width:95px;">'+p.name+(isAI(pi)?' [AI]':'')+'</div>'
+      +'<div style="color:var(--gd)">+'+cp+'CP'+(prestige?' +1CP (Albert)':'')+(dnf?' (DNF)':'')+'</div>'
+      +'<div style="font-size:.68rem;color:#666;margin-left:auto;">'+G.segWins[pi]+' segs | Total: '+(p.cp+cp+(prestige?1:0))+' CP</div>'
+      +'</div>';
+  });
+  h+='<button class="btn ok" style="margin-top:11px;" onclick="applyEnd('+JSON.stringify(rank)+')">✓ Apply & Continue</button></div>';
+  el.innerHTML=h;
+}
+
+function applyEnd(rank){
+  const t=G.cal[G.raceNum-1]; const finale=G.raceNum===8;
+  const pcp=finale?[6,4,2,0]:[3,2,1,0];
+  rank.forEach((pi,pos)=>{
+    const p=G.players[pi]; if(G.dnf[pi])return;
+    p.cp+=pcp[Math.min(pos,3)];
+    if(t.sp==='albert'&&pos===0){p.cp+=1;p.raceWins++;}
+    if(pos===0&&!G.dnf[pi]){p.raceWins++;if(p.sponsorData&&p.sponsorData.ongoing==='race_win_cr')p.credits+=1;}
+    if(pos<2&&!G.dnf[pi])p.topTwoCount++;
+  });
+  // DNF reset
+  G.players.forEach((p,i)=>{if(G.dnf[i])p.R=p.base_r;});
+  // Heat decay
+  const w=G.w;
+  if(w.heat)G.players.forEach(p=>p.heat=Math.max(0,p.heat-w.heat));
+  if(t.sp==='hot'||t.sp==='perth')G.players.forEach(p=>p.heat=Math.max(0,p.heat-1));
+  // Fatigue decay
+  G.players.forEach((p,i)=>{
+    if(p.fatigue>0){
+      const pos=rank.indexOf(i);
+      const cleanTop2=pos<2&&!p.reckThisRace&&!G.dnf[i];
+      p.fatigue=Math.max(0,p.fatigue-(cleanTop2?2:1));
+    }
+    p.reckThisRace=false; p._nitroUsed=false;
+  });
+  // Milestone Race 4
+  if(G.raceNum===4){
+    const last=rank[rank.length-1];
+    G.players[last].cp+=2;
+    log('★ MILESTONE: '+G.players[last].name+' (last) +2CP Underdog Bonus!','w');
+    const mostSegs=G.players.map((_,i)=>i).sort((a,b)=>G.players[b].segWinsTotal-G.players[a].segWinsTotal)[0];
+    G.players[mostSegs].cp+=1;
+    log('★ MILESTONE: '+G.players[mostSegs].name+' (most Segs) +1CP Specialist!','w');
+    // Last place gets 3 sponsor choices
+    if(G.sponsorFaceUp.length===0&&G.sponsorDeck.length>0){
+      G.sponsorFaceUp.push(...G.sponsorDeck.splice(0,Math.min(3,G.sponsorDeck.length)));
+    }
+  }
+  // Reveal new sponsor
+  if(G.sponsorDeck.length>0) G.sponsorFaceUp.push(G.sponsorDeck.shift());
+  G.standings=[...rank];
+  if(finale){G.phase='gameover';renderRace();return;}
+  G.raceNum++;
+  newRace();
+}
+
+// ═══ GAME OVER ══════════════════════════════════════════
+function renderGameOver(el){
+  // End-game scoring
+  const maxP=Math.max(...G.players.map(p=>p.P));
+  const maxH=Math.max(...G.players.map(p=>p.H));
+  const maxA=Math.max(...G.players.map(p=>p.A));
+  const maxB=Math.max(...G.players.map(p=>p.B));
+  const maxC=Math.max(...G.players.map(p=>p.C));
+  G.players.forEach((p,i)=>{
+    const bonuses=[];
+    // Clean driver
+    if(p.rc<=4){p.cp+=2;bonuses.push('Clean Driver +2CP');}
+    // Static goals
+    if(p.P===maxP){p.cp+=2;bonuses.push('Power Champion +2CP');}
+    if(p.H===maxH){p.cp+=2;bonuses.push('Handling Champion +2CP');}
+    // Diversified builder: +2 above base in 4 stats
+    const car=p.carDef;
+    if(car){
+      let divCount=0;
+      if(p.P>car.P+2)divCount++;if(p.H>car.H+2)divCount++;if(p.B>car.B+2)divCount++;
+      if(p.A>car.A+2)divCount++;if(p.C>car.C+2)divCount++;
+      if(divCount>=4){p.cp+=2;bonuses.push('Diversified Builder +2CP');}
+    }
+    // Reliability master
+    if(p.dnfCount===0){p.cp+=2;bonuses.push('Reliability Master +2CP');}
+    // Sponsor end-game
+    if(p.sponsorData){
+      const sp=p.sponsorData;
+      let earned=false;
+      if(sp.ongoing==='cr_per_seg'&&p.segWinsTotal>=10)earned=true;
+      if(sp.ongoing==='power_bonus'&&p.P>=10)earned=true;
+      if(sp.ongoing==='handling_disc'&&p.H>=10)earned=true;
+      if(sp.ongoing==='brake_immune'&&p.B>=8)earned=true;
+      if(sp.ongoing==='engine_disc'&&p.P>=9)earned=true;
+      if(sp.ongoing==='handling_s1'&&p.H>=9)earned=true;
+      if(sp.ongoing==='clean_race_cr'&&p.dnfCount===0)earned=true;
+      if(sp.ongoing==='rel_bonus'&&p.topTwoCount>=5)earned=true;
+      if(sp.ongoing==='reckless_win_cr'&&p.rc>=8&&p.dnfCount===0)earned=true;
+      if(sp.ongoing==='race_win_cr'&&p.raceWins>=3)earned=true;
+      if(sp.ongoing==='fi_heat'&&p.installed.filter(u=>['Turbocharger','Supercharger'].includes(u.g)).length>=2)earned=true;
+      if(sp.ongoing==='aero_disc'&&p.A>=6)earned=true;
+      if(sp.ongoing==='overtemp_pen'&&p.C>=7)earned=true;
+      if(earned){p.cp+=sp.cp;bonuses.push(sp.name+' +'+sp.cp+'CP');}
+    }
+    // Car achievement
+    const cid=p.carId;
+    if(cid==='gt86'&&p.installed.filter(u=>u.c==='Aero').length>=3&&p.segTracks.filter(tr=>G.cal.find(c=>c.name===tr)?.ty.includes('High')).length>=2){p.cp+=3;bonuses.push('GT86 Time Attack Trophy +3CP');}
+    if(cid==='370z'&&p.dnfCount===0){p.cp+=3;bonuses.push('370Z Endurance Champion +3CP');}
+    if(cid==='mx5'&&p.segWinsTotal>=6){p.cp+=4;bonuses.push('MX-5 Pure Driver +4CP');}
+    if(cid==='mustang'&&p.raceWins>=1){p.cp+=3;bonuses.push('Mustang King of Strip +3CP');}
+    if(cid==='auditt'&&p.installed.filter(u=>u.c==='Electronics').length>=2){p.cp+=3;bonuses.push('Audi TT AWD Mastery +3CP');}
+    p._bonuses=bonuses;
+  });
+  const final=[...G.players.map((_,i)=>i)].sort((a,b)=>G.players[b].cp-G.players[a].cp);
+  let h='<div class="card"><div class="ct" style="font-size:1rem;color:var(--gd);">🏆 CHAMPIONSHIP COMPLETE!</div>';
+  final.forEach((i,pos)=>{
+    const p=G.players[i];
+    h+='<div style="display:flex;align-items:start;gap:11px;padding:10px 0;border-bottom:1px solid #1a1a1a;">'
+      +'<div style="font-size:1.35rem;">'+MED[Math.min(pos,3)]+'</div>'
+      +'<div style="flex:1;">'
+      +'<div style="color:'+p.col+';font-weight:700;font-size:.95rem;">'+p.name+(isAI(i)?' [AI: '+AI_PROFILES[p.ai].label+']':'')+'</div>'
+      +'<div style="font-size:.68rem;color:#888;margin-top:2px;">'+(p.carDef?p.carDef.name:'—')+' | '+p.installed.length+' upgrades | RC:'+p.rc+' | DNFs:'+p.dnfCount+'</div>'
+      +'<div style="font-size:.65rem;color:#666;margin-top:2px;">'+(p._bonuses.length?p._bonuses.join(' | '):'No end-game bonuses')+'</div>'
+      +'</div>'
+      +'<div class="cpb">'+p.cp+' CP</div>'
+      +'</div>';
+  });
+  h+='<div style="margin:12px 0;font-size:.72rem;color:#888;">All end-game goals applied. Tie-breakers: most Race Wins → most Seg Wins → highest Reliability → lowest Reckless Counter.</div>';
+  h+='<button class="btn" onclick="location.reload()">🔄 New Championship</button></div>';
+  el.innerHTML=h;
+}
+
+// ═══ BOARDS & STANDINGS ════════════════════════════════
+function renderBoards(){
+  $('boardsGrid').innerHTML=G.players.map((p,i)=>{
+    const mx=Math.max(8,p.heat+2);
+    const pips=Array.from({length:mx},(_,j)=>'<div class="hp'+(j<p.heat?(j>=p.C?' hot':' on'):'')+'"></div>').join('');
+    return '<div class="pb" style="border-color:'+p.col+'66;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:start;">'
+      +'<div><div class="pname" style="color:'+p.col+'">'+p.name+(isAI(i)?'<span style="font-size:.58rem;color:#5aaeee;"> [AI: '+AI_PROFILES[p.ai].label+']</span>':'')+'</div>'
+      +'<div class="pcar">'+(p.carDef?p.carDef.name+' — '+p.carDef.sub:'No car')+'</div></div>'
+      +'<div class="cpb">'+p.cp+'</div></div>'
+      +'<div class="srow">'+['P','H','B','A'].map(s=>'<div class="sp">'+s+' <span>'+p[s]+'</span></div>').join('')
+      +'<div class="sp">C <span>'+p.C+'</span></div>'
+      +'<div class="sp">R <span style="color:'+(p.R<=2?'#ff4444':'var(--gd)')+'">'+p.R+'/'+p.base_r+'</span></div>'
+      +'</div>'
+      +'<div class="rrow"><div>'+p.credits+' Cr</div><div>'+p.mechanics+' Mech</div><div>'+p.engineers+' Eng</div>'
+      +'<div style="color:'+(p.rc>=5?'#ff6600':'inherit')+'">RC:'+p.rc+'</div>'
+      +'<div style="color:'+(p.fatigue>0?'#ff4444':'#555')+'">Fat:'+p.fatigue+'</div>'
+      +(p.sponsorData?'<div style="color:var(--gd);font-size:.62rem;">♦ '+p.sponsorData.name+'</div>':'')
+      +(p.ability?'<div style="color:#888;font-size:.62rem;">★ '+p.ability.n+'</div>':'')
+      +'</div>'
+      +'<div style="font-size:.62rem;color:#888;margin-bottom:3px;">Heat '+p.heat+' / Cool '+p.C+'</div>'
+      +'<div class="hbar">'+pips+'</div>'
+      +'<div class="ulist">'+(p.installed.map(u=>'<span class="uchip'+(u.t?' style="border-color:var(--gd)"':'')+'">'+u.n+'</span>').join('')||'<span style="color:#333">No upgrades</span>')+'</div>'
+      +(p.garage.length?'<div style="margin-top:4px;font-size:.6rem;color:#444;">Garage: '+p.garage.map(u=>u.n).join(', ')+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+function renderStandings(){
+  const sorted=[...G.players.map((_,i)=>i)].sort((a,b)=>G.players[b].cp-G.players[a].cp);
+  $('stbl').innerHTML='<tr><th>Pos</th><th>Player</th><th>Car</th><th>CP</th><th>Cr</th><th>Heat</th><th>RC</th><th>Inst</th><th>Sponsor</th></tr>'
+    +sorted.map((i,pos)=>{
+      const p=G.players[i];
+      return '<tr><td>'+MED[Math.min(pos,3)]+' '+(pos+1)+'</td>'
+        +'<td style="color:'+p.col+'"><strong>'+p.name+'</strong>'+(isAI(i)?'<span style="font-size:.62rem;color:#5aaeee;"> [AI]</span>':'')+'</td>'
+        +'<td>'+(p.carDef?p.carDef.name:'—')+'</td>'
+        +'<td style="color:var(--gd)"><strong>'+p.cp+'</strong></td>'
+        +'<td>'+p.credits+'</td><td>'+p.heat+'/'+p.C+'</td>'
+        +'<td style="color:'+(p.rc>=5?'#ff6600':'inherit')+'">'+p.rc+'</td>'
+        +'<td>'+p.installed.length+'</td>'
+        +'<td style="font-size:.65rem;color:var(--gd);">'+(p.sponsorData?p.sponsorData.name:'—')+'</td>'
+        +'</tr>';
+    }).join('');
+}
+
+function renderRulesCars(){
+  $('rcars').innerHTML=CARS.map(c=>'<div class="ccard" style="cursor:default"><div class="cname" style="color:'+c.col+'">'+c.name+'</div><div class="cid">'+c.sub+'</div><div class="smini">'+['P','H','B','A','C','R'].map(s=>'<div class="sm"><div class="sl">'+s+'</div><div class="sv">'+c[s]+'</div></div>').join('')+'</div></div>').join('');
+}
+
+function renderAbilTabs(car){
+  const tabs=CARS.map(c=>'<div class="abtab'+(c.id===car?' on':'')+'" onclick="renderAbilTabs(\''+c.id+'\')">'+c.name+'</div>').join('');
+  $('abilTabs').innerHTML=tabs;
+  $('abilContent').innerHTML='<div>'+(ABILITIES[car]||[]).map(a=>'<div class="acard"><div style="font-weight:700;color:var(--gd);margin-bottom:3px;">'+a.n+'</div><div style="font-size:.72rem;color:#bbb;">'+a.e+'</div></div>').join('')+'</div>';
+}
+
+// ═══ TABS ═══════════════════════════════════════════════
+function ST(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelector('.tab[onclick="ST(\''+name+'\')"]').classList.add('on');
+  $('tab-'+name).classList.add('on');
+  if(name==='boards')renderBoards();
+  if(name==='standings')renderStandings();
+}
+
+init(); resetAuction();
+</script>
+</body>
+</html>
