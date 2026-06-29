@@ -555,6 +555,15 @@ const G={
 };
 
 // ── INIT ────────────────────────────────────────────────────────────
+
+function storeCard(u){
+  if(!window._CR)window._CR=[];
+  var i=window._CR.findIndex(function(c){return c.n===u.n;});
+  if(i===-1){i=window._CR.length;window._CR.push(u);}
+  return i;
+}
+function getCard(i){return window._CR&&window._CR[i];}
+
 function init(){
   G.activeGoals=shuffle([...RANDOM_GOALS]).slice(0,2);
   setP(4); shuffleCal();
@@ -992,7 +1001,7 @@ function mkCard(u,pi,fn,extraClass=''){
   const wcText=u.wc===1?'1 WC (1 Mechanic, 1 round)':u.wc===2?'2 WC (need 2+ WC or 2 rounds)':'3 WC (2+ Mechanics or multiple rounds)';
   
   return '<div class="ucard'+(u.tier?' stier':'')+(u.cat==='Handling'||u.tag==='Tyres'?' ':' ')+(!can||engReq?' locked':'')+(extraClass?' '+extraClass:'')+'" '
-    +((can&&!engReq)?'onclick="'+fn+'('+pi+',''+u.n.replace(/\/g,'\\').replace(/'/g,"\'")+'')"':'')+' >'
+    +((can&&!engReq)?(can&&!engReq?'onclick="'+fn+'('+pi+','+storeCard(u)+')"':'')+'>'
     +'<div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">'+tierLabel
     +'<span class="utag" style="margin-bottom:0;">'+u.cat+(u.tag&&u.tag!==u.cat?' — '+u.tag:'')+'</span></div>'
     +'<div class="uname">'+u.n+'</div>'
@@ -1160,8 +1169,9 @@ function showDeckSearch(pi,containerId){
   $(containerId).innerHTML=h;
 }
 
-function dsBuy(pi,uname){
-  const p=G.P[pi]; const idx=p.deck.findIndex(u=>u.n===uname);
+function dsBuy(pi,ci){
+  const p=G.P[pi]; const uc=getCard(ci); if(!uc)return;
+  const idx=p.deck.findIndex(u=>u.n===uc.n);
   if(idx===-1)return; const u=p.deck[idx];
   if(u.buy>p.creds){alert('Need '+u.buy+' Cr');return;}
   p.creds-=u.buy; p.garage.push({...u}); p.deck.splice(idx,1);
@@ -1225,10 +1235,10 @@ function claimSP(pi,si){
   $('mEx'+pi).innerHTML=''; rr();
 }
 
-function buyCard(pi,uname){
-  const p=G.P[pi]; const idx=p.mkt.findIndex(u=>u.n===uname);
-  if(idx===-1){alert('Card not found in market');return;}
-  const u=p.mkt[idx];
+function buyCard(pi,ci){
+  const p=G.P[pi]; const u=getCard(ci)||p.mkt.find(x=>x.n===(getCard(ci)||{n:ci}).n);
+  if(!u){alert("Card not found");return;}
+  const idx=p.mkt.findIndex(x=>x.n===u.n);
   if(u.buy>p.creds){alert('Need '+u.buy+' Cr');return;}
   p.creds-=u.buy; p.garage.push({...u}); p.mkt.splice(idx,1);
   log(p.name+': Bought "'+u.n+'" ('+u.buy+' Cr) → Workshop. '+p.creds+' Cr left','k');
