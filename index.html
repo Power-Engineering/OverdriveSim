@@ -329,6 +329,10 @@ const DECKS={gt86:[{n:"HKS Super Hybrid Intake",cat:"Engine",tag:"Intake System"
 const SHM_DECK=[{n:"Used Track Tyres",cat:"Handling",tag:"Tyres",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Decent used performance tyres."},{n:"Refurbished Brake Kit",cat:"Brakes",tag:"Brake Kit",buy:2,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Reconditioned brake components."},{n:"Budget Intake",cat:"Engine",tag:"Intake",buy:2,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Generic air intake upgrade."},{n:"Aftermarket Wing",cat:"Aero",tag:"Rear Wing",buy:2,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Universal rear wing kit."},{n:"Used Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:2,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Serviceable oil cooler."},{n:"Reconditioned Turbo",cat:"Engine",tag:"Turbocharger",buy:5,wc:2,stat:"P",val:3,heat:2,tier:false,eff:"Gain +3 Power. +2 Heat.",desc:"Rebuilt turbo unit."},{n:"Street Coilovers",cat:"Handling",tag:"Coilovers",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Budget coilover upgrade."},{n:"Track Exhaust",cat:"Engine",tag:"Exhaust",buy:3,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"Performance exhaust system."},{n:"Generic Sway Bars",cat:"Handling",tag:"Sway Bars",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Basic anti-roll bars."},{n:"Universal Splitter",cat:"Aero",tag:"Front Splitter",buy:2,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Generic front splitter."},{n:"Budget Brake Pads",cat:"Brakes",tag:"Brake Pads",buy:1,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Track compound pads."},{n:"Universal Radiator",cat:"Cooling",tag:"Radiator",buy:3,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Standard aluminium radiator."},{n:"Generic ECU Tune",cat:"Engine",tag:"Engine Tune",buy:2,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. +1 Heat.",desc:"Basic calibration."},{n:"Carbon Diffuser",cat:"Aero",tag:"Rear Diffuser",buy:4,wc:2,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Second-hand diffuser kit."},{n:"Used LSD",cat:"Drivetrain",tag:"LSD",buy:4,wc:2,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reconditioned differential."},{n:"Street Headers",cat:"Engine",tag:"Headers",buy:2,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. +1 Heat.",desc:"Performance street headers."},{n:"Used Intercooler",cat:"Cooling",tag:"Intercooler",buy:3,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Serviceable intercooler."},{n:"Braided Brake Lines",cat:"Brakes",tag:"Brake Lines",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Braided stainless lines."},{n:"Roll Bar",cat:"Handling",tag:"Chassis Brace",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Basic chassis brace."},{n:"Old Racing Slicks",cat:"Handling",tag:"Tyres",buy:3,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Used racing slicks."}];
 
 
+function clearSHM(){var e=document.getElementById('shmBidArea');if(e)e.innerHTML='';}
+function storeCard(u){if(!window._CR)window._CR=[];var i=window._CR.findIndex(function(c){return c.n===u.n;});if(i===-1){i=window._CR.length;window._CR.push(u);}return i;}
+function getCard(i){return window._CR&&window._CR[i];}
+
 // ═══════════════════════════════════════════════════════════════════
 // OVERDRIVE CHAMPIONSHIP SIMULATOR — Complete Game Logic v4
 // Based on official spreadsheet + rulebook documents
@@ -555,15 +559,6 @@ const G={
 };
 
 // ── INIT ────────────────────────────────────────────────────────────
-
-function storeCard(u){
-  if(!window._CR)window._CR=[];
-  var i=window._CR.findIndex(function(c){return c.n===u.n;});
-  if(i===-1){i=window._CR.length;window._CR.push(u);}
-  return i;
-}
-function getCard(i){return window._CR&&window._CR[i];}
-
 function init(){
   G.activeGoals=shuffle([...RANDOM_GOALS]).slice(0,2);
   setP(4); shuffleCal();
@@ -959,60 +954,55 @@ function phMarket(el){
   el.innerHTML=h;
 }
 
-function mkCard(u,pi,fn,extraClass=''){
-  const p=G.P[pi];
-  const can=!p||u.buy<=p.creds;
-  const tagConflict=p&&p.installed.find(x=>x.tag&&x.tag===u.tag&&u.tag);
-  const engReq=u.tier&&p&&!p.engs;
-  // Tier label
-  const tierLabel=u.tier
-    ?'<span class="tier-stier">S-TIER</span>'
-    :u.wc>=2?'<span class="tier-major">MAJOR</span>'
-    :'<span class="tier-minor">MINOR</span>';
-  // Stat pills
-  const pills=[];
+function mkCard(u,pi,fn,extraClass){
+  extraClass=extraClass||'';
+  var p=G.P[pi];
+  var can=!p||u.buy<=p.creds;
+  var tagConflict=p&&p.installed.find(function(x){return x.tag&&x.tag===u.tag&&u.tag;});
+  var engReq=u.tier&&p&&!p.engs;
+  var tierLabel=u.tier?'<span class="tier-stier">S-TIER</span>':u.wc>=2?'<span class="tier-major">MAJOR</span>':'<span class="tier-minor">MINOR</span>';
+  var pills=[];
   if(u.stat&&u.val)pills.push('<span class="pill pill-pos">+'+u.val+' '+SN[u.stat]+'</span>');
   if(u.heat)pills.push('<span class="pill pill-heat">+'+u.heat+' Heat</span>');
   if(u.x==='unlock_e85')pills.push('<span class="pill pill-sp">Unlocks E85</span>');
-  if(u.x==='unlock_fuels')pills.push('<span class="pill pill-sp">Unlocks Adv. Fuels</span>');
-  if(u.x==='unlock_methanol')pills.push('<span class="pill pill-sp">Req. Methanol</span>');
+  if(u.x==='unlock_fuels')pills.push('<span class="pill pill-sp">Unlocks Fuels</span>');
+  if(u.x==='unlock_methanol')pills.push('<span class="pill pill-sp">Req.Methanol</span>');
   if(u.x==='unlock_leaded')pills.push('<span class="pill pill-sp">Unlocks Leaded</span>');
   if(u.x==='unlock_nitrous')pills.push('<span class="pill pill-sp">Unlocks Nitrous</span>');
   if(u.x==='nitrous')pills.push('<span class="pill pill-sp">+4P once/Race</span>');
   if(u.x==='reduce_ot')pills.push('<span class="pill pill-pos">Overtemp -1</span>');
   if(u.x==='all_segs')pills.push('<span class="pill pill-pos">+'+u.val+'P all Segs</span>');
-  if(u.x==='hs_power')pills.push('<span class="pill pill-sp">+P HS only</span>');
+  if(u.x==='hs_power')pills.push('<span class="pill pill-sp">+P Hi-Speed</span>');
   if(u.x==='seg1_power'||u.x==='seg1_power2')pills.push('<span class="pill pill-pos">+P Seg 1</span>');
   if(u.x==='seg12_power')pills.push('<span class="pill pill-pos">+P Segs 1-2</span>');
   if(u.x==='cr_seg_win')pills.push('<span class="pill pill-pos">+1Cr/Seg win</span>');
-  if(u.x==='ignore_brake')pills.push('<span class="pill pill-pos">Ignore Brake penalty</span>');
-  if(u.x==='ignore_handling')pills.push('<span class="pill pill-pos">Ignore H penalty</span>');
+  if(u.x==='ignore_brake')pills.push('<span class="pill pill-pos">Ignore Brake pen.</span>');
+  if(u.x==='ignore_handling')pills.push('<span class="pill pill-pos">Ignore H pen.</span>');
   if(u.x==='ignore_wet')pills.push('<span class="pill pill-pos">Ignore Wet</span>');
   if(u.x==='ignore_crosswind')pills.push('<span class="pill pill-pos">Ignore Crosswind</span>');
-  if(u.x==='ignore_debris')pills.push('<span class="pill pill-pos">Ignore Debris</span>');
-  if(u.x==='reroll_heat')pills.push('<span class="pill pill-pos">Reroll Heat check</span>');
+  if(u.x==='reroll_heat')pills.push('<span class="pill pill-pos">Reroll Heat</span>');
   if(u.x==='seg3_rel')pills.push('<span class="pill pill-pos">+R Seg 3</span>');
   if(u.x==='seg3_brakes')pills.push('<span class="pill pill-pos">+B Seg 3</span>');
   if(u.x==='reduce_fi_heat')pills.push('<span class="pill pill-pos">FI -1 Heat</span>');
   if(u.x==='fi_bonus')pills.push('<span class="pill pill-sp">FI +1P</span>');
   if(u.x==='engine_swap')pills.push('<span class="pill pill-neg">Removes Engine upgrades</span>');
   if(u.x==='level2')pills.push('<span class="pill pill-sp">Has Level 2</span>');
-  
-  const wcText=u.wc===1?'1 WC (1 Mechanic, 1 round)':u.wc===2?'2 WC (need 2+ WC or 2 rounds)':'3 WC (2+ Mechanics or multiple rounds)';
-  
-  return '<div class="ucard'+(u.tier?' stier':'')+(u.cat==='Handling'||u.tag==='Tyres'?' ':' ')+(!can||engReq?' locked':'')+(extraClass?' '+extraClass:'')+'" '
-    +((can&&!engReq)?(can&&!engReq?'onclick="'+fn+'('+pi+','+storeCard(u)+')"':'')+'>'
-    +'<div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">'+tierLabel
-    +'<span class="utag" style="margin-bottom:0;">'+u.cat+(u.tag&&u.tag!==u.cat?' — '+u.tag:'')+'</span></div>'
-    +'<div class="uname">'+u.n+'</div>'
-    +'<div class="ueff">'+u.eff+'</div>'
-    +'<div class="udesc">'+u.desc+'</div>'
-    +'<div class="upills">'+pills.join('')+'</div>'
-    +(tagConflict?'<div style="font-size:.58rem;color:#ff8800;margin-bottom:3px;">Replaces: '+tagConflict.n+'</div>':'')
-    +(engReq?'<div style="font-size:.58rem;color:var(--red);">Requires Engineer to install</div>':'')
-    +(!can?'<div style="font-size:.58rem;color:var(--red);">Need '+u.buy+' Cr (have '+p.creds+')</div>':'')
-    +'<div class="ufoot"><span class="ucost">'+u.buy+' Cr</span><span class="uwc" title="'+wcText+'">'+u.wc+' WC</span></div>'
-    +'</div>';
+  var ci=storeCard(u);
+  var cls='ucard'+(u.tier?' stier':'')+(!can||engReq?' locked':'')+(extraClass?' '+extraClass:'');
+  var onclick=(can&&!engReq)?(' onclick="'+fn+'('+pi+','+ci+')"'):'';
+  var html='<div class="'+cls+'"'+onclick+'>';
+  html+='<div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">'+tierLabel;
+  html+='<span class="utag" style="margin-bottom:0;">'+u.cat+(u.tag&&u.tag!==u.cat?' - '+u.tag:'')+'</span></div>';
+  html+='<div class="uname">'+u.n+'</div>';
+  html+='<div class="ueff">'+u.eff+'</div>';
+  html+='<div class="udesc">'+u.desc+'</div>';
+  html+='<div class="upills">'+pills.join('')+'</div>';
+  if(tagConflict)html+='<div style="font-size:.58rem;color:#ff8800;">Replaces: '+tagConflict.n+'</div>';
+  if(engReq)html+='<div style="font-size:.58rem;color:var(--red);">Requires Engineer</div>';
+  if(!can)html+='<div style="font-size:.58rem;color:var(--red);">Need '+u.buy+' Cr</div>';
+  html+='<div class="ufoot"><span class="ucost">'+u.buy+' Cr</span><span class="uwc">'+u.wc+' WC</span></div>';
+  html+='</div>';
+  return html;
 }
 
 function renderSHM(){
@@ -1080,7 +1070,7 @@ function shmWin(si,pi){
     +'</div>'
     +'<div style="display:flex;gap:7px;margin-top:10px;">'
     +'<button class="btn ok" onclick="confirmShmWin('+si+','+pi+')">Confirm Purchase</button>'
-    +'<button class="btn sec" onclick="$('shmBidArea').innerHTML=''">Cancel</button>'
+    +'<button class="btn sec" onclick="clearSHM()">Cancel</button>'
     +'</div></div>';
 }
 function confirmShmWin(si,pi){
@@ -1107,7 +1097,7 @@ function shmListedWin(li,bi){
     +'</div>'
     +'<div style="display:flex;gap:7px;margin-top:10px;">'
     +'<button class="btn ok" onclick="confirmListedWin('+li+','+bi+')">Confirm</button>'
-    +'<button class="btn sec" onclick="$('shmBidArea').innerHTML=''">Cancel</button>'
+    +'<button class="btn sec" onclick="clearSHM()">Cancel</button>'
     +'</div></div>';
 }
 function confirmListedWin(li,bi){
@@ -1145,7 +1135,7 @@ function showListItem(pi){
       +'<div style="font-size:.58rem;color:#6ce06c;margin-top:3px;">Click to list →</div>'
       +'</div>';
   });
-  h+='<button class="btn sec" style="font-size:.65rem;margin-top:5px;" onclick="$('shmBidArea').innerHTML=''">Cancel</button></div>';
+  h+='<button class="btn sec" style="font-size:.65rem;margin-top:5px;" onclick="clearSHM()">Cancel</button></div>';
   $('shmBidArea').innerHTML=h;
 }
 function confirmListItem(pi,gi){
@@ -1169,9 +1159,8 @@ function showDeckSearch(pi,containerId){
   $(containerId).innerHTML=h;
 }
 
-function dsBuy(pi,ci){
-  const p=G.P[pi]; const uc=getCard(ci); if(!uc)return;
-  const idx=p.deck.findIndex(u=>u.n===uc.n);
+function dsBuy(pi,uname){
+  const p=G.P[pi]; const idx=p.deck.findIndex(u=>u.n===uname);
   if(idx===-1)return; const u=p.deck[idx];
   if(u.buy>p.creds){alert('Need '+u.buy+' Cr');return;}
   p.creds-=u.buy; p.garage.push({...u}); p.deck.splice(idx,1);
@@ -1235,10 +1224,10 @@ function claimSP(pi,si){
   $('mEx'+pi).innerHTML=''; rr();
 }
 
-function buyCard(pi,ci){
-  const p=G.P[pi]; const u=getCard(ci)||p.mkt.find(x=>x.n===(getCard(ci)||{n:ci}).n);
-  if(!u){alert("Card not found");return;}
-  const idx=p.mkt.findIndex(x=>x.n===u.n);
+function buyCard(pi,uname){
+  const p=G.P[pi]; const idx=p.mkt.findIndex(u=>u.n===uname);
+  if(idx===-1){alert('Card not found in market');return;}
+  const u=p.mkt[idx];
   if(u.buy>p.creds){alert('Need '+u.buy+' Cr');return;}
   p.creds-=u.buy; p.garage.push({...u}); p.mkt.splice(idx,1);
   log(p.name+': Bought "'+u.n+'" ('+u.buy+' Cr) → Workshop. '+p.creds+' Cr left','k');
