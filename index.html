@@ -325,8 +325,36 @@ input[type=number]{width:75px;}input[type=text]{width:130px;}
 </div>
 
 <script>
-const DECKS={gt86:[{n:"HKS Super Hybrid Intake",cat:"Engine",tag:"Intake System",buy:2,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Improved intake airflow and throttle response."},{n:"XForce Catback Exhaust",cat:"Engine",tag:"Exhaust System",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power and +1 Reliability.",desc:"Free-flowing Australian popular exhaust upgrade."},{n:"Tomei UEL Headers",cat:"Engine",tag:"Headers",buy:3,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"Classic torque-focused boxer headers."},{n:"High-Flow Cat Pipe",cat:"Engine",tag:"High-Flow Catalytic",buy:2,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Reduced exhaust restriction."},{n:"ECUTek Tune",cat:"Engine",tag:"Engine Tune",buy:3,wc:1,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power.",desc:"Optimised ignition and fueling calibration."},{n:"Haltech Elite ECU",cat:"Engine",tag:"ECU Upgrade",buy:4,wc:2,stat:"R",val:1,heat:0,tier:false,eff:"Unlock advanced fuels. Gain +1 Reliability.",desc:"Standalone ECU widely used in AU tuning.",x:"unlock_fuels"},{n:"Kelford Camshafts",cat:"Engine",tag:"Camshafts",buy:4,wc:2,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power at high speed segments.",desc:"Increased valve lift for top-end performance."},{n:"Oil Pickup Baffle",cat:"Engine",tag:"Engine Reliability",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Prevents oil starvation in corners."},{n:"Lightweight Crank Pulley",cat:"Engine",tag:"Rotational Mass",buy:2,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1.",desc:"Faster engine acceleration.",x:"seg1_power"},{n:"Radiator Fan Upgrade",cat:"Cooling",tag:"Cooling Fans",buy:2,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Improves airflow at low speed."},{n:"MCA Pro Comfort Coilovers",cat:"Handling",tag:"Coilovers",buy:4,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Australian-developed balanced suspension."},{n:"Tein Flex Z Coilovers",cat:"Handling",tag:"Coilovers",buy:3,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Adjustable street/track suspension."},{n:"Whiteline Sway Bars",cat:"Handling",tag:"Sway Bars",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reduces body roll."},{n:"Adjustable Rear Arms",cat:"Handling",tag:"Alignment Kit",buy:3,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Once per race gain +2 Handling margin.",desc:"Enables aggressive alignment tuning."},{n:"Polyurethane Bush Kit",cat:"Handling",tag:"Solid Bushings",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability and Handling.",desc:"Reduces chassis flex."},{n:"Steering Rack Lockdown",cat:"Handling",tag:"Steering Geometry",buy:2,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore first Handling penalty each race.",desc:"Improves steering precision.",x:"ignore_handling"},{n:"Michelin Pilot Sport Cup 2",cat:"Handling",tag:"Tyres",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"High-grip track tyre compound."},{n:"Yokohama AD09",cat:"Handling",tag:"Tyres",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and +1 Reliability.",desc:"Balanced performance tyre."},{n:"Enkei RPF1 Wheels",cat:"Handling",tag:"Wheels",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"After winning a segment gain 1 Cr.",desc:"Lightweight motorsport wheel."},{n:"Rays Gram Lights",cat:"Handling",tag:"Wheels",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Strong lightweight alloy wheels."},{n:"Exedy Heavy Duty Clutch",cat:"Drivetrain",tag:"Performance Clutch",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Handles higher torque loads."},{n:"Toda Lightweight Flywheel",cat:"Drivetrain",tag:"Lightweight Flywheel",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power Segment 1.",desc:"Faster rev response.",x:"seg1_power"},{n:"Cusco LSD",cat:"Drivetrain",tag:"Limited Slip Differential",buy:4,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling exiting corners.",desc:"Improves traction balance."},{n:"Final Drive 4.56",cat:"Drivetrain",tag:"Final Drive Ratio",buy:3,wc:2,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power low-speed segments.",desc:"Shorter gearing acceleration."},{n:"Brembo GT Kit",cat:"Brakes",tag:"Big Brake Kit",buy:5,wc:2,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes and +1 Reliability.",desc:"Full braking system upgrade."},{n:"DBA T3 Rotors",cat:"Brakes",tag:"Performance Rotors",buy:3,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Heat-resistant rotor design."},{n:"Endless MX72 Pads",cat:"Brakes",tag:"Track Brake Pads",buy:2,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore brake penalties once per race.",desc:"Track-focused pad compound."},{n:"HEL Braided Lines",cat:"Brakes",tag:"Brake Lines",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability in Segment 3.",desc:"Improves pedal consistency.",x:"seg3_rel"},{n:"PWR Aluminium Radiator",cat:"Cooling",tag:"Performance Radiator",buy:4,wc:2,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"High-capacity cooling system."},{n:"Setrab Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Overheat value by 1.",desc:"Stabilises oil temperature.",x:"reduce_ot"},{n:"Jackson Racing Oil Pan",cat:"Cooling",tag:"Oil Control",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Maintains oil pressure during cornering."},{n:"Verus Front Splitter",cat:"Aero",tag:"Front Splitter",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Adds front downforce."},{n:"APR GTC-200 Wing",cat:"Aero",tag:"Rear Wing",buy:4,wc:2,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero. Lose 1 Power on straights.",desc:"Adjustable track wing."},{n:"TRD Rear Spoiler",cat:"Aero",tag:"Rear Spoiler",buy:2,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"OEM aerodynamic improvement."},{n:"Rear Diffuser Kit",cat:"Aero",tag:"Rear Diffuser",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero and +1 Cooling.",desc:"Improves airflow extraction."},{n:"Flat Floor Panels",cat:"Aero",tag:"Flat Floor",buy:4,wc:2,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Underbody aerodynamic efficiency."},{n:"Canard Kit",cat:"Aero",tag:"Canards",buy:2,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero in Segment 2.",desc:"Front-end balance improvement."},{n:"Zeitronix Flex Fuel Kit",cat:"Fuel",tag:"Flex Fuel Kit",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Allows E85 fuel.",desc:"Ethanol compatibility system.",x:"unlock_e85"},{n:"DeatschWerks Injectors",cat:"Fuel",tag:"High-Flow Injectors",buy:3,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling when using E85.",desc:"Increased fuel delivery capacity."},{n:"Reinforced Fuel Lines",cat:"Fuel",tag:"Reinforced Fuel System",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Required for Methanol fuel.",desc:"Corrosion-resistant fuel system.",x:"unlock_methanol"},{n:"AIM Solo DL Logger",cat:"Electronics",tag:"Data Logger",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reroll one Heat check per race.",desc:"Performance telemetry system.",x:"reroll_heat"},{n:"Launch Control Module",cat:"Electronics",tag:"Launch Control",buy:3,wc:1,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power Segment 1.",desc:"Improved race starts.",x:"seg1_power2"},{n:"Sprintex Twin-Screw Supercharger",cat:"Engine",tag:"Supercharger",buy:9,wc:3,stat:"P",val:4,heat:1,tier:true,eff:"Gain +4 Power. +1 Heat.",desc:"Linear torque forced induction system."},{n:"Harrop Roots Supercharger",cat:"Engine",tag:"Supercharger",buy:9,wc:3,stat:"P",val:3,heat:0,tier:true,eff:"Gain +3 Power and +1 Reliability.",desc:"OEM-style boosted setup."},{n:"HKS GTIII Turbo Kit",cat:"Engine",tag:"Turbocharger",buy:10,wc:3,stat:"P",val:5,heat:2,tier:true,eff:"Gain +5 Power. +2 Heat.",desc:"High peak turbo system."},{n:"Garrett G25 Turbo Kit",cat:"Engine",tag:"Turbocharger",buy:10,wc:3,stat:"P",val:4,heat:0,tier:true,eff:"Gain +4 Power and +1 Cooling penalty.",desc:"Responsive modern turbo build."},{n:"Built FA20 Forged Engine",cat:"Engine",tag:"Internal Engine Build",buy:9,wc:3,stat:"P",val:1,heat:0,tier:true,eff:"Forced induction gains +1 Power.",desc:"Forged internals for high boost."},{n:"Sequential Gearbox Conversion",cat:"Drivetrain",tag:"Sequential Gearbox",buy:9,wc:3,stat:"P",val:2,heat:0,tier:true,eff:"Gain +2 Power each segment.",desc:"Motorsport transmission system.",x:"all_segs"},{n:"Nitrous Express Kit",cat:"Fuel",tag:"Nitrous Kit",buy:8,wc:2,stat:"P",val:4,heat:0,tier:true,eff:"Once per race gain +4 Power.",desc:"Short-duration power burst.",x:"nitrous"},{n:"Full Carbon Aero Package",cat:"Aero",tag:"Flat Floor",buy:8,wc:3,stat:"A",val:3,heat:0,tier:true,eff:"Gain +3 Aero.",desc:"Complete aero conversion."},{n:"Motorsport Cooling Suite",cat:"Cooling",tag:"Cooling Suite",buy:7,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling.",desc:"Track endurance cooling system."},{n:"LS3 Engine Swap",cat:"Engine",tag:"Engine Swap",buy:12,wc:3,stat:"P",val:6,heat:0,tier:true,eff:"Gain +6 Power. Lose 2 Reliability. Remove other Engine upgrades.",desc:"Extreme V8 conversion.",x:"engine_swap"}],z370:[{n:"Fujitsubo Equal Length Headers (Catless)",cat:"Engine",tag:"Engine",buy:3,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. Unlock Leaded Race Fuel eligibility.",desc:"Premium Japanese headers; common NA power mod.",x:"unlock_leaded"},{n:"Berk High-Flow Cats",cat:"Engine",tag:"Engine",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power. Ignore first Power penalty each race.",desc:"Freer flow while keeping some emissions control."},{n:"Motordyne Shockwave Catback",cat:"Engine",tag:"Engine",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power. Gain +1 Reliability during Segment 3.",desc:"Popular Z exhaust for track consistency."},{n:"Stillen Gen 3 Long-Tube Intake",cat:"Engine",tag:"Engine",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power and +1 Cooling in High-Speed segments.",desc:"Well-known Z intake with strong NA gains. (STILLEN)",x:"hs_power"},{n:"Z1 Intake Post-MAF Tubes",cat:"Engine",tag:"Engine",buy:2,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Crosswind penalties by 1 (stability at speed).",desc:"Smooths airflow and throttle response feel."},{n:"UpRev Performance Tune [Upgraded ECU]",cat:"Engine",tag:"Engine",buy:4,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power.",desc:"Common VQ tuning path for NA/FI."},{n:"Haltech Elite ECU [Upgraded ECU]",cat:"Engine",tag:"Engine",buy:5,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. Required for Nitrous fuel option.",desc:"Full standalone control for advanced builds."},{n:"Race ECU Conversion [Upgraded ECU]",cat:"Engine",tag:"Engine",buy:5,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. Required for Methanol fuel.",desc:"Motorsport ECU setup for extreme fuels.",x:"unlock_methanol"},{n:"Z1 Oil Gallery Gasket Upgrade",cat:"Engine",tag:"Engine",buy:4,wc:1,stat:"R",val:2,heat:0,tier:false,eff:"Gain +2 Reliability.",desc:"Addresses known oil-pressure risk on early VQ37HR builds. (Grassroots Motorsports)"},{n:"Mishimoto Oil Catch Can",cat:"Engine",tag:"Engine",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Reduces oil ingestion under track use."},{n:"Z1 34-Row Oil Cooler Kit",cat:"Cooling",tag:"Cooling",buy:4,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Oil cooling is a top-priority 370Z track upgrade. (Grassroots Motorsports)"},{n:"Setrab Thermostatic Oil Cooler",cat:"Cooling",tag:"Cooling",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Overtemperature value by 1.",desc:"Stable oil temps without overcooling.",x:"reduce_ot"},{n:"CSF Aluminium Radiator",cat:"Cooling",tag:"Cooling",buy:4,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling. If Heat ≥ Cooling, gain +1 Reliability.",desc:"High-capacity cooling for hot track days."},{n:"Diff Oil Cooler",cat:"Cooling",tag:"Cooling",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability when Heat ≥ Cooling.",desc:"Helps long stints and high-grip tyres."},{n:"Transmission Cooler",cat:"Cooling",tag:"Cooling",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Heat from Forced Induction by 1.",desc:"Protects gearbox under repeated pulls.",x:"reduce_fi_heat"},{n:"Zeitronix Flex Fuel Kit",cat:"Fuel",tag:"Fuel",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"You may use E85 fuel.",desc:"Ethanol content sensing for flex-fuel. (zeitronix.com)",x:"unlock_e85"},{n:"High-Flow Injectors",cat:"Fuel",tag:"Fuel",buy:3,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Fuel volume headroom for ethanol."},{n:"Reinforced Fuel Lines (PTFE)",cat:"Fuel",tag:"Fuel",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Safer for ethanol/methanol compatibility."},{n:"CJ Motorsports Return Fuel System (Methanol-Compatible)",cat:"Fuel",tag:"Fuel",buy:5,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Methanol-Compatible upgrade. Gain +1 Reliability.",desc:"Required anchor mod for methanol use.",x:"unlock_methanol"},{n:"Nitrous Wet Kit",cat:"Fuel",tag:"Fuel",buy:5,wc:1,stat:"",val:0,heat:1,tier:false,eff:"Unlock Nitrous fuel option.",desc:"Classic Z hit setup for segments.",x:"unlock_nitrous"},{n:"CSC Delete Kit (Clutch Slave)",cat:"Transmission",tag:"Transmission",buy:3,wc:1,stat:"R",val:2,heat:0,tier:false,eff:"Gain +2 Reliability.",desc:"370Z-specific fix: improves clutch reliability on track."},{n:"Exedy Heavy Duty Clutch",cat:"Transmission",tag:"Transmission",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore first overheating Reliability loss.",desc:"Torque capacity without drama."},{n:"Lightweight Flywheel",cat:"Transmission",tag:"Transmission",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1.",desc:"Faster revs; better launch feel.",x:"seg1_power"},{n:"Short Ratio Final Drive",cat:"Transmission",tag:"Transmission",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1 and 2.",desc:"Acceleration-focused gearing.",x:"seg1_power"},{n:"NISMO LSD (Factory Spec)",cat:"Transmission",tag:"Transmission",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling in Segment 2 and 3.",desc:"Traction upgrade with OEM feel."},{n:"Z1 Diff Brace & Bushings",cat:"Transmission",tag:"Transmission",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability. Ignore Debris hazard once per race.",desc:"Reduces wheel hop / drivetrain shock.",x:"ignore_debris"},{n:"KW Variant 3 Coilovers",cat:"Suspension",tag:"Suspension",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"High-end track-tunable suspension."},{n:"MCA Pro Sport Coilovers",cat:"Suspension",tag:"Suspension",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling. Reduce Crosswind penalties by 1.",desc:"AU-developed track setup option."},{n:"Hotchkis Sway Bars",cat:"Suspension",tag:"Suspension",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Common anti-roll upgrade on Z cars."},{n:"SPL Adjustable Arms",cat:"Suspension",tag:"Suspension",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Once per race add +1 to a Handling margin.",desc:"Alignment precision for tyres."},{n:"Subframe Collars",cat:"Suspension",tag:"Suspension",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling in Segment 3.",desc:"Tightens rear end response."},{n:"Rays Forged Wheels",cat:"Suspension",tag:"Suspension",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"After winning a Segment gain 1 Credit.",desc:"Lighter wheels, less unsprung mass.",x:"cr_seg_win"},{n:"Brake Cooling Ducts",cat:"Brakes",tag:"Brakes",buy:2,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Brake Fade hazard effects against you.",desc:"Track braking consistency."},{n:"Akebono Sport Brake Upgrade",cat:"Brakes",tag:"Brakes",buy:4,wc:1,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes.",desc:"Common big brake baseline for Zs."},{n:"DBA T3 Rotors",cat:"Brakes",tag:"Brakes",buy:3,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Heat management rotor choice."},{n:"Endless Pads",cat:"Brakes",tag:"Brakes",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore Brake Fade hazards.",desc:"Endurance pad staple.",x:"ignore_brake"},{n:"NISMO Front Lip",cat:"Aero",tag:"Aero",buy:2,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"OEM-inspired aero stability."},{n:"Varis/Amuse Style Rear Wing",cat:"Aero",tag:"Aero",buy:4,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero. Lose 1 Power on Straights.",desc:"Big downforce approach for track."},{n:"Lightweight Battery",cat:"Suspension",tag:"Suspension",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling Segment 1.",desc:"Weight distribution improvement."},{n:"Chassis Brace Kit",cat:"Suspension",tag:"Suspension",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Increased chassis rigidity."},{n:"Stillen Supercharger Kit",cat:"Engine",tag:"Engine",buy:9,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Gain +4 Power. Upgrade to Level 2 (4Cr): gain +2 Power OR gain +2 Reliability.",desc:"Proven FI route for the VQ platform.",x:"level2"},{n:"AAM Competition Twin Turbo Kit",cat:"Engine",tag:"Engine",buy:10,wc:2,stat:"P",val:5,heat:2,tier:true,eff:"Gain +5 Power and +2 Heat. Level 2 (5Cr): gain +2 Power OR gain +1 Cooling.",desc:"High-output turbo system for serious builds.",x:"level2"},{n:"Boosted Performance Single Turbo",cat:"Engine",tag:"Engine",buy:10,wc:2,stat:"P",val:5,heat:2,tier:true,eff:"Gain +5 Power and +2 Heat. Level 2 (5Cr): gain +1 Power and +1 Reliability OR gain +2 Cooling.",desc:"Big single turbo: strong top-end.",x:"level2"},{n:"Built VQ37 Long Block",cat:"Engine",tag:"Engine",buy:10,wc:3,stat:"P",val:2,heat:2,tier:true,eff:"Gain +2 Reliability. Reduce Heat generated by Engine upgrades by 1 (minimum 0). If a Forced Induction upgrade is installed, gain +1 additional Power.' (6 Cr) 'A) Ignore the first Overheat penalty each race.' 'B) Gain +2 Power if Heat is 3 or higher.",desc:"Built motor endurance power path.",x:"reduce_fi_heat"},{n:"Quaife Sequential Gearbox",cat:"Transmission",tag:"Transmission",buy:9,wc:2,stat:"P",val:2,heat:1,tier:true,eff:"Gain +2 Power in Segment 1 and 2. Level 2 (5Cr): once per race add +2 margin.",desc:"Motorsport shift speed advantage.",x:"seg1_power2"},{n:"OS Giken Super Lock LSD",cat:"Transmission",tag:"Transmission",buy:8,wc:2,stat:"P",val:1,heat:0,tier:true,eff:"Gain +2 Handling in Segment 2 and 3. Level 2 (3Cr): gain +1 Power after Segment 2.",desc:"Premium traction for corner exits.",x:"level2"},{n:"NISMO R-Tune Suspension",cat:"Suspension",tag:"Suspension",buy:8,wc:2,stat:"H",val:3,heat:0,tier:true,eff:"Gain +3 Handling. Level 2 (4Cr): if installed at game end gain 1 Championship Point.",desc:"Factory motorsport handling package.",x:"level2"},{n:"AP Racing Front BBK",cat:"Brakes",tag:"Brakes",buy:8,wc:2,stat:"B",val:3,heat:0,tier:true,eff:"Gain +3 Brakes. Upgrade to Level 2 (4Cr): ignore all Brake penalty hazards against you.",desc:"Serious track brake system.",x:"ignore_brake"},{n:"PWR Race Cooling Suite",cat:"Cooling",tag:"Cooling",buy:7,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling. Level 2 (4Cr): if installed at game end gain 1 Championship Point.",desc:"Full cooling overhaul for endurance.",x:"level2"},{n:"Zeitronix + Race Fuel Integration",cat:"Fuel",tag:"Fuel",buy:8,wc:2,stat:"P",val:1,heat:1,tier:true,eff:"Unlock all fuels. If any Forced Induction installed, gain +1 Power.",desc:"Advanced flex-fuel + tuning ecosystem.",x:"unlock_fuels"}],auditt:[{n:"APR Carbon Intake",cat:"Engine",tag:"Engine",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Improved turbo airflow."},{n:"Milltek Sport Exhaust",cat:"Engine",tag:"Engine",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power and +1 Reliability.",desc:"Smooth turbo exhaust flow."},{n:"RacingLine Downpipe",cat:"Engine",tag:"Engine",buy:4,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. Unlock Leaded Race Fuel eligibility.",desc:"High-flow turbo downpipe.",x:"unlock_leaded"},{n:"Unitronic Stage 2 Tune [Upgraded ECU]",cat:"Electronics",tag:"Electronics",buy:4,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power.",desc:"ECU calibration upgrade."},{n:"APR ECU Tune [Upgraded ECU]",cat:"Electronics",tag:"Electronics",buy:4,wc:1,stat:"R",val:1,heat:1,tier:false,eff:"If Cooling ≥ Heat gain +1 Reliability.",desc:"Precision tuning software."},{n:"DSG Software Tune",cat:"Transmission",tag:"Transmission",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1 and 2.",desc:"Faster automated shifts.",x:"seg1_power"},{n:"Haldex Controller Upgrade",cat:"Electronics",tag:"Electronics",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and ignore Wet penalties.",desc:"AWD torque distribution control.",x:"ignore_wet"},{n:"Zeitronix Flex Fuel Kit",cat:"Fuel",tag:"Fuel",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"You may use E85 fuel.",desc:"Ethanol monitoring system.",x:"unlock_e85"},{n:"High-Flow Injectors",cat:"Fuel",tag:"Fuel",buy:3,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Supports higher boost fueling."},{n:"Reinforced Fuel Lines",cat:"Fuel",tag:"Fuel",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Ethanol-safe plumbing."},{n:"Nitrous Wet Kit",cat:"Fuel",tag:"Fuel",buy:5,wc:1,stat:"",val:0,heat:1,tier:false,eff:"Unlock Nitrous fuel option.",desc:"Controlled boost burst.",x:"unlock_nitrous"},{n:"Sachs Performance Clutch",cat:"Transmission",tag:"Transmission",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Handles tuned torque."},{n:"Quaife ATB Differential",cat:"Transmission",tag:"Transmission",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Improves AWD traction balance."},{n:"Lightweight Driveshaft",cat:"Transmission",tag:"Transmission",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power Segment 1.",desc:"Reduced drivetrain inertia.",x:"seg1_power"},{n:"KW Variant 3 Coilovers",cat:"Suspension",tag:"Suspension",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Precision suspension tuning."},{n:"RacingLine Springs",cat:"Suspension",tag:"Suspension",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Improved chassis control."},{n:"Adjustable Control Arms",cat:"Suspension",tag:"Suspension",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Once per race add +1 Handling margin.",desc:"Alignment precision."},{n:"Michelin Pilot Sport Cup 2 Tyres",cat:"Tyres & Wheels",tag:"Tyres & Wheels",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Track-oriented tyre compound."},{n:"Yokohama AD09 Tyres",cat:"Tyres & Wheels",tag:"Tyres & Wheels",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and +1 Reliability.",desc:"Balanced performance tyre."},{n:"Forged Lightweight Wheels",cat:"Tyres & Wheels",tag:"Tyres & Wheels",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"After winning a Segment gain 1 Credit.",desc:"Reduced unsprung mass.",x:"cr_seg_win"},{n:"Akebono Brake Upgrade",cat:"Brakes",tag:"Brakes",buy:4,wc:1,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes.",desc:"Strong OEM braking system."},{n:"DBA T3 Rotors",cat:"Brakes",tag:"Brakes",buy:3,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Heat-resistant rotors."},{n:"Endless Pads",cat:"Brakes",tag:"Brakes",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore Brake Fade hazards.",desc:"Track brake pads.",x:"ignore_brake"},{n:"HEL Brake Lines",cat:"Brakes",tag:"Brakes",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability Segment 3.",desc:"Brake consistency improvement."},{n:"CSF Radiator",cat:"Cooling",tag:"Cooling",buy:4,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"High-capacity cooling upgrade."},{n:"Wagner Intercooler",cat:"Cooling",tag:"Cooling",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Forced Induction Heat by 1.",desc:"Essential turbo cooling mod.",x:"reduce_fi_heat"},{n:"Oil Cooler Kit",cat:"Cooling",tag:"Cooling",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Overtemperature by 1.",desc:"Sustained track protection.",x:"reduce_ot"},{n:"Front Splitter",cat:"Aero",tag:"Aero",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Improves front stability."},{n:"Rear Wing",cat:"Aero",tag:"Aero",buy:4,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero. Lose 1 Power on Straights.",desc:"Downforce-focused aero."},{n:"Flat Floor Panels",cat:"Aero",tag:"Aero",buy:4,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero and +1 Cooling.",desc:"Underbody airflow control."},{n:"Rear Chassis Brace",cat:"Chassis",tag:"Chassis",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Increased rigidity."},{n:"Subframe Inserts",cat:"Chassis",tag:"Chassis",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling Segment 3.",desc:"Tightens drivetrain response."},{n:"Weight Reduction Stage 1",cat:"Chassis",tag:"Chassis",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling. Lose 1 Reliability.",desc:"Interior weight reduction."},{n:"Launch Control Upgrade",cat:"Electronics",tag:"Electronics",buy:4,wc:1,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power Segment 1.",desc:"Optimised standing starts.",x:"seg1_power2"},{n:"Traction Control Calibration",cat:"Electronics",tag:"Electronics",buy:2,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore Wet Track penalties once per race.",desc:"Electronic grip management.",x:"ignore_wet"},{n:"Data Logging System",cat:"Electronics",tag:"Electronics",buy:2,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reroll one Heat check per race.",desc:"Performance monitoring.",x:"reroll_heat"},{n:"Adaptive Damper Module",cat:"Electronics",tag:"Electronics",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and +1 Reliability.",desc:"Dynamic suspension tuning."},{n:"Carbon Rear Diffuser",cat:"Aero",tag:"Aero",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero and +1 Cooling HS segments.",desc:"Improved airflow extraction."},{n:"Lightweight Battery",cat:"Chassis",tag:"Chassis",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling Segment 1.",desc:"Improved weight distribution."},{n:"TTE460 Hybrid Turbo",cat:"Forced Induction",tag:"Forced Induction",buy:9,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Gain +4 Power. Level 2: +2 Power OR +2 Cooling.",desc:"OEM+ hybrid turbo upgrade.",x:"level2"},{n:"Garrett GTX Turbo Conversion",cat:"Forced Induction",tag:"Forced Induction",buy:10,wc:2,stat:"P",val:5,heat:2,tier:true,eff:"Gain +5 Power and +2 Heat.",desc:"Large-frame turbo build."},{n:"DSG Race Gearset",cat:"Transmission",tag:"Transmission",buy:9,wc:2,stat:"P",val:2,heat:1,tier:true,eff:"Gain +2 Power Segments 1–2. Once per race add +2 margin.",desc:"Motorsport gearbox internals."},{n:"Haldex Race Controller",cat:"Electronics",tag:"Electronics",buy:8,wc:2,stat:"H",val:2,heat:0,tier:true,eff:"Gain +2 Handling. Ignore Wet penalties.",desc:"Advanced AWD torque vectoring.",x:"ignore_wet"},{n:"KW Clubsport Suspension",cat:"Suspension",tag:"Suspension",buy:8,wc:2,stat:"H",val:3,heat:0,tier:true,eff:"Gain +3 Handling.",desc:"Track-level suspension system."},{n:"AP Racing Big Brake Kit",cat:"Brakes",tag:"Brakes",buy:8,wc:2,stat:"B",val:3,heat:0,tier:true,eff:"Gain +3 Brakes. Ignore Brake penalties.",desc:"Motorsport braking package."},{n:"Wagner Competition Cooling Suite",cat:"Cooling",tag:"Cooling",buy:7,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling. Level 2: gain 1 Championship Point at game end.",desc:"Complete thermal upgrade.",x:"level2"},{n:"Full Carbon Aero Package",cat:"Aero",tag:"Aero",buy:8,wc:2,stat:"A",val:3,heat:0,tier:true,eff:"Gain +3 Aero.",desc:"Time-attack aero system."},{n:"MoTeC AWD Integration System",cat:"Electronics",tag:"Electronics",buy:9,wc:2,stat:"H",val:1,heat:1,tier:true,eff:"Unlock all fuels. Gain +1 Handling when Cooling ≥ Heat.",desc:"Motorsport ECU integration.",x:"unlock_fuels"},{n:"Built EA888 Engine",cat:"Engine",tag:"Engine",buy:10,wc:3,stat:"P",val:1,heat:1,tier:true,eff:"Gain +2 Reliability. Forced Induction upgrades gain +1 Power.",desc:"Forged engine build for high boost.",x:"fi_bonus"}],mx5:[{n:"Turbo Conversion Kit",cat:"Engine",tag:"Turbocharger",buy:8,wc:2,stat:"P",val:3,heat:2,tier:true,eff:"Gain +3 Power. +2 Heat. Engineering required.",desc:"Complete turbo for the MX-5."},{n:"Motorsport Cooling Suite",cat:"Cooling",tag:"Cooling Suite",buy:7,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling. Engineering required.",desc:"Track cooling overhaul."},{n:"Sequential Gearbox",cat:"Drivetrain",tag:"Sequential Gearbox",buy:9,wc:3,stat:"P",val:2,heat:0,tier:true,eff:"Gain +2 Power each Segment. Engineering required.",desc:"Motorsport transmission.",x:"all_segs"},{n:"Carbon Aero Package",cat:"Aero",tag:"Flat Floor",buy:8,wc:3,stat:"A",val:3,heat:0,tier:true,eff:"Gain +3 Aero. Engineering required.",desc:"Full aero conversion."},{n:"Nitrous Express Kit",cat:"Fuel",tag:"Nitrous Kit",buy:7,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Once per race gain +4 Power for one Segment. +2 Heat after use. Engineering required.",desc:"Short power burst.",x:"nitrous"},{n:"Forged Engine Build",cat:"Engine",tag:"Forged Internals",buy:8,wc:3,stat:"R",val:2,heat:0,tier:true,eff:"Gain +2 Reliability. Engine upgrades -1 Heat. Engineering required.",desc:"Full rebuild for boost."},{n:"Coilover Suspension",cat:"Handling",tag:"Coilovers",buy:4,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Adjustable track suspension."},{n:"Lightweight Wheels",cat:"Handling",tag:"Wheels",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and +1 Brakes.",desc:"Reduces unsprung weight."},{n:"Brake Upgrade",cat:"Brakes",tag:"Big Brake Kit",buy:3,wc:1,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes.",desc:"Improved brake system."},{n:"Front Splitter",cat:"Aero",tag:"Front Splitter",buy:3,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Increases front downforce."},{n:"Aluminium Radiator",cat:"Cooling",tag:"Radiator",buy:3,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Lightweight high-capacity radiator."},{n:"Chassis Reinforcement",cat:"Handling",tag:"Chassis Brace",buy:4,wc:1,stat:"R",val:2,heat:0,tier:false,eff:"Gain +2 Reliability.",desc:"Stiffens chassis structure."},{n:"ECU Tune",cat:"Engine",tag:"Engine Tune",buy:3,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. +1 Heat.",desc:"Optimised fueling and timing."},{n:"Whiteline Sway Bars",cat:"Handling",tag:"Sway Bars",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reduces body roll."},{n:"DBA Rotors",cat:"Brakes",tag:"Performance Rotors",buy:3,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Heat-resistant rotor design."},{n:"Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:3,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Manages oil temperature."},{n:"Zeitronix Flex Fuel Kit",cat:"Fuel",tag:"Flex Fuel Kit",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Allows E85 fuel.",desc:"Ethanol compatibility system.",x:"unlock_e85"},{n:"Lightweight Flywheel",cat:"Drivetrain",tag:"Lightweight Flywheel",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1.",desc:"Faster throttle response.",x:"seg1_power"},{n:"Haltech ECU",cat:"Electronics",tag:"ECU Upgrade",buy:4,wc:2,stat:"R",val:1,heat:0,tier:false,eff:"Unlock advanced fuels. Gain +1 Reliability.",desc:"Standalone ECU.",x:"unlock_fuels"},{n:"Track Brake Pads",cat:"Brakes",tag:"Track Brake Pads",buy:2,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore first brake fade penalty per Race.",desc:"High-friction track compound.",x:"ignore_brake"}],mustang:[{n:"Whipple Supercharger",cat:"Engine",tag:"Supercharger",buy:10,wc:2,stat:"P",val:5,heat:3,tier:true,eff:"Gain +5 Power. +3 Heat. Engineering required.",desc:"Most powerful US supercharger kit."},{n:"Garrett Turbo Kit",cat:"Engine",tag:"Turbocharger",buy:9,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Gain +4 Power. +2 Heat. Engineering required.",desc:"High-performance turbo."},{n:"Motorsport Cooling Suite",cat:"Cooling",tag:"Cooling Suite",buy:7,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling. Engineering required.",desc:"Track cooling system."},{n:"Sequential Gearbox",cat:"Drivetrain",tag:"Sequential Gearbox",buy:9,wc:3,stat:"P",val:2,heat:0,tier:true,eff:"Gain +2 Power each Segment. Engineering required.",desc:"Motorsport gearbox.",x:"all_segs"},{n:"Carbon Aero Package",cat:"Aero",tag:"Flat Floor",buy:8,wc:3,stat:"A",val:3,heat:0,tier:true,eff:"Gain +3 Aero. Engineering required.",desc:"Complete aero kit."},{n:"Nitrous Kit",cat:"Fuel",tag:"Nitrous Kit",buy:7,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Once per race gain +4 Power for one Segment. +2 Heat after use. Engineering required.",desc:"Chemical power boost.",x:"nitrous"},{n:"Cold Air Intake",cat:"Engine",tag:"Intake System",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Increases air volume to engine."},{n:"Performance Exhaust",cat:"Engine",tag:"Exhaust System",buy:4,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"Reduces exhaust backpressure."},{n:"Track Suspension",cat:"Handling",tag:"Coilovers",buy:4,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Track-optimised suspension."},{n:"Brembo Brakes",cat:"Brakes",tag:"Big Brake Kit",buy:5,wc:2,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes and +1 Reliability.",desc:"Full brake system upgrade."},{n:"Oil Cooling System",cat:"Cooling",tag:"Oil Cooler",buy:4,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Manages oil under heavy load."},{n:"Aluminium Radiator",cat:"Cooling",tag:"Radiator",buy:4,wc:2,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"High-capacity cooling."},{n:"Rear Wing Kit",cat:"Aero",tag:"Rear Wing",buy:3,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Adjustable rear downforce."},{n:"Performance Tune",cat:"Engine",tag:"Engine Tune",buy:4,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"ECU calibration for performance."},{n:"Forged Internals",cat:"Engine",tag:"Forged Internals",buy:6,wc:2,stat:"R",val:2,heat:0,tier:false,eff:"Gain +2 Reliability.",desc:"Stronger engine components."},{n:"Sway Bars",cat:"Handling",tag:"Sway Bars",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reduces body roll."},{n:"Lightweight Flywheel",cat:"Drivetrain",tag:"Lightweight Flywheel",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1.",desc:"Faster acceleration response.",x:"seg1_power"},{n:"Flex Fuel Kit",cat:"Fuel",tag:"Flex Fuel Kit",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Allows E85 fuel.",desc:"Ethanol compatibility.",x:"unlock_e85"},{n:"Chassis Brace",cat:"Handling",tag:"Chassis Brace",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Improves chassis stiffness."},{n:"Haltech ECU",cat:"Electronics",tag:"ECU Upgrade",buy:4,wc:2,stat:"R",val:1,heat:0,tier:false,eff:"Unlock advanced fuels. Gain +1 Reliability.",desc:"Standalone ECU.",x:"unlock_fuels"}]};
-const SHM_DECK=[{n:"Used Track Tyres",cat:"Handling",tag:"Tyres",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Decent used performance tyres."},{n:"Refurbished Brake Kit",cat:"Brakes",tag:"Brake Kit",buy:2,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Reconditioned brake components."},{n:"Budget Intake",cat:"Engine",tag:"Intake",buy:2,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Generic air intake upgrade."},{n:"Aftermarket Wing",cat:"Aero",tag:"Rear Wing",buy:2,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Universal rear wing kit."},{n:"Used Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:2,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Serviceable oil cooler."},{n:"Reconditioned Turbo",cat:"Engine",tag:"Turbocharger",buy:5,wc:2,stat:"P",val:3,heat:2,tier:false,eff:"Gain +3 Power. +2 Heat.",desc:"Rebuilt turbo unit."},{n:"Street Coilovers",cat:"Handling",tag:"Coilovers",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Budget coilover upgrade."},{n:"Track Exhaust",cat:"Engine",tag:"Exhaust",buy:3,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"Performance exhaust system."},{n:"Generic Sway Bars",cat:"Handling",tag:"Sway Bars",buy:2,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Basic anti-roll bars."},{n:"Universal Splitter",cat:"Aero",tag:"Front Splitter",buy:2,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Generic front splitter."},{n:"Budget Brake Pads",cat:"Brakes",tag:"Brake Pads",buy:1,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Track compound pads."},{n:"Universal Radiator",cat:"Cooling",tag:"Radiator",buy:3,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Standard aluminium radiator."},{n:"Generic ECU Tune",cat:"Engine",tag:"Engine Tune",buy:2,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. +1 Heat.",desc:"Basic calibration."},{n:"Carbon Diffuser",cat:"Aero",tag:"Rear Diffuser",buy:4,wc:2,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Second-hand diffuser kit."},{n:"Used LSD",cat:"Drivetrain",tag:"LSD",buy:4,wc:2,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reconditioned differential."},{n:"Street Headers",cat:"Engine",tag:"Headers",buy:2,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. +1 Heat.",desc:"Performance street headers."},{n:"Used Intercooler",cat:"Cooling",tag:"Intercooler",buy:3,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Serviceable intercooler."},{n:"Braided Brake Lines",cat:"Brakes",tag:"Brake Lines",buy:2,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Braided stainless lines."},{n:"Roll Bar",cat:"Handling",tag:"Chassis Brace",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Basic chassis brace."},{n:"Old Racing Slicks",cat:"Handling",tag:"Tyres",buy:3,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Used racing slicks."}];
+function getEffectiveCost(p,u){
+  var cost=u.buy;
+  if(!p.ability)return cost;
+  var k=p.ability.k;
+  if(k==='nismo_heritage'&&u.nismo)cost=Math.max(1,cost-2);
+  if(k==='gazoo_discount'&&(u.cat==='Aero'||u.cat==='Suspension'||u.cat==='Handling'))cost=Math.max(1,cost-1);
+  if(k==='precision_engineering'&&u.cat==='Electronics')cost=Math.max(1,cost-1);
+  if(k==='go_big'&&u.tier)cost=Math.max(1,cost-2);
+  return cost;
+}
+
+function getSecondaryBonus(u){
+  // Parses upgrade effect text for a SECOND stat bonus not captured in u.stat/u.val
+  // e.g. "Gain +1 Power and +1 Reliability" -> primary P+1 tracked, this finds R+1
+  if(!u.eff)return null;
+  var matches=u.eff.match(/\+(\d+) (Power|Handling|Brakes|Aero|Cooling|Reliability)/gi);
+  if(!matches||matches.length<2)return null;
+  var statMap={power:'P',handling:'H',brakes:'B',aero:'A',cooling:'C',reliability:'R'};
+  for(var i=0;i<matches.length;i++){
+    var m=matches[i].match(/\+(\d+) (\w+)/i);
+    var statKey=statMap[m[2].toLowerCase()];
+    if(statKey&&statKey!==u.stat){
+      return{stat:statKey,val:parseInt(m[1])};
+    }
+  }
+  return null;
+}
+
+const DECKS={gt86:[{n:"HKS Super Hybrid Intake",cat:"Engine",tag:"Intake System",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Improved intake airflow and throttle response."},{n:"XForce Catback Exhaust",cat:"Engine",tag:"Exhaust System",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power and +1 Reliability.",desc:"Free-flowing Australian popular exhaust upgrade."},{n:"Tomei UEL Headers",cat:"Engine",tag:"Headers",buy:4,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"Classic torque-focused boxer headers."},{n:"High-Flow Cat Pipe",cat:"Engine",tag:"High-Flow Catalytic",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Reduced exhaust restriction."},{n:"ECUTek Tune",cat:"Engine",tag:"Engine Tune",buy:4,wc:1,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power.",desc:"Optimised ignition and fueling calibration."},{n:"Haltech Elite ECU",cat:"Engine",tag:"ECU Upgrade",buy:5,wc:2,stat:"R",val:1,heat:0,tier:false,eff:"Unlock advanced fuels. Gain +1 Reliability.",desc:"Standalone ECU widely used in AU tuning.",x:"unlock_fuels"},{n:"Kelford Camshafts",cat:"Engine",tag:"Camshafts",buy:5,wc:2,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power at high speed segments.",desc:"Increased valve lift for top-end performance."},{n:"Oil Pickup Baffle",cat:"Engine",tag:"Oil System",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Prevents oil starvation in corners."},{n:"Lightweight Crank Pulley",cat:"Engine",tag:"Flywheel",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1.",desc:"Faster engine acceleration.",x:"seg1_power"},{n:"Radiator Fan Upgrade",cat:"Cooling",tag:"Cooling Fans",buy:3,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Improves airflow at low speed."},{n:"MCA Pro Comfort Coilovers",cat:"Handling",tag:"Coilovers",buy:5,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Australian-developed balanced suspension."},{n:"Tein Flex Z Coilovers",cat:"Handling",tag:"Coilovers",buy:4,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Adjustable street/track suspension."},{n:"Whiteline Sway Bars",cat:"Handling",tag:"Sway Bars",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reduces body roll."},{n:"Adjustable Rear Arms",cat:"Handling",tag:"Alignment Kit",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Once per race gain +2 Handling margin.",desc:"Enables aggressive alignment tuning."},{n:"Polyurethane Bush Kit",cat:"Handling",tag:"Solid Bushings",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability and Handling.",desc:"Reduces chassis flex."},{n:"Steering Rack Lockdown",cat:"Handling",tag:"Steering Geometry",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore first Handling penalty each race.",desc:"Improves steering precision.",x:"ignore_handling"},{n:"Michelin Pilot Sport Cup 2",cat:"Handling",tag:"Tyres",buy:5,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"High-grip track tyre compound."},{n:"Yokohama AD09",cat:"Handling",tag:"Tyres",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and +1 Reliability.",desc:"Balanced performance tyre."},{n:"Enkei RPF1 Wheels",cat:"Handling",tag:"Wheels",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"After winning a segment gain 1 Cr.",desc:"Lightweight motorsport wheel."},{n:"Rays Gram Lights",cat:"Handling",tag:"Wheels",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Strong lightweight alloy wheels."},{n:"Exedy Heavy Duty Clutch",cat:"Drivetrain",tag:"Clutch",buy:4,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Handles higher torque loads."},{n:"Toda Lightweight Flywheel",cat:"Drivetrain",tag:"Lightweight Flywheel",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power Segment 1.",desc:"Faster rev response.",x:"seg1_power"},{n:"Cusco LSD",cat:"Drivetrain",tag:"Differential",buy:5,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling exiting corners.",desc:"Improves traction balance."},{n:"Final Drive 4.56",cat:"Drivetrain",tag:"Driveline",buy:4,wc:2,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power low-speed segments.",desc:"Shorter gearing acceleration."},{n:"Brembo GT Kit",cat:"Brakes",tag:"Big Brake Kit",buy:6,wc:2,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes and +1 Reliability.",desc:"Full braking system upgrade."},{n:"DBA T3 Rotors",cat:"Brakes",tag:"Performance Rotors",buy:4,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Heat-resistant rotor design."},{n:"Endless MX72 Pads",cat:"Brakes",tag:"Brake Pads",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore brake penalties once per race.",desc:"Track-focused pad compound."},{n:"HEL Braided Lines",cat:"Brakes",tag:"Brake Lines",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability in Segment 3.",desc:"Improves pedal consistency.",x:"seg3_rel"},{n:"PWR Aluminium Radiator",cat:"Cooling",tag:"Radiator",buy:5,wc:2,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"High-capacity cooling system."},{n:"Setrab Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Overheat value by 1.",desc:"Stabilises oil temperature.",x:"reduce_ot"},{n:"Jackson Racing Oil Pan",cat:"Cooling",tag:"Oil System",buy:4,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Maintains oil pressure during cornering."},{n:"Verus Front Splitter",cat:"Aero",tag:"Front Splitter",buy:4,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Adds front downforce."},{n:"APR GTC-200 Wing",cat:"Aero",tag:"Rear Wing",buy:5,wc:2,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero. Lose 1 Power on straights.",desc:"Adjustable track wing."},{n:"TRD Rear Spoiler",cat:"Aero",tag:"Rear Spoiler",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"OEM aerodynamic improvement."},{n:"Rear Diffuser Kit",cat:"Aero",tag:"Rear Diffuser",buy:4,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero and +1 Cooling.",desc:"Improves airflow extraction."},{n:"Flat Floor Panels",cat:"Aero",tag:"Flat Floor",buy:5,wc:2,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Underbody aerodynamic efficiency."},{n:"Canard Kit",cat:"Aero",tag:"Canards",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero in Segment 2.",desc:"Front-end balance improvement."},{n:"Zeitronix Flex Fuel Kit",cat:"Fuel",tag:"Flex Fuel Kit",buy:5,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Allows E85 fuel.",desc:"Ethanol compatibility system.",x:"unlock_e85"},{n:"DeatschWerks Injectors",cat:"Fuel",tag:"High-Flow Injectors",buy:4,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling when using E85.",desc:"Increased fuel delivery capacity."},{n:"Reinforced Fuel Lines",cat:"Fuel",tag:"Reinforced Fuel System",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Required for Methanol fuel.",desc:"Corrosion-resistant fuel system.",x:"unlock_methanol"},{n:"AIM Solo DL Logger",cat:"Electronics",tag:"Data Logger",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reroll one Heat check per race.",desc:"Performance telemetry system.",x:"reroll_heat"},{n:"Launch Control Module",cat:"Electronics",tag:"Launch Control",buy:4,wc:1,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power Segment 1.",desc:"Improved race starts.",x:"seg1_power2"},{n:"Sprintex Twin-Screw Supercharger",cat:"Engine",tag:"Supercharger",buy:11,wc:3,stat:"P",val:4,heat:1,tier:true,eff:"Gain +4 Power. +1 Heat.",desc:"Linear torque forced induction system."},{n:"Harrop Roots Supercharger",cat:"Engine",tag:"Supercharger",buy:11,wc:3,stat:"P",val:3,heat:0,tier:true,eff:"Gain +3 Power and +1 Reliability.",desc:"OEM-style boosted setup."},{n:"HKS GTIII Turbo Kit",cat:"Engine",tag:"Turbocharger",buy:12,wc:3,stat:"P",val:5,heat:2,tier:true,eff:"Gain +5 Power. +2 Heat.",desc:"High peak turbo system."},{n:"Garrett G25 Turbo Kit",cat:"Engine",tag:"Turbocharger",buy:12,wc:3,stat:"P",val:4,heat:0,tier:true,eff:"Gain +4 Power and +1 Cooling penalty.",desc:"Responsive modern turbo build."},{n:"Built FA20 Forged Engine",cat:"Engine",tag:"Engine Internals",buy:11,wc:3,stat:"P",val:1,heat:0,tier:true,eff:"Forced induction gains +1 Power.",desc:"Forged internals for high boost."},{n:"Sequential Gearbox Conversion",cat:"Drivetrain",tag:"Sequential Gearbox",buy:11,wc:3,stat:"P",val:2,heat:0,tier:true,eff:"Gain +2 Power each segment.",desc:"Motorsport transmission system.",x:"all_segs"},{n:"Nitrous Express Kit",cat:"Fuel",tag:"Nitrous Kit",buy:10,wc:2,stat:"P",val:4,heat:0,tier:true,eff:"Once per race gain +4 Power.",desc:"Short-duration power burst.",x:"nitrous"},{n:"Full Carbon Aero Package",cat:"Aero",tag:"Flat Floor",buy:10,wc:3,stat:"A",val:3,heat:0,tier:true,eff:"Gain +3 Aero.",desc:"Complete aero conversion."},{n:"Motorsport Cooling Suite",cat:"Cooling",tag:"Cooling Suite",buy:9,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling.",desc:"Track endurance cooling system."},{n:"LS3 Engine Swap",cat:"Engine",tag:"Engine Internals",buy:14,wc:3,stat:"P",val:6,heat:0,tier:true,eff:"Gain +6 Power. Lose 2 Reliability. Remove other Engine upgrades.",desc:"Extreme V8 conversion.",x:"engine_swap"}],z370:[{n:"Fujitsubo Equal Length Headers (Catless)",cat:"Engine",tag:"Exhaust System",buy:4,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. Unlock Leaded Race Fuel eligibility.",desc:"Premium Japanese headers; common NA power mod.",x:"unlock_leaded"},{n:"Berk High-Flow Cats",cat:"Engine",tag:"Exhaust System",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power. Ignore first Power penalty each race.",desc:"Freer flow while keeping some emissions control."},{n:"Motordyne Shockwave Catback",cat:"Engine",tag:"Exhaust System",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power. Gain +1 Reliability during Segment 3.",desc:"Popular Z exhaust for track consistency."},{n:"Stillen Gen 3 Long-Tube Intake",cat:"Engine",tag:"Intake System",buy:5,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power and +1 Cooling in High-Speed segments.",desc:"Well-known Z intake with strong NA gains. (STILLEN)",x:"hs_power"},{n:"Z1 Intake Post-MAF Tubes",cat:"Engine",tag:"Intake System",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Crosswind penalties by 1 (stability at speed).",desc:"Smooths airflow and throttle response feel."},{n:"UpRev Performance Tune [Upgraded ECU]",cat:"Engine",tag:"ECU/Tune",buy:5,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power.",desc:"Common VQ tuning path for NA/FI."},{n:"Haltech Elite ECU [Upgraded ECU]",cat:"Engine",tag:"ECU/Tune",buy:6,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. Required for Nitrous fuel option.",desc:"Full standalone control for advanced builds."},{n:"Race ECU Conversion [Upgraded ECU]",cat:"Engine",tag:"ECU/Tune",buy:6,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. Required for Methanol fuel.",desc:"Motorsport ECU setup for extreme fuels.",x:"unlock_methanol"},{n:"Z1 Oil Gallery Gasket Upgrade",cat:"Engine",tag:"Oil System",buy:5,wc:1,stat:"R",val:2,heat:0,tier:false,eff:"Gain +2 Reliability.",desc:"Addresses known oil-pressure risk on early VQ37HR builds. (Grassroots Motorsports)"},{n:"Mishimoto Oil Catch Can",cat:"Engine",tag:"Oil System",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Reduces oil ingestion under track use."},{n:"Z1 34-Row Oil Cooler Kit",cat:"Cooling",tag:"Oil Cooler",buy:5,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Oil cooling is a top-priority 370Z track upgrade. (Grassroots Motorsports)"},{n:"Setrab Thermostatic Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Overtemperature value by 1.",desc:"Stable oil temps without overcooling.",x:"reduce_ot"},{n:"CSF Aluminium Radiator",cat:"Cooling",tag:"Radiator",buy:5,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling. If Heat ≥ Cooling, gain +1 Reliability.",desc:"High-capacity cooling for hot track days."},{n:"Diff Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:4,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability when Heat ≥ Cooling.",desc:"Helps long stints and high-grip tyres."},{n:"Transmission Cooler",cat:"Cooling",tag:"Transmission Cooler",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Heat from Forced Induction by 1.",desc:"Protects gearbox under repeated pulls.",x:"reduce_fi_heat"},{n:"Zeitronix Flex Fuel Kit",cat:"Fuel",tag:"Flex Fuel Kit",buy:5,wc:1,stat:"",val:0,heat:0,tier:false,eff:"You may use E85 fuel.",desc:"Ethanol content sensing for flex-fuel. (zeitronix.com)",x:"unlock_e85"},{n:"High-Flow Injectors",cat:"Fuel",tag:"Fuel Injectors",buy:4,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Fuel volume headroom for ethanol."},{n:"Reinforced Fuel Lines (PTFE)",cat:"Fuel",tag:"Fuel Lines",buy:4,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Safer for ethanol/methanol compatibility."},{n:"CJ Motorsports Return Fuel System (Methanol-Compatible)",cat:"Fuel",tag:"Fuel System",buy:6,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Methanol-Compatible upgrade. Gain +1 Reliability.",desc:"Required anchor mod for methanol use.",x:"unlock_methanol"},{n:"Nitrous Wet Kit",cat:"Fuel",tag:"Nitrous Kit",buy:6,wc:1,stat:"",val:0,heat:1,tier:false,eff:"Unlock Nitrous fuel option.",desc:"Classic Z hit setup for segments.",x:"unlock_nitrous"},{n:"CSC Delete Kit (Clutch Slave)",cat:"Transmission",tag:"Clutch",buy:4,wc:1,stat:"R",val:2,heat:0,tier:false,eff:"Gain +2 Reliability.",desc:"370Z-specific fix: improves clutch reliability on track."},{n:"Exedy Heavy Duty Clutch",cat:"Transmission",tag:"Clutch",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore first overheating Reliability loss.",desc:"Torque capacity without drama."},{n:"Lightweight Flywheel",cat:"Transmission",tag:"Flywheel",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1.",desc:"Faster revs; better launch feel.",x:"seg1_power"},{n:"Short Ratio Final Drive",cat:"Transmission",tag:"Driveline",buy:5,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1 and 2.",desc:"Acceleration-focused gearing.",x:"seg1_power"},{n:"NISMO LSD (Factory Spec)",cat:"Transmission",tag:"Differential",buy:5,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling in Segment 2 and 3.",desc:"Traction upgrade with OEM feel.",nismo:true},{n:"Z1 Diff Brace & Bushings",cat:"Transmission",tag:"Differential",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability. Ignore Debris hazard once per race.",desc:"Reduces wheel hop / drivetrain shock.",x:"ignore_debris"},{n:"KW Variant 3 Coilovers",cat:"Suspension",tag:"Coilovers",buy:5,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"High-end track-tunable suspension."},{n:"MCA Pro Sport Coilovers",cat:"Suspension",tag:"Coilovers",buy:5,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling. Reduce Crosswind penalties by 1.",desc:"AU-developed track setup option."},{n:"Hotchkis Sway Bars",cat:"Suspension",tag:"Sway Bars",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Common anti-roll upgrade on Z cars."},{n:"SPL Adjustable Arms",cat:"Suspension",tag:"Control Arms",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Once per race add +1 to a Handling margin.",desc:"Alignment precision for tyres."},{n:"Subframe Collars",cat:"Suspension",tag:"Chassis Brace",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling in Segment 3.",desc:"Tightens rear end response."},{n:"Rays Forged Wheels",cat:"Suspension",tag:"Wheels",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"After winning a Segment gain 1 Credit.",desc:"Lighter wheels, less unsprung mass.",x:"cr_seg_win"},{n:"Brake Cooling Ducts",cat:"Brakes",tag:"Brake Ducts",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Brake Fade hazard effects against you.",desc:"Track braking consistency."},{n:"Akebono Sport Brake Upgrade",cat:"Brakes",tag:"Big Brake Kit",buy:5,wc:1,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes.",desc:"Common big brake baseline for Zs."},{n:"DBA T3 Rotors",cat:"Brakes",tag:"Performance Rotors",buy:4,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Heat management rotor choice."},{n:"Endless Pads",cat:"Brakes",tag:"Brake Pads",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore Brake Fade hazards.",desc:"Endurance pad staple.",x:"ignore_brake"},{n:"NISMO Front Lip",cat:"Aero",tag:"Front Splitter",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"OEM-inspired aero stability.",nismo:true},{n:"Varis/Amuse Style Rear Wing",cat:"Aero",tag:"Rear Wing",buy:5,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero. Lose 1 Power on Straights.",desc:"Big downforce approach for track."},{n:"Lightweight Battery",cat:"Suspension",tag:"Lightweight Battery",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling Segment 1.",desc:"Weight distribution improvement."},{n:"Chassis Brace Kit",cat:"Suspension",tag:"Chassis Brace",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Increased chassis rigidity."},{n:"Stillen Supercharger Kit",cat:"Engine",tag:"Forced Induction",buy:11,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Gain +4 Power. Upgrade to Level 2 (4Cr): gain +2 Power OR gain +2 Reliability.",desc:"Proven FI route for the VQ platform.",x:"level2"},{n:"AAM Competition Twin Turbo Kit",cat:"Engine",tag:"Forced Induction",buy:12,wc:2,stat:"P",val:5,heat:2,tier:true,eff:"Gain +5 Power and +2 Heat. Level 2 (5Cr): gain +2 Power OR gain +1 Cooling.",desc:"High-output turbo system for serious builds.",x:"level2"},{n:"Boosted Performance Single Turbo",cat:"Engine",tag:"Forced Induction",buy:12,wc:2,stat:"P",val:5,heat:2,tier:true,eff:"Gain +5 Power and +2 Heat. Level 2 (5Cr): gain +1 Power and +1 Reliability OR gain +2 Cooling.",desc:"Big single turbo: strong top-end.",x:"level2"},{n:"Built VQ37 Long Block",cat:"Engine",tag:"Engine",buy:12,wc:3,stat:"P",val:2,heat:2,tier:true,eff:"Gain +2 Reliability. Reduce Heat generated by Engine upgrades by 1 (minimum 0). If a Forced Induction upgrade is installed, gain +1 additional Power.' (6 Cr) 'A) Ignore the first Overheat penalty each race.' 'B) Gain +2 Power if Heat is 3 or higher.",desc:"Built motor endurance power path.",x:"reduce_fi_heat"},{n:"Quaife Sequential Gearbox",cat:"Transmission",tag:"Gearbox",buy:11,wc:2,stat:"P",val:2,heat:1,tier:true,eff:"Gain +2 Power in Segment 1 and 2. Level 2 (5Cr): once per race add +2 margin.",desc:"Motorsport shift speed advantage.",x:"seg1_power2"},{n:"OS Giken Super Lock LSD",cat:"Transmission",tag:"Differential",buy:10,wc:2,stat:"P",val:1,heat:0,tier:true,eff:"Gain +2 Handling in Segment 2 and 3. Level 2 (3Cr): gain +1 Power after Segment 2.",desc:"Premium traction for corner exits.",x:"level2"},{n:"NISMO R-Tune Suspension",cat:"Suspension",tag:"Suspension",buy:10,wc:2,stat:"H",val:3,heat:0,tier:true,eff:"Gain +3 Handling. Level 2 (4Cr): if installed at game end gain 1 Championship Point.",desc:"Factory motorsport handling package.",x:"level2",nismo:true},{n:"AP Racing Front BBK",cat:"Brakes",tag:"Big Brake Kit",buy:10,wc:2,stat:"B",val:3,heat:0,tier:true,eff:"Gain +3 Brakes. Upgrade to Level 2 (4Cr): ignore all Brake penalty hazards against you.",desc:"Serious track brake system.",x:"ignore_brake"},{n:"PWR Race Cooling Suite",cat:"Cooling",tag:"Cooling Suite",buy:9,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling. Level 2 (4Cr): if installed at game end gain 1 Championship Point.",desc:"Full cooling overhaul for endurance.",x:"level2"},{n:"Zeitronix + Race Fuel Integration",cat:"Fuel",tag:"Fuel System",buy:10,wc:2,stat:"P",val:1,heat:1,tier:true,eff:"Unlock all fuels. If any Forced Induction installed, gain +1 Power.",desc:"Advanced flex-fuel + tuning ecosystem.",x:"unlock_fuels"}],auditt:[{n:"APR Carbon Intake",cat:"Engine",tag:"Intake System",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Improved turbo airflow."},{n:"Milltek Sport Exhaust",cat:"Engine",tag:"Exhaust System",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power and +1 Reliability.",desc:"Smooth turbo exhaust flow."},{n:"RacingLine Downpipe",cat:"Engine",tag:"Exhaust System",buy:5,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. Unlock Leaded Race Fuel eligibility.",desc:"High-flow turbo downpipe.",x:"unlock_leaded"},{n:"Unitronic Stage 2 Tune [Upgraded ECU]",cat:"Electronics",tag:"ECU Upgrade",buy:5,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power.",desc:"ECU calibration upgrade."},{n:"APR ECU Tune [Upgraded ECU]",cat:"Electronics",tag:"ECU Upgrade",buy:5,wc:1,stat:"R",val:1,heat:1,tier:false,eff:"If Cooling ≥ Heat gain +1 Reliability.",desc:"Precision tuning software."},{n:"DSG Software Tune",cat:"Transmission",tag:"Gearbox",buy:5,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1 and 2.",desc:"Faster automated shifts.",x:"seg1_power"},{n:"Haldex Controller Upgrade",cat:"Electronics",tag:"AWD Controller",buy:5,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and ignore Wet penalties.",desc:"AWD torque distribution control.",x:"ignore_wet"},{n:"Zeitronix Flex Fuel Kit",cat:"Fuel",tag:"Flex Fuel Kit",buy:5,wc:1,stat:"",val:0,heat:0,tier:false,eff:"You may use E85 fuel.",desc:"Ethanol monitoring system.",x:"unlock_e85"},{n:"High-Flow Injectors",cat:"Fuel",tag:"Fuel Injectors",buy:4,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Supports higher boost fueling."},{n:"Reinforced Fuel Lines",cat:"Fuel",tag:"Fuel Lines",buy:4,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Ethanol-safe plumbing."},{n:"Nitrous Wet Kit",cat:"Fuel",tag:"Nitrous Kit",buy:6,wc:1,stat:"",val:0,heat:1,tier:false,eff:"Unlock Nitrous fuel option.",desc:"Controlled boost burst.",x:"unlock_nitrous"},{n:"Sachs Performance Clutch",cat:"Transmission",tag:"Clutch",buy:4,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Handles tuned torque."},{n:"Quaife ATB Differential",cat:"Transmission",tag:"Differential",buy:5,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Improves AWD traction balance."},{n:"Lightweight Driveshaft",cat:"Transmission",tag:"Driveline",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power Segment 1.",desc:"Reduced drivetrain inertia.",x:"seg1_power"},{n:"KW Variant 3 Coilovers",cat:"Suspension",tag:"Coilovers",buy:5,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Precision suspension tuning."},{n:"RacingLine Springs",cat:"Suspension",tag:"Springs",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Improved chassis control."},{n:"Adjustable Control Arms",cat:"Suspension",tag:"Control Arms",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Once per race add +1 Handling margin.",desc:"Alignment precision."},{n:"Michelin Pilot Sport Cup 2 Tyres",cat:"Tyres & Wheels",tag:"Tyres",buy:5,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Track-oriented tyre compound."},{n:"Yokohama AD09 Tyres",cat:"Tyres & Wheels",tag:"Tyres",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and +1 Reliability.",desc:"Balanced performance tyre."},{n:"Forged Lightweight Wheels",cat:"Tyres & Wheels",tag:"Tyres",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"After winning a Segment gain 1 Credit.",desc:"Reduced unsprung mass.",x:"cr_seg_win"},{n:"Akebono Brake Upgrade",cat:"Brakes",tag:"Big Brake Kit",buy:5,wc:1,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes.",desc:"Strong OEM braking system."},{n:"DBA T3 Rotors",cat:"Brakes",tag:"Performance Rotors",buy:4,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Heat-resistant rotors."},{n:"Endless Pads",cat:"Brakes",tag:"Brake Pads",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore Brake Fade hazards.",desc:"Track brake pads.",x:"ignore_brake"},{n:"HEL Brake Lines",cat:"Brakes",tag:"Brake Lines",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability Segment 3.",desc:"Brake consistency improvement."},{n:"CSF Radiator",cat:"Cooling",tag:"Radiator",buy:5,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"High-capacity cooling upgrade."},{n:"Wagner Intercooler",cat:"Cooling",tag:"Intercooler",buy:5,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Forced Induction Heat by 1.",desc:"Essential turbo cooling mod.",x:"reduce_fi_heat"},{n:"Oil Cooler Kit",cat:"Cooling",tag:"Oil Cooler",buy:4,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reduce Overtemperature by 1.",desc:"Sustained track protection.",x:"reduce_ot"},{n:"Front Splitter",cat:"Aero",tag:"Front Splitter",buy:4,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Improves front stability."},{n:"Rear Wing",cat:"Aero",tag:"Rear Wing",buy:5,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero. Lose 1 Power on Straights.",desc:"Downforce-focused aero."},{n:"Flat Floor Panels",cat:"Aero",tag:"Flat Floor",buy:5,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero and +1 Cooling.",desc:"Underbody airflow control."},{n:"Rear Chassis Brace",cat:"Chassis",tag:"Chassis Brace",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Increased rigidity."},{n:"Subframe Inserts",cat:"Chassis",tag:"Subframe",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling Segment 3.",desc:"Tightens drivetrain response."},{n:"Weight Reduction Stage 1",cat:"Chassis",tag:"Weight Reduction",buy:5,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling. Lose 1 Reliability.",desc:"Interior weight reduction."},{n:"Launch Control Upgrade",cat:"Electronics",tag:"Launch Control",buy:5,wc:1,stat:"P",val:2,heat:0,tier:false,eff:"Gain +2 Power Segment 1.",desc:"Optimised standing starts.",x:"seg1_power2"},{n:"Traction Control Calibration",cat:"Electronics",tag:"Traction Control",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore Wet Track penalties once per race.",desc:"Electronic grip management.",x:"ignore_wet"},{n:"Data Logging System",cat:"Electronics",tag:"Data Logger",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Reroll one Heat check per race.",desc:"Performance monitoring.",x:"reroll_heat"},{n:"Adaptive Damper Module",cat:"Electronics",tag:"Adaptive Dampers",buy:5,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and +1 Reliability.",desc:"Dynamic suspension tuning."},{n:"Carbon Rear Diffuser",cat:"Aero",tag:"Rear Diffuser",buy:4,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero and +1 Cooling HS segments.",desc:"Improved airflow extraction."},{n:"Lightweight Battery",cat:"Chassis",tag:"Lightweight Battery",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling Segment 1.",desc:"Improved weight distribution."},{n:"TTE460 Hybrid Turbo",cat:"Forced Induction",tag:"Forced Induction",buy:11,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Gain +4 Power. Level 2: +2 Power OR +2 Cooling.",desc:"OEM+ hybrid turbo upgrade.",x:"level2"},{n:"Garrett GTX Turbo Conversion",cat:"Forced Induction",tag:"Forced Induction",buy:12,wc:2,stat:"P",val:5,heat:2,tier:true,eff:"Gain +5 Power and +2 Heat.",desc:"Large-frame turbo build."},{n:"DSG Race Gearset",cat:"Transmission",tag:"Gearbox",buy:11,wc:2,stat:"P",val:2,heat:1,tier:true,eff:"Gain +2 Power Segments 1–2. Once per race add +2 margin.",desc:"Motorsport gearbox internals."},{n:"Haldex Race Controller",cat:"Electronics",tag:"AWD Controller",buy:10,wc:2,stat:"H",val:2,heat:0,tier:true,eff:"Gain +2 Handling. Ignore Wet penalties.",desc:"Advanced AWD torque vectoring.",x:"ignore_wet"},{n:"KW Clubsport Suspension",cat:"Suspension",tag:"Suspension",buy:10,wc:2,stat:"H",val:3,heat:0,tier:true,eff:"Gain +3 Handling.",desc:"Track-level suspension system."},{n:"AP Racing Big Brake Kit",cat:"Brakes",tag:"Big Brake Kit",buy:10,wc:2,stat:"B",val:3,heat:0,tier:true,eff:"Gain +3 Brakes. Ignore Brake penalties.",desc:"Motorsport braking package."},{n:"Wagner Competition Cooling Suite",cat:"Cooling",tag:"Cooling Suite",buy:9,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling. Level 2: gain 1 Championship Point at game end.",desc:"Complete thermal upgrade.",x:"level2"},{n:"Full Carbon Aero Package",cat:"Aero",tag:"Full Aero Kit",buy:10,wc:2,stat:"A",val:3,heat:0,tier:true,eff:"Gain +3 Aero.",desc:"Time-attack aero system."},{n:"MoTeC AWD Integration System",cat:"Electronics",tag:"AWD Controller",buy:11,wc:2,stat:"H",val:1,heat:1,tier:true,eff:"Unlock all fuels. Gain +1 Handling when Cooling ≥ Heat.",desc:"Motorsport ECU integration.",x:"unlock_fuels"},{n:"Built EA888 Engine",cat:"Engine",tag:"Engine",buy:12,wc:3,stat:"P",val:1,heat:1,tier:true,eff:"Gain +2 Reliability. Forced Induction upgrades gain +1 Power.",desc:"Forged engine build for high boost.",x:"fi_bonus"}],mx5:[{n:"Turbo Conversion Kit",cat:"Engine",tag:"Turbocharger",buy:10,wc:2,stat:"P",val:3,heat:2,tier:true,eff:"Gain +3 Power. +2 Heat. Engineering required.",desc:"Complete turbo for the MX-5."},{n:"Motorsport Cooling Suite",cat:"Cooling",tag:"Cooling Suite",buy:9,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling. Engineering required.",desc:"Track cooling overhaul."},{n:"Sequential Gearbox",cat:"Drivetrain",tag:"Sequential Gearbox",buy:11,wc:2,stat:"P",val:1,heat:0,tier:true,eff:"Gain +1 Power and +2 Handling and +1 Reliability. Engineering required.",desc:"Motorsport transmission with quick-shift gearing."},{n:"Carbon Aero Package",cat:"Aero",tag:"Flat Floor",buy:10,wc:3,stat:"A",val:3,heat:0,tier:true,eff:"Gain +3 Aero. Engineering required.",desc:"Full aero conversion."},{n:"Nitrous Express Kit",cat:"Fuel",tag:"Nitrous Kit",buy:9,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Once per race gain +4 Power for one Segment. +2 Heat after use. Engineering required.",desc:"Short power burst.",x:"nitrous"},{n:"Forged Engine Build",cat:"Engine",tag:"Engine Internals",buy:10,wc:3,stat:"R",val:2,heat:0,tier:true,eff:"Gain +2 Reliability. Engine upgrades -1 Heat. Engineering required.",desc:"Full rebuild for boost."},{n:"Coilover Suspension",cat:"Handling",tag:"Coilovers",buy:5,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Adjustable track suspension."},{n:"Lightweight Wheels",cat:"Handling",tag:"Wheels",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling and +1 Brakes.",desc:"Reduces unsprung weight."},{n:"Brake Upgrade",cat:"Brakes",tag:"Big Brake Kit",buy:4,wc:1,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes.",desc:"Improved brake system."},{n:"Front Splitter",cat:"Aero",tag:"Front Splitter",buy:4,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Increases front downforce."},{n:"Aluminium Radiator",cat:"Cooling",tag:"Radiator",buy:4,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Lightweight high-capacity radiator."},{n:"Chassis Reinforcement",cat:"Handling",tag:"Chassis Brace",buy:5,wc:1,stat:"R",val:2,heat:0,tier:false,eff:"Gain +2 Reliability.",desc:"Stiffens chassis structure."},{n:"ECU Tune",cat:"Engine",tag:"Engine Tune",buy:4,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. +1 Heat.",desc:"Optimised fueling and timing."},{n:"Whiteline Sway Bars",cat:"Handling",tag:"Sway Bars",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reduces body roll."},{n:"DBA Rotors",cat:"Brakes",tag:"Performance Rotors",buy:4,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Heat-resistant rotor design."},{n:"Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:4,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Manages oil temperature."},{n:"Zeitronix Flex Fuel Kit",cat:"Fuel",tag:"Flex Fuel Kit",buy:5,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Allows E85 fuel.",desc:"Ethanol compatibility system.",x:"unlock_e85"},{n:"Lightweight Flywheel",cat:"Drivetrain",tag:"Lightweight Flywheel",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1.",desc:"Faster throttle response.",x:"seg1_power"},{n:"Haltech ECU",cat:"Electronics",tag:"ECU Upgrade",buy:5,wc:2,stat:"R",val:1,heat:0,tier:false,eff:"Unlock advanced fuels. Gain +1 Reliability.",desc:"Standalone ECU.",x:"unlock_fuels"},{n:"Track Brake Pads",cat:"Brakes",tag:"Brake Pads",buy:3,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Ignore first brake fade penalty per Race.",desc:"High-friction track compound.",x:"ignore_brake"}],mustang:[{n:"Whipple Supercharger",cat:"Engine",tag:"Supercharger",buy:12,wc:2,stat:"P",val:5,heat:3,tier:true,eff:"Gain +5 Power. +3 Heat. Engineering required.",desc:"Most powerful US supercharger kit."},{n:"Garrett Turbo Kit",cat:"Engine",tag:"Turbocharger",buy:11,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Gain +4 Power. +2 Heat. Engineering required.",desc:"High-performance turbo."},{n:"Motorsport Cooling Suite",cat:"Cooling",tag:"Cooling Suite",buy:9,wc:2,stat:"C",val:3,heat:0,tier:true,eff:"Gain +3 Cooling. Engineering required.",desc:"Track cooling system."},{n:"Sequential Gearbox",cat:"Drivetrain",tag:"Sequential Gearbox",buy:11,wc:2,stat:"P",val:1,heat:0,tier:true,eff:"Gain +1 Power and +2 Handling and +1 Reliability. Engineering required.",desc:"Motorsport transmission with quick-shift gearing."},{n:"Carbon Aero Package",cat:"Aero",tag:"Flat Floor",buy:10,wc:3,stat:"A",val:3,heat:0,tier:true,eff:"Gain +3 Aero. Engineering required.",desc:"Complete aero kit."},{n:"Nitrous Kit",cat:"Fuel",tag:"Nitrous Kit",buy:9,wc:2,stat:"P",val:4,heat:2,tier:true,eff:"Once per race gain +4 Power for one Segment. +2 Heat after use. Engineering required.",desc:"Chemical power boost.",x:"nitrous"},{n:"Cold Air Intake",cat:"Engine",tag:"Intake System",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Increases air volume to engine."},{n:"Performance Exhaust",cat:"Engine",tag:"Exhaust System",buy:5,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"Reduces exhaust backpressure."},{n:"Track Suspension",cat:"Handling",tag:"Coilovers",buy:5,wc:2,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Track-optimised suspension."},{n:"Brembo Brakes",cat:"Brakes",tag:"Big Brake Kit",buy:6,wc:2,stat:"B",val:2,heat:0,tier:false,eff:"Gain +2 Brakes and +1 Reliability.",desc:"Full brake system upgrade."},{n:"Oil Cooling System",cat:"Cooling",tag:"Oil Cooler",buy:5,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Manages oil under heavy load."},{n:"Aluminium Radiator",cat:"Cooling",tag:"Radiator",buy:5,wc:2,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"High-capacity cooling."},{n:"Rear Wing Kit",cat:"Aero",tag:"Rear Wing",buy:4,wc:1,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Adjustable rear downforce."},{n:"Performance Tune",cat:"Engine",tag:"Engine Tune",buy:5,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"ECU calibration for performance."},{n:"Forged Internals",cat:"Engine",tag:"Engine Internals",buy:7,wc:2,stat:"R",val:2,heat:0,tier:false,eff:"Gain +2 Reliability.",desc:"Stronger engine components."},{n:"Sway Bars",cat:"Handling",tag:"Sway Bars",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reduces body roll."},{n:"Lightweight Flywheel",cat:"Drivetrain",tag:"Lightweight Flywheel",buy:4,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power in Segment 1.",desc:"Faster acceleration response.",x:"seg1_power"},{n:"Flex Fuel Kit",cat:"Fuel",tag:"Flex Fuel Kit",buy:5,wc:1,stat:"",val:0,heat:0,tier:false,eff:"Allows E85 fuel.",desc:"Ethanol compatibility.",x:"unlock_e85"},{n:"Chassis Brace",cat:"Handling",tag:"Chassis Brace",buy:4,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Improves chassis stiffness."},{n:"Haltech ECU",cat:"Electronics",tag:"ECU Upgrade",buy:5,wc:2,stat:"R",val:1,heat:0,tier:false,eff:"Unlock advanced fuels. Gain +1 Reliability.",desc:"Standalone ECU.",x:"unlock_fuels"}]};
+const SHM_DECK=[{n:"Used Track Tyres",cat:"Handling",tag:"Tyres",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Decent used performance tyres."},{n:"Refurbished Brake Kit",cat:"Brakes",tag:"Brake Kit",buy:3,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Reconditioned brake components."},{n:"Budget Intake",cat:"Engine",tag:"Intake",buy:3,wc:1,stat:"P",val:1,heat:0,tier:false,eff:"Gain +1 Power.",desc:"Generic air intake upgrade."},{n:"Aftermarket Wing",cat:"Aero",tag:"Rear Wing",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Universal rear wing kit."},{n:"Used Oil Cooler",cat:"Cooling",tag:"Oil Cooler",buy:3,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Serviceable oil cooler."},{n:"Reconditioned Turbo",cat:"Engine",tag:"Turbocharger",buy:6,wc:2,stat:"P",val:3,heat:2,tier:false,eff:"Gain +3 Power. +2 Heat.",desc:"Rebuilt turbo unit."},{n:"Street Coilovers",cat:"Handling",tag:"Coilovers",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Budget coilover upgrade."},{n:"Track Exhaust",cat:"Engine",tag:"Exhaust",buy:4,wc:1,stat:"P",val:2,heat:1,tier:false,eff:"Gain +2 Power. +1 Heat.",desc:"Performance exhaust system."},{n:"Generic Sway Bars",cat:"Handling",tag:"Sway Bars",buy:3,wc:1,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Basic anti-roll bars."},{n:"Universal Splitter",cat:"Aero",tag:"Front Splitter",buy:3,wc:1,stat:"A",val:1,heat:0,tier:false,eff:"Gain +1 Aero.",desc:"Generic front splitter."},{n:"Budget Brake Pads",cat:"Brakes",tag:"Brake Pads",buy:2,wc:1,stat:"B",val:1,heat:0,tier:false,eff:"Gain +1 Brakes.",desc:"Track compound pads."},{n:"Universal Radiator",cat:"Cooling",tag:"Radiator",buy:4,wc:1,stat:"C",val:2,heat:0,tier:false,eff:"Gain +2 Cooling.",desc:"Standard aluminium radiator."},{n:"Generic ECU Tune",cat:"Engine",tag:"Engine Tune",buy:3,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. +1 Heat.",desc:"Basic calibration."},{n:"Carbon Diffuser",cat:"Aero",tag:"Rear Diffuser",buy:5,wc:2,stat:"A",val:2,heat:0,tier:false,eff:"Gain +2 Aero.",desc:"Second-hand diffuser kit."},{n:"Used LSD",cat:"Drivetrain",tag:"LSD",buy:5,wc:2,stat:"H",val:1,heat:0,tier:false,eff:"Gain +1 Handling.",desc:"Reconditioned differential."},{n:"Street Headers",cat:"Engine",tag:"Headers",buy:3,wc:1,stat:"P",val:1,heat:1,tier:false,eff:"Gain +1 Power. +1 Heat.",desc:"Performance street headers."},{n:"Used Intercooler",cat:"Cooling",tag:"Intercooler",buy:4,wc:1,stat:"C",val:1,heat:0,tier:false,eff:"Gain +1 Cooling.",desc:"Serviceable intercooler."},{n:"Braided Brake Lines",cat:"Brakes",tag:"Brake Lines",buy:3,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Braided stainless lines."},{n:"Roll Bar",cat:"Handling",tag:"Chassis Brace",buy:4,wc:1,stat:"R",val:1,heat:0,tier:false,eff:"Gain +1 Reliability.",desc:"Basic chassis brace."},{n:"Old Racing Slicks",cat:"Handling",tag:"Tyres",buy:4,wc:1,stat:"H",val:2,heat:0,tier:false,eff:"Gain +2 Handling.",desc:"Used racing slicks."}];
 
 
 function clearSHM(){var e=document.getElementById('shmBidArea');if(e)e.innerHTML='';}
@@ -469,39 +497,39 @@ const SPONSORS = [
 
 const ABILITIES = {
   gt86:[
-    {n:'Cool Factor',        e:'After winning a Segment: gain 1 Credit for each Aero upgrade installed (max 3).',d:'Stylish builds attract sponsorship.'},
-    {n:'Momentum Driver',    e:'If you win Segment 1: gain +1 Handling in Segment 2.',d:'Rewards maintaining race flow.'},
-    {n:'Budget Builder',     e:'The first Minor upgrade you buy each round costs 1 Cr less.',d:'Efficient garage management.'},
-    {n:'Data Analyst',       e:'Once per round: draw 1 extra card into your Market reveal (6 cards instead of 5).',d:'Information advantage through preparation.'},
-    {n:'Perfect Balance',    e:'If your Power and Handling differ by 1 or less: gain +1 Reliability every Race.',d:'The GT86 thrives when balanced.'},
+    {n:'Gazoo Racing Discount',k:'gazoo_discount', e:'Aero and Handling upgrades cost 1 Credit less to buy (minimum 1 Cr).',d:'TGR factory backing on chassis parts.'},
+    {n:'Momentum Driver',     k:'momentum_driver', e:'If you win Segment 1, gain +1 Handling in Segment 2.',d:'Rewards maintaining race flow.'},
+    {n:'Drift Pedigree',      k:'drift_pedigree', e:'Reckless Drive damage roll needs a 1 (not 1-2) to cause Reliability loss — half the usual risk.',d:'Toyota\'s sideways heritage pays off under pressure.'},
+    {n:'Data Analyst',        k:'data_analyst', e:'Your Market always reveals 6 cards instead of 5.',d:'Information advantage through preparation.'},
+    {n:'Perfect Balance',     k:'perfect_balance', e:'At the start of each Race, if your Power and Handling differ by 2 or less, gain +1 Reliability for that Race only.',d:'The GT86 thrives when balanced.'},
   ],
   z370:[
-    {n:'Torque Monster',     e:'If Heat equals Cooling at race start: gain +1 Power for the entire Race.',d:'Engine performs best at the edge of control.'},
-    {n:'Track Weapon',       e:'During Segment 3: gain +1 Reliability and +1 Brakes.',d:'Built for late-race stability.'},
-    {n:'Boost Confidence',   e:'Forced Induction upgrades generate 1 less Heat when installed (minimum 0).',d:'Driver trusts boosted performance.'},
-    {n:'NISMO Heritage',     e:'NISMO/Factory-spec upgrades cost 1 Cr less to install.',d:'OEM motorsport refinement.'},
-    {n:'Endurance Mindset',  e:'After resolving Overheat checks: if you did not DNF, gain 1 Credit.',d:'Survival becomes profit.'},
+    {n:'Torque Monster',      k:'torque_monster', e:'If your Heat equals or exceeds your Cooling at Race start, gain +1 Power for the entire Race.',d:'Engine performs best at the edge of control.'},
+    {n:'Track Weapon',        k:'track_weapon', e:'Gain +1 Brakes during Segment 3 of every Race.',d:'Built for late-race stability.'},
+    {n:'Boost Confidence',    k:'boost_confidence', e:'Forced Induction upgrades (Turbo/Supercharger) generate 1 less Heat when installed (minimum 0).',d:'Driver trusts boosted performance.'},
+    {n:'NISMO Heritage',      k:'nismo_heritage', e:'NISMO/Factory-Spec upgrades cost 2 Credits less to buy (minimum 1 Cr).',d:'OEM motorsport refinement.'},
+    {n:'Endurance Mindset',   k:'endurance_mindset', e:'After resolving your pre-race Overheat Check, if you did not DNF, gain 1 Credit.',d:'Survival becomes profit.'},
   ],
   auditt:[
-    {n:'Quattro Grip',       e:'Ignore all Crosswind and Wet Track penalties.',d:'AWD confidence in changing conditions.'},
-    {n:'Precision Engineering',e:'Upgraded ECU installations cost 1 Cr less.',d:'Software unlocks performance.'},
-    {n:'Launch Control',     e:'Gain +2 Power during Segment 1 only.',d:'Explosive starts.'},
-    {n:'Data Logging',       e:'Once per race: reroll an Overheat Check die.',d:'Electronic monitoring prevents failures.'},
-    {n:'Clinical Efficiency',e:'If you win exactly one Segment this Race: gain 2 Credits.',d:'Consistent execution rewarded.'},
+    {n:'Quattro Grip',        k:'quattro_grip', e:'Ignore ALL Crosswind and Wet Track Demand penalties from Weather, completely.',d:'AWD confidence in changing conditions.'},
+    {n:'Precision Engineering',k:'precision_engineering', e:'Electronics-tagged upgrades (ECU, AWD Controller, Data Logger etc) cost 1 Credit less to buy.',d:'Software unlocks performance.'},
+    {n:'Launch Control',      k:'launch_control', e:'Gain +2 Power during Segment 1 only, every Race.',d:'Explosive starts.'},
+    {n:'Data Logging',        k:'data_logging', e:'Once per Race, reroll a failed Overheat Check die.',d:'Electronic monitoring prevents failures.'},
+    {n:'Clinical Efficiency', k:'clinical_efficiency', e:'If you win exactly one Segment this Race (not zero, not two or three), gain 2 Credits.',d:'Consistent execution rewarded.'},
   ],
   mx5:[
-    {n:'Late Braker',        e:'Gain +1 Brakes during Segment 3.',d:'Confidence under braking wins corners.'},
-    {n:'Lightweight Philosophy',e:'Each time you install a Suspension upgrade: gain 1 Credit.',d:'Small improvements compound.'},
-    {n:'Corner Exit Specialist',e:'If your Handling exceeds Power: gain +1 Power in Segment 2.',d:'Momentum driving mastery.'},
-    {n:'Driver Feedback',    e:'Ignore the first Handling penalty each Race.',d:'Predictable chassis behaviour.'},
-    {n:'Spec Racer',         e:'If you install NO S-Tier upgrades during the Championship: gain +1 CP at game end.',d:'Skill over horsepower.'},
+    {n:'Late Braker',         k:'late_braker', e:'Gain +1 Brakes during Segment 3 of every Race.',d:'Confidence under braking wins corners.'},
+    {n:'Lightweight Philosophy',k:'lightweight_philosophy', e:'Each time you install a Coilovers, Sway Bars, or Chassis Brace upgrade, immediately gain 1 Credit.',d:'Small improvements compound.'},
+    {n:'Corner Exit Specialist',k:'corner_exit', e:'If your Handling stat is higher than your Power stat, gain +1 Power in Segment 2.',d:'Momentum driving mastery.'},
+    {n:'Driver Feedback',     k:'driver_feedback', e:'The first time each Race your Handling margin would be negative, treat it as zero instead.',d:'Predictable chassis behaviour.'},
+    {n:'Spec Racer',          k:'spec_racer', e:'If you install ZERO S-Tier upgrades during the entire Championship, gain +2 CP at game end (up from the base Spec Racer goal).',d:'Skill over horsepower.'},
   ],
   mustang:[
-    {n:'American Muscle',    e:'Gain +1 Power when your Heat is higher than your Cooling.',d:'Power over refinement.'},
-    {n:'Crowd Favourite',    e:'After winning a Race: gain 3 additional Credits.',d:'Fans reward the spectacle.'},
-    {n:'Straight-Line Hunter',e:'Gain +2 Power in all High-Speed Segments.',d:'Dominates the straights.'},
-    {n:'Oversteer Control',  e:'Once per race: convert a Handling loss margin into zero (not a gain).',d:'Managing excess torque at corner entry.'},
-    {n:'Go Big or Go Home',  e:'S-Tier upgrades cost 1 Cr less to buy, but generate +1 extra Heat.',d:'Maximum performance mentality.'},
+    {n:'American Muscle',     k:'american_muscle', e:'Gain +1 Power whenever your current Heat is higher than your Cooling stat.',d:'Power over refinement.'},
+    {n:'Crowd Favourite',     k:'crowd_favourite', e:'After winning a Race outright (1st place), gain 3 additional Credits beyond normal income.',d:'Fans reward the spectacle.'},
+    {n:'Straight-Line Hunter',k:'straight_line', e:'Gain +2 Power in all Segments on High-Speed circuits (Power+Aero pairing tracks).',d:'Dominates the straights.'},
+    {n:'Oversteer Control',   k:'oversteer_control', e:'Once per Race, if your Handling margin this Segment would be negative, set it to zero instead.',d:'Managing excess torque at corner entry.'},
+    {n:'Go Big or Go Home',   k:'go_big', e:'S-Tier upgrades cost 2 Credits less to buy, but generate +1 extra Heat when installed.',d:'Maximum performance mentality.'},
   ],
 };
 
@@ -567,12 +595,13 @@ function init(){
 
 function setP(n){
   G.np=n; G.P=[];
+  G.bids={}; // reset bids when player count changes
   const names=['Player 1','Player 2','Player 3','Player 4'];
   for(let i=0;i<n;i++) G.P.push({
     name:names[i], col:PC[i], ai:i===0?null:1,
     carId:null, car:null,
     P:0,H:0,B:0,A:0,C:0,R:0,Rb:0, heat:0,
-    creds:10, cp:0, mechs:1, engs:0,
+    creds:10, cp:0, mechs:1, engs:0, workshopSlots:3,
     rc:0, fat:0, reckR:false,
     installed:[], garage:[], wip:[], deck:[], mkt:[],
     ability:null, sponsor:null,
@@ -581,6 +610,7 @@ function setP(n){
     maxP:0, maxHeat:0,
   });
   renderSetup();
+  if(typeof resetAuction==='function')resetAuction();
 }
 
 function renderSetup(){
@@ -611,9 +641,14 @@ function renderCal(){
 
 // ── AUCTION ─────────────────────────────────────────────────────────
 function resetAuction(){
+  CARS.forEach(c=>{c.owner=null;c.paid=0;}); // clear first before shuffle
   G.aucQ=shuffle([...CARS]); G.aucI=0; G.bids={};
-  CARS.forEach(c=>{c.owner=null;c.paid=0;});
-  G.P.forEach(p=>{p.carId=null;p.car=null;p.creds=10;p.ability=null;p.fuel='pump98';});
+  G.P.forEach(p=>{p.carId=null;p.car=null;p.creds=10;p.ability=null;p.fuel='pump98';
+    p.P=0;p.H=0;p.B=0;p.A=0;p.C=0;p.R=0;p.Rb=0;p.heat=0;
+    p.installed=[];p.garage=[];p.wip=[];p.deck=[];p.mkt=[];
+    p.rc=0;p.fat=0;p.reckR=false;p.sponsor=null;p.engs=0;p.mechs=1;p.workshopSlots=3;
+    p.segW=0;p.dnfs=0;p.repairs=0;p.topTwos=0;p.wins=0;p.cp=0;
+  });
   renderCG(); renderAuc(); chkReady();
 }
 
@@ -629,8 +664,8 @@ function renderCG(){
       +'<div class="smini">'+['P','H','B','A','C','R'].map(s=>'<div class="sm"><div class="sl">'+SN[s]+'</div><div class="sv">'+c[s]+'</div></div>').join('')+'</div>'
       +'<div style="font-size:.57rem;color:#555;margin-bottom:3px;line-height:1.5;"><strong style="color:#777;">Str:</strong> '+c.str+'</div>'
       +'<div style="font-size:.57rem;color:#444;margin-bottom:3px;line-height:1.5;"><strong>Weak:</strong> '+c.weak+'</div>'
-      +'<div style="font-size:.57rem;color:var(--gd);line-height:1.4;"><strong>★ Ach:</strong> '+c.ach+'</div>'
-      +(c.owner!==null?'<div style="margin-top:6px;font-size:.65rem;color:'+G.P[c.owner].col+';">'+G.P[c.owner].name+' — '+c.paid+' Cr</div>':'')
+      +'<div style="font-size:.57rem;color:var(--gd);line-height:1.4;"><strong>Car Achievement:</strong> '+c.ach+'</div>'
+      +(c.owner!==null&&G.P[c.owner]?'<div style="margin-top:6px;font-size:.65rem;color:'+G.P[c.owner].col+';">'+G.P[c.owner].name+' — '+c.paid+' Credits</div>':c.owner!==null?'<div style="margin-top:6px;font-size:.65rem;color:#888;">Claimed</div>':'')
       +'</div>';
   }).join('');
 }
@@ -638,7 +673,7 @@ function renderCG(){
 function renderAuc(){
   const el=$('aucArea');
   while(G.aucI<G.aucQ.length&&G.aucQ[G.aucI].owner!==null)G.aucI++;
-  if(G.aucI>=G.aucQ.length||CARS.every(c=>c.owner!==null)){
+  if(G.aucI>=G.aucQ.length||G.P.every(p=>p.carId!==null)||CARS.every(c=>c.owner!==null)){
     el.innerHTML='<div class="good">✓ All cars auctioned!</div>'; chkReady(); return;
   }
   const car=G.aucQ[G.aucI];
@@ -700,7 +735,9 @@ function placeBid(pi,cid){
 
 function closeAuc(cid){
   const b=G.bids[cid]; if(!b)return;
-  const car=CARS.find(c=>c.id===cid); const p=G.P[b.p];
+  const car=CARS.find(c=>c.id===cid);
+  const p=G.P[b.p];
+  if(!p){alert('Error: bidder no longer exists. Reset auction.');return;}
   car.owner=b.p; car.paid=b.amt;
   p.carId=cid; p.car=car; p.creds-=b.amt;
   p.P=car.P;p.H=car.H;p.B=car.B;p.A=car.A;p.C=car.C;p.R=car.R;p.Rb=car.R;
@@ -716,7 +753,7 @@ function skipAuc(cid){log(CARS.find(c=>c.id===cid).name+' — no winner','i');G.
 
 function showAbilSelect(pi){
   const p=G.P[pi]; const ab=ABILITIES[p.carId]||[];
-  let h='<div style="background:#1a1500;border:2px solid var(--gd);border-radius:6px;padding:13px;margin-bottom:11px;">'
+  let h='<div class="abil-picker" style="background:#1a1500;border:2px solid var(--gd);border-radius:6px;padding:13px;margin-bottom:11px;">'
     +'<div style="font-size:.88rem;font-weight:700;color:var(--gd);margin-bottom:5px;">'+p.name+' — Choose Your Ability Card</div>'
     +'<div class="info" style="margin-bottom:8px;">Active the entire Championship. Cannot be changed after selection. Choose based on your car, build plan, and the calendar.</div>';
   ab.forEach((a,i)=>{
@@ -727,14 +764,30 @@ function showAbilSelect(pi){
       +'</div>';
   });
   h+='</div>';
-  $('aucArea').innerHTML=h+$('aucArea').innerHTML;
+  // Remove any existing overlay first
+  var existOv=document.getElementById('abilOverlay');
+  if(existOv)existOv.remove();
+  var ov=document.createElement('div');
+  ov.id='abilOverlay';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
+  // h already contains the styled picker div — just wrap in a scroll container
+  ov.innerHTML='<div style="max-width:520px;width:100%;">'+h+'</div>';
+  document.body.appendChild(ov);
 }
 
 function pickAbil(pi,ai){
-  const p=G.P[pi]; p.ability=(ABILITIES[p.carId]||[])[ai];
+  var p=G.P[pi];
+  if(!p)return;
+  p.ability=(ABILITIES[p.carId]||[])[ai];
+  if(!p.ability)return;
   log(p.name+' chose Ability: '+p.ability.n,'m');
-  const d=$('aucArea').querySelector('div[style*="background:#1a1500"]');
-  if(d)d.remove(); chkReady();
+  // Remove overlay
+  var ov=document.getElementById('abilOverlay');
+  if(ov)ov.remove();
+  var panels=document.querySelectorAll('.abil-picker');
+  panels.forEach(function(d){d.remove();});
+  // Defer re-render slightly so DOM settles
+  setTimeout(function(){chkReady(); renderCG(); renderAuc();},30);
 }
 
 function chkReady(){
@@ -763,10 +816,18 @@ function startGame(){
 function newRace(){
   const t=G.cal[G.race-1];
   G.w=pick(WEATHERS); G.hz=pick(HAZARDS);
-  G.segI=0; G.reck={};
-  G.segW={}; G.dnf={};
-  G.P.forEach((_,i)=>{G.segW[i]=0;G.dnf[i]=false;});
-  G.P.forEach(p=>{p.nitrousUsed=false;p.nitroCircusUsed=false;p.reckR=false;});
+  G.segI=0; G.reck={}; G.nitrousSeg={}; G.reckSealed={}; G.reckRevealed=false;
+  G.segW={}; G.dnf={}; G.raceScores={};
+  G.P.forEach((_,i)=>{G.segW[i]=0;G.dnf[i]=false;G.raceScores[i]=0;});
+  G.segW_thisRace_seg1Winner=null; // tracks who won Segment 1 this race, for Momentum Driver
+  G.P.forEach(p=>{p._driverFeedbackUsed=false;p._oversteerUsed=false;p._dataLoggingUsed=false;});
+  // Torque Monster (370Z): checked once at race start, locked in for the whole race
+  G.P.forEach(p=>{if(p.ability&&p.ability.k==='torque_monster')p._torqueMonsterActive=(p.heat>=p.C);});
+  // Perfect Balance (GT86): checked once at race start
+  G.P.forEach(p=>{if(p.ability&&p.ability.k==='perfect_balance'&&Math.abs(p.P-p.H)<=2){p.R=Math.min(p.Rb+1,p.R+1);}});
+  // NOTE: p.reckR is intentionally NOT reset here — doIncome() for THIS new race
+  // needs to read reckR from the race that just ended, to award the Clean Finish bonus.
+  // It gets reset inside doIncome() itself, right after being read.
   // SHM refresh: draw 5 new cards
   G.shmFU=[]; G.shmListed=[];
   if(G.shmDeck.length<5)G.shmDeck=shuffle([...SHM_DECK]);
@@ -783,12 +844,12 @@ function newRace(){
 function rr(){
   const t=G.cal[G.race-1];
   $('rLabel').textContent='Race '+G.race+'/8';
-  $('phLabel').textContent=G.phase==='seg'?'Segment '+(G.segI+1)+'/3':G.phase;
+  $('phLabel').textContent=(G.phase==='seg'||G.phase==='segresult')?'Segment '+(G.segI+1)+'/3':G.phase;
   $('phLabel').style.display='inline-block';
   const phs=['income','fuel','market','workshop','seg','end','gameover'];
   const lbs=['Income','Fuel','Market','Workshop','Segments','End','Final'];
-  const ci=G.phase==='seg'?4:phs.indexOf(G.phase);
-  $('phStrip').innerHTML=phs.map((p,i)=>'<div class="pp'+(i===ci?' on':i<ci?' dn':'')+'">'+( i===4&&G.phase==='seg'?'Seg '+(G.segI+1)+'/3':lbs[i])+'</div>').join('');
+  const ci=(G.phase==='seg'||G.phase==='segresult')?4:phs.indexOf(G.phase);
+  $('phStrip').innerHTML=phs.map((p,i)=>'<div class="pp'+(i===ci?' on':i<ci?' dn':'')+'">'+( i===4&&(G.phase==='seg'||G.phase==='segresult')?'Seg '+(G.segI+1)+'/3':lbs[i])+'</div>').join('');
   $('rHdr').innerHTML='<div class="ct">Race '+G.race+'/8 — '+t.name+'</div>'
     +'<div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:4px;">'
     +'<span class="badge bg">☁ '+G.w.name+'</span><span class="badge br">⚠ '+G.hz.name+'</span>'
@@ -802,6 +863,7 @@ function rr(){
   else if(G.phase==='market')phMarket(el);
   else if(G.phase==='workshop')phWorkshop(el);
   else if(G.phase==='seg')phSeg(el);
+  else if(G.phase==='segresult')phSegResult(el);
   else if(G.phase==='end')phEnd(el);
   else if(G.phase==='gameover')phGameOver(el);
   renderBoards(); renderStandings(); renderGoals(); renderSponsors();
@@ -812,26 +874,40 @@ function phIncome(el){
   const r1=G.race===1;
   const ord=r1?G.P.map((_,i)=>i).reverse():[...G.standings].reverse();
   let h='<div class="card"><div class="ct">Phase 1 — Income</div>'
-    +'<div class="info">Market order this round: '+ord.map(i=>'<strong style="color:'+G.P[i].col+'">'+G.P[i].name+'</strong>').join(' → ')+(r1?' (Race 1: all get 4 Cr)':'')+'</div>'
-    +'<div style="margin:8px 0;">';
+    +'<div class="info">Market order this round: '+ord.map(i=>'<strong style="color:'+G.P[i].col+'">'+G.P[i].name+'</strong>').join(' → ')+'</div>';
+
+  h+='<div class="info" style="background:#0a1408;border-color:#1a3a1a;line-height:1.8;">'
+    +'<strong style="color:#6ce06c;">Where this Credit income comes from:</strong><br>'
+    +'<strong>Participation:</strong> every player gets a flat 5 Credits, every race, regardless of result.<br>'
+    +(r1?'<strong>Race 1:</strong> no position/segment/clean bonuses yet — there\'s no previous race to score from.<br>'
+        :'<strong>Position pay:</strong> 1st=+2 Cr, 2nd=+1 Cr, 3rd=+0 Cr, 4th=+0 Cr, based on how you finished the PREVIOUS race.<br>')
+    +'<strong>Segment win pay:</strong> +1 Credit for each individual Segment you won last race.<br>'
+    +'<strong>Clean Finish bonus:</strong> +1 Credit, ANY finishing position, if you made zero Reckless declarations across all 3 Segments of the previous race.<br>'
+    +'<strong>Sponsor bonuses:</strong> vary by sponsor — shown per-player below if applicable.'
+    +'</div>';
+
+  h+='<div style="margin:8px 0;">';
   G.standings.forEach((pi,pos)=>{
     const p=G.P[pi];
-    const base=r1?4:[8,6,4,3][Math.min(pos,3)];
+    const participation=5;
+    const posPay=r1?0:[2,1,0,0][Math.min(pos,3)];
     const segs=G.lastSegs[pi]||0;
-    const clean=!p.reckR&&pos<2&&!r1?pos===0?2:1:0;
+    const clean=!p.reckR&&!r1?1:0;
     let spb=0;
     if(p.sponsor&&p.sponsor.ong==='clean_race'&&!p.reckR&&!G.dnf[pi])spb+=2;
     if(p.sponsor&&p.sponsor.name==='GoPro'&&pos===0)spb+=1;
+    const total=participation+posPay+segs+clean+spb;
     h+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a1a;flex-wrap:wrap;">'
       +'<div style="width:9px;height:9px;border-radius:50%;background:'+p.col+'"></div>'
       +'<div style="flex:1;"><strong style="color:'+p.col+'">'+p.name+'</strong>'
       +(p.car?'<span style="color:#555;font-size:.65rem;"> '+p.car.name+'</span>':'')
       +(p.ability?'<span style="color:#444;font-size:.58rem;"> | '+p.ability.n+'</span>':'')+'</div>'
-      +'<div style="font-size:.72rem;"><span style="color:var(--gd)">+'+base+' Cr</span>'
-      +(segs?' <span style="color:#aaa">+'+segs+' segs</span>':'')
-      +(clean?' <span style="color:#6ce06c">+'+clean+' clean</span>':'')
-      +(spb?' <span style="color:var(--gd)">+'+spb+' sponsor</span>':'')
-      +' <span style="color:#555">→ '+(p.creds+base+segs+clean+spb)+' Cr</span></div></div>';
+      +'<div style="font-size:.72rem;"><span style="color:var(--gd)" title="Flat amount every player gets every race">+'+participation+' Cr (participation)</span>'
+      +(posPay?' <span style="color:var(--gd)" title="Pay for finishing position '+(pos+1)+' last race">+'+posPay+' Cr (position)</span>':'')
+      +(segs?' <span style="color:#aaa" title="'+segs+' Segment win(s) last race, 1 Credit each">+'+segs+' Cr (Segments)</span>':'')
+      +(clean?' <span style="color:#6ce06c" title="Zero Reckless declarations last race, any finishing position">+'+clean+' Cr (Clean Finish)</span>':'')
+      +(spb?' <span style="color:var(--gd)">+'+spb+' Cr (sponsor)</span>':'')
+      +' <span style="color:#555">→ '+(p.creds+total)+' Cr total</span></div></div>';
   });
   h+='</div><button class="btn" onclick="doIncome()">✓ Collect Income</button></div>';
   el.innerHTML=h;
@@ -840,19 +916,26 @@ function doIncome(){
   const r1=G.race===1;
   G.standings.forEach((pi,pos)=>{
     const p=G.P[pi];
-    const base=r1?4:[8,6,4,3][Math.min(pos,3)];
-    const segs=G.lastSegs[pi]||0;
-    const clean=!p.reckR&&pos<2&&!r1?pos===0?2:1:0;
-    p.creds+=base+segs+clean;
-    log(p.name+': +'+(base+segs+clean)+' Cr → '+p.creds+' Cr','m');
+    const participation=5; // flat Credits every player gets, every race, regardless of result
+    const posPay=r1?0:[2,1,0,0][Math.min(pos,3)]; // position pay: 1st=2, 2nd=1, 3rd=0, 4th=0
+    const segs=G.lastSegs[pi]||0; // 1 Credit per Segment won last race
+    const wasReckless=p.reckR; // from the race that JUST ended
+    const clean=!wasReckless&&!r1?1:0; // 1 Credit Clean Finish bonus, ANY position, if zero Reckless last race
+    const total=participation+posPay+segs+clean;
+    p.creds+=total;
+    log(p.name+': +'+participation+' Cr (participation)'+(posPay?' +'+posPay+' Cr (position)':'')+(segs?' +'+segs+' Cr (Segments won)':'')+(clean?' +'+clean+' Cr (Clean Finish)':wasReckless?' (no Clean Finish — went Reckless last race)':'')+' = +'+total+' Cr → '+p.creds+' Cr','m');
+    p.reckR=false; // NOW reset, after income has been calculated
   });
-  G.phase='fuel'; rr();
+  G.phase='market'; rr();
 }
 
 // ── PH2 FUEL ────────────────────────────────────────────────────────
 function phFuel(el){
-  let h='<div class="card"><div class="ct">Phase 2 — Fuel Station (Static Shop — Never Rotates)</div>'
-    +'<div class="info">Each player chooses fuel for this Race. Prerequisites must be INSTALLED (not just purchased). AI players use Pump 98. Fuel can change every Race.</div>';
+  let h='<div class="card"><div class="ct">Phase 2 — Fuel Station</div>'
+    +'<div class="info">Choose your fuel for this Race. Prerequisites must be INSTALLED on your car. Once unlocked (one-time cost), a fuel is free to use every Race.</div>';
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">';
+  G.P.forEach((p,pi2)=>h+='<div class="badge bg" style="font-size:.65rem;">'+p.name+': '+p.creds+' Credits</div>');
+  h+='</div>';
   G.P.forEach((p,i)=>{
     const hasFlex=p.installed.some(u=>u.special==='unlock_e85'||u.tag==='Flex Fuel Kit');
     const hasECU=p.installed.some(u=>u.special==='unlock_fuels'||u.tag==='ECU Upgrade');
@@ -876,7 +959,7 @@ function phFuel(el){
           +'<div class="fname" style="color:'+(ok?'#fff':'#555')+'">'+f.name+'</div>'
           +'<div style="font-size:.67rem;color:#bbb;margin-bottom:4px;line-height:1.4;">'+f.eff+'</div>'
           +'<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;">'+f.tags.map(t=>'<span class="badge bg" style="font-size:.5rem;">'+t+'</span>').join('')+'</div>'
-          +'<div style="font-size:.6rem;color:var(--gd);">'+(f.cost?f.cost+' Cr to swap':'Free')+'</div>'
+          +'<div style="font-size:.6rem;color:var(--gd);">'+(f.cost?'Unlock cost: '+f.cost+' Cr (one-time, then free)':'Always free')+'</div>'
           +'<div style="font-size:.58rem;color:'+(ok?'#666':'var(--red)')+'">'+f.reqText+'</div>'
           +(!ok&&missing.length?'<div style="font-size:.56rem;color:var(--red);margin-top:3px;">🔒 Need: '+missing.join(', ')+'</div>':'')
           +'</div>';
@@ -885,7 +968,7 @@ function phFuel(el){
     }
     h+='</div>';
   });
-  h+='<button class="btn" onclick="G.phase=\'market\';rr()">✓ Confirm Fuel — Continue to Market</button></div>';
+  h+='<button class="btn" onclick="startRacePh()">✓ Confirm Fuel — Start Race!</button></div>';
   el.innerHTML=h;
 }
 function pickFuel(pi,fid){
@@ -911,7 +994,7 @@ function phMarket(el){
       +'<strong style="color:'+p.col+'">'+p.name+'</strong>'
       +(p.car?'<span class="badge" style="background:#1a1a1a;color:var(--gd);border:1px solid #444;font-size:.55rem;">'+p.car.name+' | P'+p.P+' H'+p.H+' B'+p.B+' A'+p.A+' C'+p.C+' R'+p.R+'</span>':'')
       +'<span class="badge bg">'+p.creds+' Cr</span>'
-      +'<span class="badge bbl">'+p.mechs+' Mech ('+(p.mechs*2)+' WC/round)</span>'
+      +'<span class="badge bbl">'+p.mechs+' Mechanic ('+(p.mechs*2)+' Workshop Capacity/round)</span>'
       +(p.engs?'<span style="font-size:.58rem;color:#cc99ff;"> '+p.engs+' Eng</span>':'')
       +(p.ability?'<span style="font-size:.58rem;color:#888;"> ★ '+p.ability.n+'</span>':'')
       +(p.sponsor?'<span style="font-size:.58rem;color:var(--gd);"> ♦ '+p.sponsor.name+'</span>':'')
@@ -926,7 +1009,8 @@ function phMarket(el){
       // Staff buttons
       h+='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;">';
       if(p.mechs<3)h+='<button class="btn sec" style="font-size:.6rem;padding:4px 8px;" onclick="hireMech('+i+')" '+(p.creds<5?'disabled':'')+'>+ Mechanic (5 Cr) → +'+(p.mechs===1?2:2)+' WC/round (total '+(p.mechs+1)*2+' WC)</button>';
-      if(p.engs<1)h+='<button class="btn sec" style="font-size:.6rem;padding:4px 8px;" onclick="hireEng('+i+')" '+(p.creds<7?'disabled':'')+'>+ Engineer (7 Cr) → S-Tier unlock + Deck Search</button>';
+      if(p.workshopSlots<5)h+='<button class="btn sec" style="font-size:.6rem;padding:4px 8px;" onclick="expandWorkshop('+i+')" '+(p.creds<8?'disabled':'')+'>Expand Workshop (8 Cr) → '+(p.workshopSlots+1)+' slots</button>';
+      if(p.engs<1)h+='<button class="btn sec" style="font-size:.6rem;padding:4px 8px;" onclick="hireEng('+i+')" '+(p.creds<10?'disabled title="Need 10 Credits"':'')+'>+ Engineer (10 Cr) → S-Tier unlock + Free Deck Browse</button>';
       if(!p.sponsor&&G.sponsFU.length)h+='<button class="btn gd" style="font-size:.6rem;padding:4px 8px;" onclick="showSponsors('+i+')">Claim Sponsor</button>';
       h+='</div>';
       // Market cards
@@ -957,19 +1041,21 @@ function phMarket(el){
 function mkCard(u,pi,fn,extraClass){
   extraClass=extraClass||'';
   var p=G.P[pi];
-  var can=!p||u.buy<=p.creds;
+  var effCost=p?getEffectiveCost(p,u):u.buy; var can=!p||effCost<=p.creds;
   var tagConflict=p&&p.installed.find(function(x){return x.tag&&x.tag===u.tag&&u.tag;});
   var engReq=u.tier&&p&&!p.engs;
   var tierLabel=u.tier?'<span class="tier-stier">S-TIER</span>':u.wc>=2?'<span class="tier-major">MAJOR</span>':'<span class="tier-minor">MINOR</span>';
   var pills=[];
+  if(u.nismo)pills.push('<span class="pill pill-sp" style="color:#dd88ff;border-color:#6a006a;">NISMO</span>');
   if(u.stat&&u.val)pills.push('<span class="pill pill-pos">+'+u.val+' '+SN[u.stat]+'</span>');
+  var secB=getSecondaryBonus(u); if(secB)pills.push('<span class="pill pill-pos">+'+secB.val+' '+SN[secB.stat]+'</span>');
   if(u.heat)pills.push('<span class="pill pill-heat">+'+u.heat+' Heat</span>');
-  if(u.x==='unlock_e85')pills.push('<span class="pill pill-sp">Unlocks E85</span>');
-  if(u.x==='unlock_fuels')pills.push('<span class="pill pill-sp">Unlocks Fuels</span>');
-  if(u.x==='unlock_methanol')pills.push('<span class="pill pill-sp">Req.Methanol</span>');
-  if(u.x==='unlock_leaded')pills.push('<span class="pill pill-sp">Unlocks Leaded</span>');
-  if(u.x==='unlock_nitrous')pills.push('<span class="pill pill-sp">Unlocks Nitrous</span>');
-  if(u.x==='nitrous')pills.push('<span class="pill pill-sp">+4P once/Race</span>');
+  if(u.x==='unlock_e85')pills.push('<span class="pill pill-sp" style="color:#90ee90;">&#9981; Unlocks E85 Fuel</span>');
+  if(u.x==='unlock_fuels')pills.push('<span class="pill pill-sp" style="color:#90ee90;">&#9981; Unlocks All Advanced Fuels</span>');
+  if(u.x==='unlock_methanol')pills.push('<span class="pill pill-sp" style="color:#aaddff;">&#9981; Required for Methanol</span>');
+  if(u.x==='unlock_leaded')pills.push('<span class="pill pill-sp" style="color:#ffcc88;">&#9981; Unlocks Leaded Fuel</span>');
+  if(u.x==='unlock_nitrous')pills.push('<span class="pill pill-sp" style="color:#dd88ff;">&#9981; Required for Nitrous N2O</span>');
+  if(u.x==='nitrous')pills.push('<span class="pill pill-sp" style="color:#dd88ff;">&#9981; NITROUS: +4 Power for 1 Segment</span>');
   if(u.x==='reduce_ot')pills.push('<span class="pill pill-pos">Overtemp -1</span>');
   if(u.x==='all_segs')pills.push('<span class="pill pill-pos">+'+u.val+'P all Segs</span>');
   if(u.x==='hs_power')pills.push('<span class="pill pill-sp">+P Hi-Speed</span>');
@@ -997,10 +1083,19 @@ function mkCard(u,pi,fn,extraClass){
   html+='<div class="ueff">'+u.eff+'</div>';
   html+='<div class="udesc">'+u.desc+'</div>';
   html+='<div class="upills">'+pills.join('')+'</div>';
-  if(tagConflict)html+='<div style="font-size:.58rem;color:#ff8800;">Replaces: '+tagConflict.n+'</div>';
+  if(tagConflict)html+='<div style="background:#1a0d00;border:1px solid #ff8800;border-radius:3px;padding:3px 6px;font-size:.58rem;color:#ff8800;margin-bottom:3px;"><strong>Swaps out:</strong> '+tagConflict.n+' — click to install this upgrade and remove the old one</div>';
   if(engReq)html+='<div style="font-size:.58rem;color:var(--red);">Requires Engineer</div>';
   if(!can)html+='<div style="font-size:.58rem;color:var(--red);">Need '+u.buy+' Cr</div>';
-  html+='<div class="ufoot"><span class="ucost">'+u.buy+' Cr</span><span class="uwc">'+u.wc+' WC</span></div>';
+  var discLabel='';
+  if(effCost<u.buy&&p&&p.ability){
+    var dk=p.ability.k;
+    if(dk==='nismo_heritage')discLabel='NISMO -'+(u.buy-effCost);
+    else if(dk==='gazoo_discount')discLabel='Gazoo -'+(u.buy-effCost);
+    else if(dk==='precision_engineering')discLabel='Precision -'+(u.buy-effCost);
+    else if(dk==='go_big')discLabel='Go Big -'+(u.buy-effCost);
+    else discLabel='Discount -'+(u.buy-effCost);
+  }
+  html+='<div class="ufoot"><span class="ucost">'+(effCost<u.buy?'<s style="color:#666;">'+u.buy+'</s> '+effCost+' Cr':effCost+' Cr')+(discLabel?' <span style="color:#dd88ff;font-size:.5rem;">'+discLabel+'</span>':'')+'</span><span class="uwc">'+u.wc+' WC</span></div>';
   html+='</div>';
   return html;
 }
@@ -1159,12 +1254,18 @@ function showDeckSearch(pi,containerId){
   $(containerId).innerHTML=h;
 }
 
-function dsBuy(pi,uname){
-  const p=G.P[pi]; const idx=p.deck.findIndex(u=>u.n===uname);
-  if(idx===-1)return; const u=p.deck[idx];
-  if(u.buy>p.creds){alert('Need '+u.buy+' Cr');return;}
-  p.creds-=u.buy; p.garage.push({...u}); p.deck.splice(idx,1);
-  log(p.name+' [DECK SEARCH]: bought "'+u.n+'" ('+u.buy+' Cr) → Workshop','k');
+function dsBuy(pi,ci){
+  const p=G.P[pi];
+  const u=getCard(ci);
+  if(!u)return;
+  const idx=p.deck.findIndex(d=>d.n===u.n);
+  if(idx===-1)return;
+  const totalCost=u.buy+1;
+  if(totalCost>p.creds){alert('Need '+totalCost+' Cr ('+u.buy+' Cr card + 1 Cr engineer search fee)');return;}
+  p.creds-=totalCost;
+  if(p.garage.length>=p.workshopSlots){alert('Workshop full! Max '+p.workshopSlots+' items. Expand your Workshop or install/sell first.');p.creds+=totalCost;return;}
+  p.garage.push({...u}); p.deck.splice(idx,1);
+  log(p.name+' Engineer Search: grabbed '+u.n+' ('+u.buy+' Cr + 1 Cr search fee = '+totalCost+' Cr total) → Workshop','k');
   const ex=$('mEx'+pi); if(ex)ex.innerHTML=''; rr();
 }
 
@@ -1224,13 +1325,26 @@ function claimSP(pi,si){
   $('mEx'+pi).innerHTML=''; rr();
 }
 
-function buyCard(pi,uname){
-  const p=G.P[pi]; const idx=p.mkt.findIndex(u=>u.n===uname);
-  if(idx===-1){alert('Card not found in market');return;}
-  const u=p.mkt[idx];
-  if(u.buy>p.creds){alert('Need '+u.buy+' Cr');return;}
-  p.creds-=u.buy; p.garage.push({...u}); p.mkt.splice(idx,1);
-  log(p.name+': Bought "'+u.n+'" ('+u.buy+' Cr) → Workshop. '+p.creds+' Cr left','k');
+function buyCard(pi,ci){
+  const p=G.P[pi];
+  const u=getCard(ci);
+  if(!u){alert('Card error - refresh');return;}
+  const idx=p.mkt.findIndex(m=>m.n===u.n);
+  if(idx===-1){alert('Card not in your market');return;}
+  var effCost=getEffectiveCost(p,u); if(effCost>p.creds){alert('Need '+effCost+' Cr');return;}
+  if(p.garage.length>=p.workshopSlots){alert('Workshop full! Max '+p.workshopSlots+' items. Expand your Workshop (8 Cr) or install/sell existing items first.');return;}
+  p.creds-=effCost; p.garage.push({...u}); p.mkt.splice(idx,1);
+  log(p.name+': Bought '+u.n+' ('+effCost+' Cr'+(effCost<u.buy?', NISMO discount applied':'')+') added to Workshop. '+p.creds+' Cr left. Workshop: '+p.garage.length+'/'+p.workshopSlots+' slots.','k');
+  rr();
+}
+
+
+function expandWorkshop(pi){
+  var p=G.P[pi];
+  if(p.workshopSlots>=5){alert('Workshop already at maximum (5 slots).');return;}
+  if(p.creds<8){alert('Need 8 Credits to expand Workshop.');return;}
+  p.creds-=8; p.workshopSlots++;
+  log(p.name+': Expanded Workshop to '+p.workshopSlots+' slots (8 Credits)','k');
   rr();
 }
 
@@ -1242,9 +1356,9 @@ function hireMech(i){
 }
 function hireEng(i){
   const p=G.P[i];
-  if(p.creds<7){alert('Need 7 Cr');return;}
-  p.creds-=7; p.engs++;
-  log(p.name+': Hired Engineer (7 Cr). S-Tier and Deck Search unlocked.','k'); rr();
+  if(p.creds<10){alert('Need 10 Credits to hire an Engineer');return;}
+  p.creds-=10; p.engs++;
+  log(p.name+': Hired Engineer (10 Credits). S-Tier upgrades unlocked. Can browse deck for free, +1 Credit fee to grab any specific card.','k'); rr();
 }
 
 function doMarket(){
@@ -1252,7 +1366,8 @@ function doMarket(){
   G.P.forEach(p=>{
     if(p.mkt.length)p.deck=shuffle([...p.deck,...p.mkt]);
     p.mkt=[];
-    p.mkt=p.deck.splice(0,Math.min(G.MKT,p.deck.length));
+    var marketSize=(p.ability&&p.ability.k==='data_analyst')?G.MKT+1:G.MKT;
+    p.mkt=p.deck.splice(0,Math.min(marketSize,p.deck.length));
   });
   G.phase='workshop'; rr();
 }
@@ -1261,7 +1376,7 @@ function aiMarket(i){
   const p=G.P[i]; const ai=AI_P[p.ai];
   if(ai.hire==='early'&&p.mechs===1&&p.creds>=5&&G.race<=3){p.creds-=5;p.mechs++;log('[AI] '+p.name+': Hired Mechanic #2 (5 Cr)','k');}
   else if(ai.hire==='mid'&&p.mechs===1&&p.creds>=5&&G.race<=5){p.creds-=5;p.mechs++;log('[AI] '+p.name+': Hired Mechanic #2 (5 Cr)','k');}
-  if(!p.engs&&p.creds>=7&&G.race>=3&&ai.hire!=='late'){p.creds-=7;p.engs++;log('[AI] '+p.name+': Hired Engineer (7 Cr)','k');}
+  if(!p.engs&&p.creds>=10&&G.race>=3&&ai.hire!=='late'){p.creds-=10;p.engs++;log('[AI] '+p.name+': Hired Engineer (10 Cr)','k');}
   if(!p.sponsor&&G.sponsFU.length){const sp=G.sponsFU.find(s=>s.fee<=p.creds);if(sp){const si=G.sponsFU.indexOf(sp);p.creds-=sp.fee;p.sponsor=sp;G.sponsFU.splice(si,1);if(G.sponsDeck.length)G.sponsFU.push(G.sponsDeck.shift());if(sp.ong==='cooling_bonus')p.C+=1;log('[AI] '+p.name+': Claimed Sponsor "'+sp.name+'"','k');}}
   // Refresh market
   if(p.mkt.length)p.deck=shuffle([...p.deck,...p.mkt]);
@@ -1279,12 +1394,15 @@ function aiMarket(i){
 
 // ── PH4 WORKSHOP ─────────────────────────────────────────────────────
 function phWorkshop(el){
+  G.P.forEach(p=>p._wuUsed=0);
   G.P.forEach((p,i)=>{if(isAI(i))aiWorkshop(i);});
   let h='<div class="card"><div class="ct">Phase 4 — Workshop Phase</div>'
     +'<div class="info">'
-    +'<strong>How it works:</strong> Spend Workshop Capacity (WC) to install cards from your Workshop. 1 Mechanic = 2 WC per round.<br>'
-    +'<strong>Minor card = 1 WC. Major = 2 WC. S-Tier = 3 WC.</strong> If you can\'t pay full cost this round, start installation and continue next round (card activates only when complete).<br>'
-    +'Repair: +1 Reliability costs 2 Cr + 1 WC. Full service: 5 Cr + 2 WC, resets to base R.'
+    +'<strong>How it works:</strong> Spend Workshop Capacity to install cards from your Workshop. 1 Mechanic = 2 Workshop Capacity per round.<br>'
+    +'<strong>Minor upgrade = 1 Workshop Capacity. Major = 2. S-Tier = 3.</strong> Can\'t pay full cost this round? Installation starts and continues next round — card is inactive until complete.<br>'
+    +'<strong style="color:#6cb4ee;">Reliability upgrades</strong> permanently raise your MAXIMUM Reliability (install +1 Reliability: car becomes 6/6 instead of 5/5). Damage lowers your CURRENT Reliability below this new max — repairing restores up to the new max, the upgrade is never lost.<br>'
+    +'Repair: +1 Reliability costs 2 Credits + 1 Workshop Capacity. Full Service: 5 Credits + 2 Workshop Capacity, restores to your current maximum.<br>'
+    +'<strong>Workshop holds 3 items by default.</strong> Expand to 5 max for 8 Credits per slot (available in the Market phase).'
     +'</div>';
   G.P.forEach((p,i)=>{
     const wu=p.mechs*2;
@@ -1328,7 +1446,9 @@ function phWorkshop(el){
           const tagConflict=p.installed.find(x=>x.tag&&x.tag===u.tag);
           const engReq=u.tier&&!p.engs;
           const pills=[];
-          if(u.stat&&u.val)pills.push('<span class="pill pill-pos">+'+u.val+' '+SN[u.stat]+'</span>');
+          if(u.nismo)pills.push('<span class="pill pill-sp" style="color:#dd88ff;border-color:#6a006a;">NISMO</span>');
+  if(u.stat&&u.val)pills.push('<span class="pill pill-pos">+'+u.val+' '+SN[u.stat]+'</span>');
+  var secB=getSecondaryBonus(u); if(secB)pills.push('<span class="pill pill-pos">+'+secB.val+' '+SN[secB.stat]+'</span>');
           if(u.heat)pills.push('<span class="pill pill-heat">+'+u.heat+' Heat</span>');
           h+='<div class="ucard'+(u.tier?' stier':'')+(engReq?' locked':'')+'"'+(engReq?'':' onclick="installCard('+i+','+gi+')"')+'>'
             +(u.tier?'<div class="stlabel">S-TIER</div>':'')
@@ -1346,6 +1466,12 @@ function phWorkshop(el){
         h+='<div style="font-size:.7rem;color:#333;margin-bottom:5px;">Workshop empty — nothing to install.</div>';
       }
       // Actions
+      var relC=p.R<=1?'var(--red)':p.R<=3?'#ff8800':'#6ce06c';
+      h+='<div style="background:#0a0a0a;border:1px solid #222;border-radius:4px;padding:8px;margin:6px 0;font-size:.67rem;line-height:1.9;">';
+      h+='<strong style="color:'+relC+';">Reliability: '+p.R+' / '+p.Rb+'</strong> — drops on Reckless damage (roll 1-2), overheat, or hazard.<br>';
+      h+='<strong style="color:var(--red);">Reliability 0 = DNF: -1 Championship Point, -1 Credit, no race position points this race.</strong><br>';
+      h+='<strong style="color:#6ce06c;">Position CP: 1st=3, 2nd=2, 3rd=1, 4th=0 (doubled on Race 8 Finale). Plus +1 CP per Segment win, +1 CP Clean Run (any position, zero Reckless this race). Credits: 5 participation + 2/1/0/0 position + 1/Segment + 1 Clean Finish.</strong>';
+      h+='</div>';
       h+='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;">';
       if(p.R<p.Rb){
         h+='<button class="btn sec" style="font-size:.6rem;padding:4px 8px;" onclick="repairCar('+i+',1)" '+(p.creds<2?'disabled':'')+'>Repair +1R (1WC + 2 Cr)</button>';
@@ -1358,33 +1484,60 @@ function phWorkshop(el){
     }
     h+='</div>';
   });
-  h+='<button class="btn ok" style="margin-top:10px;" onclick="startRacePh()">✓ Workshop Done — Start Race!</button></div>';
+  h+='<button class="btn ok" style="margin-top:10px;" onclick="goFuel()">✓ Workshop Done — Choose Fuel!</button></div>';
   el.innerHTML=h;
 }
 
 function installCard(pi,gi){
   const p=G.P[pi]; const u=p.garage[gi]; const wu=p.mechs*2;
+  // Capacity check — cannot spend more than what's LEFT this round (not total)
+  const wusedThisRound=p._wuUsed||0;
+  const wuLeft=wu-wusedThisRound;
+  if(wuLeft<=0){alert('No Workshop Capacity left this round! You\'ve already used all '+wu+' ('+p.mechs+' Mechanic x 2). This card will start next round.\n\nClick again to begin a multi-round install.');
+    // Start WIP instead of blocking entirely — matches the "continues next round" rule
+    if(!p.wip)p.wip=[];
+    p.wip.push({card:{...u},wc_paid:0,wc_total:u.wc});
+    p.garage.splice(gi,1);
+    log(p.name+': No Workshop Capacity left this round. Started installing "'+u.n+'" (0/'+u.wc+' Workshop Capacity paid). Will continue next Workshop phase.','n');
+    rr(); return;
+  }
   // Check tag conflict
   const ci=p.installed.findIndex(x=>x.tag&&x.tag===u.tag);
   if(ci!==-1){
     if(!confirm('Installing "'+u.n+'" will REMOVE "'+p.installed[ci].n+'" (same tag: "'+u.tag+'")\n\nContinue?'))return;
     const old=p.installed.splice(ci,1)[0];
-    if(old.stat)p[old.stat]-=old.val; p.heat-=(old.heat||0);
-    log(p.name+': Removed "'+old.n+'"','n');
+    if(old.stat)p[old.stat]-=old.val;
+    if(old.stat==='R')p.Rb=Math.max(1,p.Rb-old.val);
+    var oldSec=getSecondaryBonus(old); if(oldSec){p[oldSec.stat]-=oldSec.val; if(oldSec.stat==='R')p.Rb=Math.max(1,p.Rb-oldSec.val);}
+    p.heat-=(old.heat||0);
+    log(p.name+': Removed "'+old.n+'"'+(oldSec?' (also -'+oldSec.val+' '+SN[oldSec.stat]+')':''),'n');
   }
-  if(u.wc<=wu){
-    // Complete immediately
-    if(u.stat)p[u.stat]+=u.val; p.heat+=(u.heat||0);
+  if(u.wc<=wuLeft){
+    // Complete immediately — fits within what's left this round
+    if(u.stat)p[u.stat]+=u.val;
+    if(u.stat==='R')p.Rb+=u.val; // Reliability upgrades raise the BASE max too, so repairs don't erase the bonus
+    var sec=getSecondaryBonus(u); if(sec){p[sec.stat]+=sec.val; if(sec.stat==='R')p.Rb+=sec.val;}
+    var extraHeat=(p.ability&&p.ability.k==='go_big'&&u.tier)?1:0;
+    if(extraHeat)log(p.name+': Go Big or Go Home — +1 extra Heat from S-Tier install','x');
+    var boostReduce=(p.ability&&p.ability.k==='boost_confidence'&&u.tag==='Forced Induction'&&u.heat>0)?1:0;
+    if(boostReduce)log(p.name+': Boost Confidence — 1 less Heat from Forced Induction install','x');
+    p.heat+=Math.max(0,(u.heat||0)+extraHeat-boostReduce);
+    // Lightweight Philosophy (MX-5): install a Coilovers/Sway Bars/Chassis Brace card -> +1 Credit
+    if(p.ability&&p.ability.k==='lightweight_philosophy'&&['Coilovers','Sway Bars','Chassis Brace'].includes(u.tag)){
+      p.creds+=1; log(p.name+': Lightweight Philosophy +1 Credit ('+u.tag+' installed)','k');
+    }
     if(p.P>p.maxP)p.maxP=p.P;
     if(p.heat>p.maxHeat)p.maxHeat=p.heat;
     p.installed.push({...u}); p.garage.splice(gi,1);
-    log(p.name+': INSTALLED "'+u.n+'". P'+p.P+' H'+p.H+' B'+p.B+' A'+p.A+' C'+p.C+' R'+p.R+' Heat='+p.heat,'n');
+    p._wuUsed=(p._wuUsed||0)+u.wc;
+    log(p.name+': INSTALLED '+u.n+(sec?' (also +'+sec.val+' '+SN[sec.stat]+')':'')+'. Used '+u.wc+'/'+wuLeft+' remaining Workshop Capacity this round. Power:'+p.P+' Handling:'+p.H+' Brakes:'+p.B+' Aero:'+p.A+' Cooling:'+p.C+' Reliability:'+p.R+' Heat:'+p.heat,'n');
   }else{
-    // Start WIP
+    // Doesn't fit in what's left this round — pay what we can, start WIP
     if(!p.wip)p.wip=[];
-    p.wip.push({card:{...u},wc_paid:wu,wc_total:u.wc});
+    p.wip.push({card:{...u},wc_paid:wuLeft,wc_total:u.wc});
+    p._wuUsed=(p._wuUsed||0)+wuLeft;
     p.garage.splice(gi,1);
-    log(p.name+': Started installing "'+u.n+'" ('+wu+'/'+u.wc+' WC paid). Will complete next Workshop.','n');
+    log(p.name+': Started installing "'+u.n+'" ('+wuLeft+'/'+u.wc+' Workshop Capacity paid — that\'s all you have left this round). Will continue next Workshop phase.','n');
   }
   rr();
 }
@@ -1392,11 +1545,14 @@ function installCard(pi,gi){
 function finishWIP(pi,wi){
   const p=G.P[pi]; const wip=p.wip[wi]; const u=wip.card;
   const ci=p.installed.findIndex(x=>x.tag&&x.tag===u.tag);
-  if(ci!==-1){const old=p.installed.splice(ci,1)[0];if(old.stat)p[old.stat]-=old.val;p.heat-=(old.heat||0);}
-  if(u.stat)p[u.stat]+=u.val; p.heat+=(u.heat||0);
+  if(ci!==-1){const old=p.installed.splice(ci,1)[0];if(old.stat)p[old.stat]-=old.val;var os2=getSecondaryBonus(old);if(os2)p[os2.stat]-=os2.val;p.heat-=(old.heat||0);}
+  if(u.stat)p[u.stat]+=u.val;
+  if(u.stat==='R')p.Rb+=u.val;
+  var sec=getSecondaryBonus(u); if(sec){p[sec.stat]+=sec.val; if(sec.stat==='R')p.Rb+=sec.val;}
+  p.heat+=(u.heat||0);
   if(p.P>p.maxP)p.maxP=p.P; if(p.heat>p.maxHeat)p.maxHeat=p.heat;
   p.installed.push({...u}); p.wip.splice(wi,1);
-  log(p.name+': INSTALLATION COMPLETE — "'+u.n+'". P'+p.P+' H'+p.H+' B'+p.B+' A'+p.A+' C'+p.C+' R'+p.R+' Heat='+p.heat,'n');
+  log(p.name+': INSTALLATION COMPLETE — "'+u.n+'"'+(sec?' (also +'+sec.val+' '+SN[sec.stat]+')':'')+'. P'+p.P+' H'+p.H+' B'+p.B+' A'+p.A+' C'+p.C+' R'+p.R+' Heat='+p.heat,'n');
   rr();
 }
 
@@ -1411,9 +1567,11 @@ function repairCar(pi,mode){
   const p=G.P[pi];
   const cost=mode===1?2:5; const gain=mode===1?1:p.Rb-p.R;
   const mc=p.sponsor&&p.sponsor.name==='Motul'?Math.max(1,cost-1):cost;
-  if(p.creds<mc){alert('Need '+mc+' Cr');return;}
+  if(p.creds<mc){alert('Need '+mc+' Credits');return;}
+  if(mode===1&&p.R>=p.Rb){alert('Reliability already at max ('+p.Rb+')');return;}
+  var oldR=p.R;
   p.R=Math.min(p.Rb,p.R+gain); p.creds-=mc; p.repairs++;
-  log(p.name+': Repair +'+gain+'R ('+mc+' Cr). R='+p.R,'n'); rr();
+  log(p.name+': Repaired! Reliability '+oldR+' → '+p.R+'/'+p.Rb+' ('+mc+' Credits)','n'); rr();
 }
 
 function aiWorkshop(i){
@@ -1452,6 +1610,7 @@ function aiWorkshop(i){
 }
 
 // ── RACE PHASE ───────────────────────────────────────────────────────
+function goFuel(){G.phase='fuel';rr();}
 function startRacePh(){
   const t=G.cal[G.race-1]; const w=G.w; const hz=G.hz;
   if(t.sp==='hot'||t.sp==='perth'){G.P.forEach(p=>{p.heat++;if(p.heat>p.maxHeat)p.maxHeat=p.heat;});log('Track special '+t.name+': All cars +1 Heat','x');}
@@ -1474,17 +1633,32 @@ function startRacePh(){
 function doOHCheck(i,label,cp){
   const p=G.P[i]; if(G.dnf[i])return;
   const otp=p.sponsor&&p.sponsor.ong==='overtemp_pen'?-1:0;
-  const hasReroll=p.installed.some(u=>u.special==='reroll_heat');
-  const eff=p.C-cp;
-  if(p.heat>eff){
-    const ot=Math.max(1,p.heat-eff+otp); p.R--;
-    let roll=d6();
-    if(hasReroll&&roll<ot){roll=d6();log(p.name+': Data Logger reroll!','k');}
-    const fail=roll<ot;
-    if(fail)p.R-=2;
-    log(p.name+' '+label+': Heat='+p.heat+' Cool='+eff+' OT='+ot+' D6='+roll+(fail?' → FAIL -2R':' → PASS')+'. R='+p.R,fail?'d':'x');
-    if(p.R<=0)doDNF(i);
+  const hasReroll=p.installed.some(u=>u.x==='reroll_heat')||(p.ability&&p.ability.k==='data_logging'&&!p._dataLoggingUsed);
+  const eff=p.C-cp; // Effective cooling this check
+  if(p.heat<=eff){
+    log(p.name+' Overheat Check: Heat '+p.heat+' vs Cooling '+eff+' — OK, no check needed.','i');
+    return;
   }
+  // Heat exceeds cooling — must check!
+  const ot=Math.max(1,p.heat-eff+otp);
+  p.R--; // Always lose 1 Reliability when overheating
+  let roll=d6();
+  const firstRoll=roll;
+  if(hasReroll&&roll<ot){
+    roll=d6();
+    var srcLabel=(p.ability&&p.ability.k==='data_logging'&&!p._dataLoggingUsed)?'Data Logging ability':'Data Logger / AIM Solo card';
+    if(p.ability&&p.ability.k==='data_logging')p._dataLoggingUsed=true;
+    log(p.name+': '+srcLabel+' reroll activated! First roll: '+firstRoll+', reroll: '+roll,'k');
+  }
+  const fail=roll<ot;
+  if(fail)p.R-=2;
+  log(p.name+' OVERHEAT CHECK ('+label+'): Heat='+p.heat+' Cooling='+eff
+    +' | Overtemp threshold='+ot+' | Roll: '+roll
+    +(fail?' → CRITICAL FAILURE! -1R (auto) -2R more = -3R total. Reliability='+p.R
+         :' → Passed roll (needed '+ot+' or higher). -1R auto. Reliability='+p.R),fail?'d':'x');
+  if(p.R<=0){doDNF(i);return;}
+  // Endurance Mindset (370Z): survived an Overheat Check without DNF -> +1 Credit
+  if(p.ability&&p.ability.k==='endurance_mindset'){p.creds+=1;log(p.name+': Endurance Mindset +1 Credit (survived Overheat Check)','k');}
 }
 
 function doDNF(i){
@@ -1495,11 +1669,12 @@ function doDNF(i){
 }
 
 function aiSetReck(){
+  G.reckSealed={}; G.reckRevealed=false; G.reck={};
   G.P.forEach((p,i)=>{
     if(!isAI(i)||G.dnf[i])return;
     const ai=AI_P[p.ai]; let ch=ai.rc;
     if(p.fat>=2||p.R<=1)ch=0; if(p.rc>=4)ch*=.5;
-    G.reck[i]=rnd()<ch;
+    G.reckSealed[i]=rnd()<ch; // sealed, not revealed — hidden from display until revealReck()
   });
 }
 
@@ -1522,45 +1697,62 @@ function getDems(t,w,hz,si){
   return{da,db};
 }
 
-function getScore(p,i,seg,da,db,sn,t,w,addB,addA){
+function getScore(p,i,seg,da,db,sn,t,w,hz,addB,addA){
+  // Quattro Grip (Audi TT): completely ignores Wet Track and Crosswind Demand penalties
+  if(p.ability&&p.ability.k==='quattro_grip'){
+    if((w.hd_all||w.aero_3rd)&&seg[0]==='H')da=seg[1]; // reset Handling demand to track base, ignoring weather addition
+    if((w.hd_all||w.aero_3rd)&&seg[2]==='H')db=seg[3];
+  }
   let a=p[seg[0]]-da, b=p[seg[2]]-db;
   // Fuel bonuses
   const isFI=p.installed.some(u=>u.tag==='Turbocharger'||u.tag==='Supercharger');
   if(p.fuel==='e85'&&seg[0]==='P')a+=isFI?2:1;
   if(p.fuel==='leaded'&&seg[0]==='P')a+=isFI?2:1;
   if(p.fuel==='methanol'&&seg[0]==='P')a+=3;
-  // Nitrous — active for one declared segment
-  if(p.fuel==='nitrous'&&!p.nitrousUsed&&sn===G.segI+1){/* handled in segment declaration */}
+  // Nitrous — one segment boost, declared before segment
+  if(p.fuel==='nitrous'&&!p.nitrousUsed&&G.nitrousSeg&&G.nitrousSeg[i]===sn){
+    if(seg[0]==='P')a+=4; // +4 Power — only affects Power stat segments
+    else log(p.name+': Nitrous activated but this segment primary stat is '+SN[seg[0]]+' not Power — nitrous gives no bonus here (wasted!). Consider using it in a Power segment.','x');
+  }
   // Sponsor
   if(p.sponsor){
     if(p.sponsor.ong==='power_bonus'&&seg[0]==='P')a+=1;
     if(p.sponsor.ong==='handling_s1'&&sn===1&&seg[0]==='H')a+=1;
   }
-  // Ability effects
+  // Ability effects — keyed lookup, fires every Segment unless Fatigued (fat>0 dulls ability focus)
   if(p.ability&&p.fat===0){
-    const ae=p.ability.e.toLowerCase();
-    if(ae.includes('heat is higher than cooling')&&p.heat>p.C&&seg[0]==='P')a+=1;
-    if(ae.includes('high-speed segments')&&t.ty.includes('High')&&seg[0]==='P')a+=2;
-    if(ae.includes('segment 3')&&sn===3&&seg[2]==='B')b+=1; // Late Braker
-    if(ae.includes('segment 1')&&sn===1&&seg[0]==='P')a+=2; // Launch Control
-    if(ae.includes('handling exceeds power')&&p.H>p.P&&sn===2&&seg[0]==='P')a+=1; // Corner Exit Specialist
-    if(ae.includes('segment 2')&&sn===2&&seg[0]==='H')a+=1; // Torque Curve etc
-    if(ae.includes('+2 power in high-speed')&&t.ty.includes('High')&&seg[0]==='P')a+=2;
+    const k=p.ability.k;
+    if(k==='momentum_driver'&&G.segW_thisRace_seg1Winner===i&&sn===2&&seg[0]==='H')a+=1;
+    if(k==='torque_monster'&&p._torqueMonsterActive&&seg[0]==='P')a+=1; // locked in at race start (Heat>=Cooling check)
+    if(k==='track_weapon'&&sn===3&&seg[2]==='B')b+=1;
+    if(k==='launch_control'&&sn===1&&seg[0]==='P')a+=2;
+    if(k==='corner_exit'&&p.H>p.P&&sn===2&&seg[0]==='P')a+=1;
+    if(k==='late_braker'&&sn===3&&seg[2]==='B')b+=1;
+    if(k==='american_muscle'&&p.heat>p.C&&seg[0]==='P')a+=1;
+    if(k==='straight_line'&&t.ty.includes('High')&&seg[0]==='P')a+=2;
+    if(k==='driver_feedback'&&!p._driverFeedbackUsed&&b<0){b=0;p._driverFeedbackUsed=true;}
+    if(k==='oversteer_control'&&!p._oversteerUsed&&b<0){b=0;p._oversteerUsed=true;}
+    if(k==='quattro_grip'){if(w.hd_all)a-=0;} // handled via da_ignore below for Handling segments
   }
   // Card specials
   p.installed.forEach(u=>{
-    if(u.special==='all_segs'&&seg[0]==='P')a+=u.val;
-    if(u.special==='hs_power'&&t.ty.includes('High')&&seg[0]==='P')a+=u.val;
-    if(u.special==='seg1_power'&&sn===1&&seg[0]==='P')a+=1;
-    if(u.special==='seg1_power2'&&sn===1&&seg[0]==='P')a+=2;
-    if(u.special==='seg12_power'&&(sn===1||sn===2)&&seg[0]==='P')a+=u.val;
-    if(u.special==='seg3_rel'&&sn===3)p.R+=1; // temp
-    if(u.special==='seg3_brakes'&&sn===3&&seg[2]==='B')b+=1;
-    if(u.special==='ignore_wet'&&(G.w.hd_all||G.w.pd_all))a+=0; // handled separately
-    if(u.special==='ignore_crosswind'&&G.w.aero_3rd)addA=false;
-    if(u.special==='ignore_brake'&&hz.brake_s3&&sn===3&&seg[2]==='B')b+=1; // cancel penalty
-    if(u.special==='reduce_ot'){}; // handled in OH check
+    if(u.x==='all_segs'&&seg[0]==='P')a+=u.val;
+    if(u.x==='hs_power'&&t.ty.includes('High')&&seg[0]==='P')a+=u.val;
+    if(u.x==='seg1_power'&&sn===1&&seg[0]==='P')a+=1;
+    if(u.x==='seg1_power2'&&sn===1&&seg[0]==='P')a+=2;
+    if(u.x==='seg12_power'&&(sn===1||sn===2)&&seg[0]==='P')a+=u.val;
+    if(u.x==='seg3_rel'&&sn===3)b+=0; // reliability bonus handled via repair/base, not segment score
+    if(u.x==='seg3_brakes'&&sn===3&&seg[2]==='B')b+=1;
+    if(u.x==='ignore_wet'&&(w.hd_all||w.pd_all)&&seg[0]==='H')da_ignore=true;
+    if(u.x==='ignore_crosswind'&&w.aero_3rd)addA=false;
+    // ignore_brake cancels BOTH the hazard penalty (Brake Fade) AND the track-special brake penalty (e.g. Sydney Motorsport "rough")
+    if(u.x==='ignore_brake'){
+      if(hz.brake_s3&&sn===3&&seg[2]==='B')b+=1;
+      if(t.sp==='rough'&&seg[2]==='B')b+=1;
+    }
+    if(u.x==='reduce_ot'){}; // handled in OH check
   });
+  if(typeof da_ignore!=='undefined'&&da_ignore)a+=w.hd_all||0;
   const r=G.reck[i]||false;
   let s=a+b+(r?2:0)-p.fat;
   if(addB)s+=(p.B-db);
@@ -1582,40 +1774,101 @@ function phSeg(el){
 
   let h='<div class="card"><div class="ct">Segment '+sn+' of 3 — '+t.name+' | Race '+G.race+'</div>'
     +'<div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:7px;">'
-    +'<strong>'+SN[seg[0]]+' vs '+da+'</strong><span style="color:#555;"> + </span><strong>'+SN[seg[2]]+' vs '+db+'</strong>'
+    +'<strong>'+SN[seg[0]]+' (Demand: '+da+')</strong><span style="color:#555;"> + </span><strong>'+SN[seg[2]]+' (Demand: '+db+')</strong>'
     +(addB?'<span class="badge bbl">+Brakes (Elevation)</span>':'')
     +(addA?'<span class="badge bbl">+Aero as 3rd stat</span>':'')
     +(noAwd?'<span class="badge br">NO CP or Credits (Safety Car)</span>':'')
     +(noCp?'<span class="badge br">NO CP — Credits still paid (Yellow)</span>':'')
     +'</div>'
-    +'<div class="info" style="margin-bottom:7px;">'+t.desc+'<br>'+w.desc+' | '+hz.desc+'</div>';
+    +'<div class="info" style="margin-bottom:7px;">'+t.desc+'<br>'+w.desc+' | '+hz.desc+'</div>'
+    +'<div style="font-size:.62rem;color:#666;margin-bottom:8px;">Winning this Segment = +1 Championship Point + 1 Credit, awarded immediately. Your Segment score also adds to your Race Total, which decides final Race position (1st/2nd/3rd/4th) at the end of all 3 Segments.</div>';
 
   // Human reckless panels
   const humans=G.P.filter((_,i)=>!isAI(i)&&!G.dnf[i]);
-  if(humans.length){
-    h+='<div class="rpan">'
-      +'<div style="color:var(--or);font-weight:700;margin-bottom:4px;font-size:.85rem;">⚡ Declare Reckless Drive?</div>'
-      +'<div style="font-size:.67rem;color:#bbb;margin-bottom:7px;">+2 Score. +1 Cr if you win. Roll D6 — 1 or 2 = -1 Reliability. +1 Reckless Counter.</div>';
-    G.P.forEach((p,i)=>{
-      if(isAI(i)||G.dnf[i])return;
-      const on=G.reck[i]||false;
-      h+='<div class="pdr"><div style="color:'+p.col+';font-weight:700;width:100px;">'+p.name+'</div>'
-        +'<div style="font-size:.62rem;color:#888;">RC='+p.rc+' Fat='+p.fat+' R='+p.R+'</div>'
-        +(p.fat>0?'<span class="badge br">'+p.fat+' Fatigue (−'+p.fat+'/Seg)</span>':'')
-        +(p.R<=1?'<span class="badge br">R=1 ⚠</span>':'')
-        +'<button class="rbtn'+(on?' on':'')+'" onclick="togR('+i+')">'+(on?'🔥 RECKLESS!':'Stay Clean')+'</button>'
-        +'</div>';
+  // Nitrous declaration
+  if(!G.nitrousSeg)G.nitrousSeg={};
+  const nitrousPlayers=G.P.filter((p,i)=>!isAI(i)&&!G.dnf[i]&&p.fuel==='nitrous'&&!p.nitrousUsed);
+  if(nitrousPlayers.length){
+    h+='<div style="background:#14080a;border:2px solid #9900cc;border-radius:5px;padding:10px;margin-bottom:8px;">';
+    h+='<div style="color:#cc66ff;font-weight:700;margin-bottom:5px;">Nitrous (N2O) — Declare Use?</div>';
+    h+='<div style="font-size:.67rem;color:#bbb;margin-bottom:7px;">Using Nitrous gives +4 Power this Segment only. After: +2 Heat + -1 Reliability. Once per Race.</div>';
+    nitrousPlayers.forEach((p,_)=>{
+      const pi=G.P.indexOf(p);
+      const using=G.nitrousSeg[pi]===sn;
+      h+='<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'+
+        '<span style="color:'+p.col+';font-weight:700;width:90px;">'+p.name+'</span>'+
+        '<button style="background:'+(using?'#9900cc':'#1a0a1a')+';border:2px solid #9900cc;color:#fff;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:.65rem;" onclick="toggleNitrous('+pi+','+sn+')">'+(using?'NITROUS ON (+4P this seg)':'Activate Nitrous?')+'</button></div>';
     });
+    h+='</div>';
+  }
+  // ── SEALED RECKLESS DECLARATION ──────────────────────────────────────────
+  if(!G.reckSealed)G.reckSealed={};
+  if(humans.length){
+    const allDeclared=humans.every(p=>G.P.indexOf(p) in G.reckSealed); // AI already sealed by aiSetReck()
+    const revealed=G.reckRevealed||false;
+    h+='<div class="rpan">';
+    h+='<div style="color:var(--or);font-weight:700;margin-bottom:4px;font-size:.85rem;">⚡ Reckless Drive — Sealed Declaration</div>';
+    h+='<div style="font-size:.68rem;color:#bbb;margin-bottom:8px;line-height:1.7;">';
+    h+='<strong style="color:#fff;">Each player secretly declares Reckless or Clean — then all reveal simultaneously.</strong><br>';
+    h+='Reckless = +2 Segment Score, but: <strong>Damage roll</strong> (1 die, 1-2 = -1 Reliability) + <strong>Consequence roll</strong> (2 dice, sum vs Reckless Counter — lower = +1 Fatigue).<br>';
+    h+='Your Fatigue tokens reset each race. Your Reckless Counter does NOT — it grows all Championship.<br>';
+    h+='<strong style="color:var(--red);">Reliability 0 = DNF: -1 CP, -1 Credit, no race points.</strong>';
+    h+='</div>';
+    if(!revealed){
+      // Show sealed declare buttons (each player sees only their own)
+      humans.forEach(p=>{
+        const pi=G.P.indexOf(p);
+        const declared=pi in G.reckSealed;
+        h+='<div class="pdr">';
+        h+='<div style="color:'+p.col+';font-weight:700;width:110px;">'+p.name+'</div>';
+        if(!declared){
+          h+='<button class="rbtn" onclick="sealReck('+pi+',false)">Declare Clean</button>';
+          h+='<button class="rbtn" style="margin-left:5px;" onclick="sealReck('+pi+',true)">Declare Reckless!</button>';
+        }else{
+          // Show sealed status without revealing choice
+          h+='<div style="background:#1a1a00;border:1px solid #5a5a00;border-radius:4px;padding:4px 12px;font-size:.65rem;color:#cc0;">✓ Decision sealed (hidden until reveal)</div>';
+        }
+        // Show RC bar
+        h+='</div>';
+        h+='<div style="font-size:.6rem;color:#888;margin:2px 0 5px 110px;">';
+        h+='Reckless Counter: <strong style="color:'+(p.rc>=8?'var(--red)':p.rc>=4?'#ff8800':'#aaa')+';">'+p.rc+'</strong>';
+        h+=' | Fatigue: <strong style="color:'+(p.fat>0?'var(--red)':'#555')+';">'+p.fat+'</strong>';
+        h+=' | Reliability: <strong style="color:'+(p.R<=2?'var(--red)':'#aaa')+';">'+p.R+'/'+p.Rb+'</strong>';
+        h+='</div>';
+        h+='<div style="display:flex;gap:2px;margin:2px 0 6px 110px;">'+Array.from({length:Math.max(12,p.rc+2)},function(_,ri){return '<div style="width:9px;height:6px;border-radius:1px;background:'+(ri<p.rc?(ri>=8?'#cc0000':ri>=4?'#ff8800':'#cc6600'):'#1a1a1a')+'"></div>';}).join('')+'</div>';
+      });
+      if(allDeclared){
+        h+='<div style="margin-top:8px;">';
+        h+='<div style="font-size:.7rem;color:#cc0;margin-bottom:6px;">✓ All players have declared. Ready to reveal!</div>';
+        h+='<button class="btn" style="background:#7a5000;" onclick="revealReck()">🎭 Reveal All Decisions Simultaneously</button>';
+        h+='</div>';
+      }else{
+        h+='<div style="font-size:.65rem;color:#555;margin-top:6px;">Waiting for '+(humans.length-(Object.keys(G.reckSealed).length))+' more player(s) to declare...</div>';
+      }
+    }else{
+      // Show revealed state
+      h+='<div style="font-size:.72rem;color:#cc0;font-weight:700;margin-bottom:8px;">🎭 REVEALED!</div>';
+      humans.forEach(p=>{
+        const pi=G.P.indexOf(p);
+        const isReck=G.reck[pi]||false;
+        h+='<div class="pdr">';
+        h+='<div style="color:'+p.col+';font-weight:700;width:110px;">'+p.name+'</div>';
+        h+='<div class="rbtn'+(isReck?' on':'')+'">'+( isReck?'🔥 RECKLESS!':'✓ Clean Drive')+'</div>';
+        h+='<div style="font-size:.62rem;color:#888;margin-left:8px;">RC='+p.rc+' Fat='+p.fat+' Rel='+p.R+'</div>';
+        h+='</div>';
+      });
+    }
     h+='</div>';
   }
 
   // Score cards
+  // Score cards
   h+='<div class="sgrid">';
   G.P.forEach((p,i)=>{
     if(G.dnf[i]){h+='<div class="spr dnf"><div style="color:'+p.col+';font-weight:700;">'+p.name+'</div><div style="color:#333;font-size:.7rem;margin-top:4px;">DNF</div></div>';return;}
-    const{s,a,b}=getScore(p,i,seg,da,db,sn,t,w,addB,addA);
+    const{s,a,b}=getScore(p,i,seg,da,db,sn,t,w,hz,addB,addA);
     const r=G.reck[i];
-    h+='<div class="spr"><div style="color:'+p.col+';font-weight:700;font-size:.8rem;margin-bottom:2px;">'+p.name+(isAI(i)?'<span style="font-size:.55rem;color:#6cb4ee;"> [AI'+(r?'/R':'')+ ']</span>':'')+'</div>'
+    h+='<div class="spr"><div style="color:'+p.col+';font-weight:700;font-size:.8rem;margin-bottom:2px;">'+p.name+(isAI(i)?'<span style="font-size:.55rem;color:#6cb4ee;"> [AI'+(G.reckRevealed&&r?'/R':'')+']</span>':'')+'</div>'
       +(p.car?'<div style="font-size:.55rem;color:#444;margin-bottom:2px;">'+p.car.name+'</div>':'')
       +'<div style="font-size:.62rem;color:#888;">'+SN[seg[0]]+' '+p[seg[0]]+' − '+da+' = '+a+'</div>'
       +'<div style="font-size:.62rem;color:#888;">'+SN[seg[2]]+' '+p[seg[2]]+' − '+db+' = '+b+'</div>'
@@ -1629,11 +1882,27 @@ function phSeg(el){
   });
   h+='</div>'
     +'<div style="font-size:.68rem;color:#555;margin-bottom:7px;">Negative scores are normal early on — only the difference between players matters.</div>'
-    +'<button class="btn ok" onclick="resolveSeg()">✓ Resolve Segment '+sn+'</button></div>';
+    +'<div style="margin-top:8px;">'
+    +(humans.length&&!G.reckRevealed?'<div style="font-size:.68rem;color:var(--red);margin-bottom:6px;">⚠ All players must declare AND reveal Reckless decisions before resolving.</div>':'')
+    +'<button class="btn ok" '+(humans.length&&!G.reckRevealed?'disabled':'')+' onclick="resolveSeg()">✓ Resolve Segment '+sn+'</button>'
+    +'</div></div>';
   el.innerHTML=h;
 }
 
 function togR(i){G.reck[i]=!G.reck[i];rr();}
+function sealReck(pi,goReck){
+  if(!G.reckSealed)G.reckSealed={};
+  G.reckSealed[pi]=goReck;
+  rr();
+}
+function revealReck(){
+  if(!G.reckSealed)return;
+  // Copy sealed decisions to G.reck for resolution
+  Object.keys(G.reckSealed).forEach(function(pi){G.reck[+pi]=G.reckSealed[+pi];});
+  G.reckRevealed=true;
+  rr();
+}
+function toggleNitrous(pi,sn){if(!G.nitrousSeg)G.nitrousSeg={};G.nitrousSeg[pi]=(G.nitrousSeg[pi]===sn?null:sn);rr();}
 
 function resolveSeg(){
   const t=G.cal[G.race-1]; const w=G.w; const hz=G.hz;
@@ -1648,28 +1917,45 @@ function resolveSeg(){
   G.P.forEach((p,i)=>{
     if(G.dnf[i]||!G.reck[i])return;
     const skip=p.sponsor&&p.sponsor.ong==='nitro_circus'&&!p.nitroCircusUsed;
-    if(!skip){const roll=d6();if(roll<=2){p.R--;log(p.name+(isAI(i)?' [AI]':'')+': RECKLESS D6='+roll+' → -1R. R='+p.R,'r');}
-      else log(p.name+(isAI(i)?' [AI]':'')+': RECKLESS D6='+roll+' → safe. RC='+(p.rc+1),'r');
-    }else{log(p.name+': Reckless — Nitro Circus: no roll','r');p.nitroCircusUsed=true;}
+    const driftPedigree=p.ability&&p.ability.k==='drift_pedigree';
+    const dmgThreshold=driftPedigree?1:2; // Drift Pedigree: only a roll of 1 causes damage (half the usual risk)
+    if(!skip){const roll=d6();if(roll<=dmgThreshold){p.R--;log(p.name+(isAI(i)?' [AI]':'')+': Reckless Drive — damage roll: '+roll+' (needed '+(dmgThreshold+1)+'+ to be safe'+(driftPedigree?', Drift Pedigree halves the risk':'')+') → DAMAGE! -1 Reliability. Reliability now: '+p.R,'r');}
+      else log(p.name+(isAI(i)?' [AI]':'')+': Reckless Drive — damage roll: '+roll+' (needed '+(dmgThreshold+1)+'+ to be safe'+(driftPedigree?', Drift Pedigree halves the risk':'')+') → Safe! Reckless Counter now: '+(p.rc+1),'r');
+    }else{log(p.name+': Reckless — Nitro Circus sponsor negates the damage roll this time.','r');p.nitroCircusUsed=true;}
     p.rc++;p.reckR=true;
-    if([5,8,11,14,17].includes(p.rc)){p.fat++;log('⚡ '+p.name+': FATIGUE TOKEN! RC='+p.rc+' Tokens='+p.fat,'x');}
+    var r1=d6(),r2=d6(),rsum=r1+r2;
+    if(rsum<p.rc){p.fat++;log('Consequence roll: '+r1+'+'+r2+'='+rsum+' vs Counter '+p.rc+' — LOWER! +1 Fatigue (-1/Segment). Total: '+p.fat,'x');}
+    else log(p.name+': Consequence roll: '+r1+'+'+r2+'='+rsum+' vs Counter '+p.rc+' — OK, no penalty.','r');
     if(p.R<=0)doDNF(i);
   });
 
+  // Apply nitrous effects for players who used it this segment
+  G.P.forEach((p,i)=>{
+    if(p.fuel==='nitrous'&&!p.nitrousUsed&&G.nitrousSeg&&G.nitrousSeg[i]===sn){
+      p.nitrousUsed=true; p.heat+=2; p.R--;
+      if(p.heat>p.maxHeat)p.maxHeat=p.heat;
+      log(p.name+': NITROUS used in Segment '+sn+'! +4 Power this segment. Now: +2 Heat (Heat='+p.heat+'), -1 Reliability (Reliability='+p.R+').','x');
+      if(p.R<=0)doDNF(i);
+    }
+  });
   // Calculate scores
   const sc=G.P.map((p,i)=>{
     if(G.dnf[i])return null;
-    const{s,a,b}=getScore(p,i,seg,da,db,sn,t,w,addB,addA);
-    log(p.name+(isAI(i)?' [AI]':'')+': '+SN[seg[0]]+p[seg[0]]+'-'+da+'='+a+'  '+SN[seg[2]]+p[seg[2]]+'-'+db+'='+b+(G.reck[i]?' +2R':'')+(p.fat?' -'+p.fat+'F':'')+' = '+s,'i');
+    const{s,a,b}=getScore(p,i,seg,da,db,sn,t,w,hz,addB,addA);
+    if(!G.raceScores)G.raceScores={};
+    G.raceScores[i]=(G.raceScores[i]||0)+s; // accumulate toward race total
+    log(p.name+(isAI(i)?' [AI]':'')+': '+SN[seg[0]]+p[seg[0]]+'-'+da+'='+a+'  '+SN[seg[2]]+p[seg[2]]+'-'+db+'='+b+(G.reck[i]?' +2R':'')+(p.fat?' -'+p.fat+'F':'')+' = '+s+' (race total: '+G.raceScores[i]+')','i');
     return{s,i};
   }).filter(Boolean);
 
+  let wins=[]; // function-scoped so it's accessible when building G.segResult below
   if(sc.length){
     let best=Math.max(...sc.map(x=>x.s));
-    let wins=sc.filter(x=>x.s===best);
+    wins=sc.filter(x=>x.s===best);
     // Tiebreaks
     if(wins.length>1){const mR=Math.max(...wins.map(x=>G.P[x.i].R));wins=wins.filter(x=>G.P[x.i].R===mR);}
     if(wins.length>1){const mH=Math.min(...wins.map(x=>G.P[x.i].heat));wins=wins.filter(x=>G.P[x.i].heat===mH);}
+    if(sn===1)G.segW_thisRace_seg1Winner=wins[0]?wins[0].i:null; // record Segment 1 winner for Momentum Driver
     wins.forEach(({i})=>{
       G.segW[i]++; G.lastSegs[i]=(G.lastSegs[i]||0)+1; G.P[i].segW++;
       if(seg[0]==='P'&&t.ty.includes('High'))G.P[i].hsSegs++;
@@ -1682,13 +1968,8 @@ function resolveSeg(){
         if(G.P[i].sponsor.name==='Red Bull Racing AU'&&!noAwd)G.P[i].creds++;
         if(G.P[i].sponsor.name==='Monster Energy'&&G.reck[i]&&!noAwd)G.P[i].creds+=2;
       }
-      // Ability: Cool Factor (GT86)
-      if(G.P[i].ability&&G.P[i].ability.n==='Cool Factor'&&!noAwd){
-        const aeroCt=Math.min(3,G.P[i].installed.filter(u=>u.cat==='Aero').length);
-        G.P[i].creds+=aeroCt; if(aeroCt)log(G.P[i].name+' Cool Factor: +'+aeroCt+' Cr ('+aeroCt+' Aero upgrades)','k');
-      }
-      // Ability: Lightweight Philosophy (MX-5) — on install, not here
-      log('★ Seg '+sn+' WIN: '+G.P[i].name+' ('+best+')'+(noAwd?' — no awards':noCp?' — +1Cr':' → +1CP +1Cr'+(rb?' +1Cr Reckless bonus':'')),'w');
+      // Note: Cool Factor ability removed in favour of Gazoo Racing Discount (see ABILITIES gt86)
+      log('★ Segment '+sn+' WIN: '+G.P[i].name+' (score '+best+')'+(noAwd?' — Safety Car: no CP or Credits this Segment':noCp?' — Yellow Flag: +1 Credit only, no CP':' → +1 Championship Point (Segment win) +1 Credit'+(rb?' +1 Credit (Reckless win bonus)':'')),'w');
     });
     // Hazard effects post-segment
     if(hz.oil&&sn===1){const mH=Math.min(...sc.map(x=>G.P[x.i].H));sc.filter(x=>G.P[x.i].H===mH).forEach(x=>{G.P[x.i].R--;log(G.P[x.i].name+': Oil on Track → -1R','x');if(G.P[x.i].R<=0)doDNF(x.i);});}
@@ -1699,29 +1980,116 @@ function resolveSeg(){
     if(t.sp==='albert'&&sn===3){/* handled in end phase */}
   }
 
+  // Store this Segment's results for the results screen, then pause there
+  G.segResult={sn:sn,seg:seg,da:da,db:db,best:(sc.length?Math.max(...sc.map(x=>x.s)):null),
+    sc:sc.map(x=>({i:x.i,s:x.s})), winners:wins.map(w=>w.i),
+    noAwd:noAwd, noCp:noCp};
+  G.phase='segresult';
+  rr();
+}
+
+
+// ── SEGMENT RESULT (pause screen between Segments) ──────────────────────
+function phSegResult(el){
+  const t=G.cal[G.race-1]; const r=G.segResult;
+  if(!r){G.phase='seg';rr();return;}
+  const seg=r.seg; const sn=r.sn;
+  let h='<div class="card"><div class="ct">Segment '+sn+' Result — '+t.name+'</div>';
+  h+='<div class="info" style="margin-bottom:8px;">'
+    +(r.noAwd?'Safety Car was active — no Championship Points or Credits awarded this Segment.':
+      r.noCp?'Yellow Flag was active — Credits paid, but no Championship Points this Segment.':
+      'Winner gets +1 Championship Point + 1 Credit, awarded immediately.')
+    +'</div>';
+
+  const sorted=[...r.sc].sort((a,b)=>b.s-a.s);
+  h+='<div class="sgrid">';
+  sorted.forEach(({i,s})=>{
+    const p=G.P[i]; const isWinner=r.winners.includes(i);
+    h+='<div class="spr'+(isWinner?' win':'')+'">'
+      +'<div style="color:'+p.col+';font-weight:700;font-size:.8rem;margin-bottom:2px;">'+(isWinner?'🏆 ':'')+p.name+(isAI(i)?' [AI]':'')+'</div>'
+      +(p.car?'<div style="font-size:.55rem;color:#444;">'+p.car.name+'</div>':'')
+      +'<div class="sbig'+(s<0?' neg':'')+'">'+s+'</div>'
+      +(isWinner?'<div style="font-size:.6rem;color:var(--gd);margin-top:3px;">Segment Winner!</div>':'')
+      +'<div style="font-size:.58rem;color:#666;margin-top:2px;">Race total: '+(G.raceScores[i]||0)+'</div>'
+      +'</div>';
+  });
+  // DNF'd players shown separately
+  G.P.forEach((p,i)=>{
+    if(G.dnf[i])h+='<div class="spr dnf"><div style="color:'+p.col+';font-weight:700;">'+p.name+'</div><div style="color:#333;font-size:.7rem;margin-top:4px;">DNF</div></div>';
+  });
+  h+='</div>';
+
+  if(r.winners.length){
+    const wNames=r.winners.map(i=>G.P[i].name).join(', ');
+    h+='<div class="good" style="margin-top:8px;">★ '+wNames+' won Segment '+sn+(r.noAwd?' (no awards — Safety Car)':r.noCp?' (+1 Credit only — Yellow Flag)':' — +1 Championship Point +1 Credit')+'</div>';
+  }
+
+  h+='<button class="btn ok" style="margin-top:10px;" onclick="continueToNextSeg()">'
+    +(sn<3?'✓ Continue to Segment '+(sn+1):'✓ Continue to End of Race')+'</button></div>';
+  el.innerHTML=h;
+}
+
+function continueToNextSeg(){
   G.segI++; G.reck={};
   if(G.segI>=3)G.phase='end';
   else aiSetReck();
+  G.phase=(G.segI>=3)?'end':'seg';
   rr();
 }
 
 // ── END PHASE ────────────────────────────────────────────────────────
 function phEnd(el){
   const t=G.cal[G.race-1]; const fin=G.race===8;
-  const rank=[...G.P.map((_,i)=>i)].sort((a,b)=>G.dnf[a]!==G.dnf[b]?(G.dnf[a]?1:-1):G.segW[b]-G.segW[a]);
+  const rank=[...G.P.map((_,i)=>i)].sort((a,b)=>{
+    if(G.dnf[a]!==G.dnf[b])return G.dnf[a]?1:-1; // DNF always ranks last
+    if(G.segW[b]!==G.segW[a])return G.segW[b]-G.segW[a]; // PRIMARY: whoever won the most individual Segments wins the race
+    const sa=G.raceScores[a]||0, sb=G.raceScores[b]||0;
+    if(sb!==sa)return sb-sa; // tiebreak 1: total cumulative score across all 3 Segments
+    if(G.P[b].R!==G.P[a].R)return G.P[b].R-G.P[a].R; // tiebreak 2: higher Reliability remaining
+    return G.P[a].rc-G.P[b].rc; // tiebreak 3: lower Reckless Counter (cleaner driving)
+  });
   const pcp=fin?[6,4,2,0]:[3,2,1,0];
-  let h='<div class="card"><div class="ct">End of Race '+G.race+(fin?' — FINALE':'')+'</div>'
-    +'<div class="info">Race position CP awarded below. Segment CP was awarded during the race. Click Apply to confirm results.</div>';
+  let h='<div class="card"><div class="ct">End of Race '+G.race+(fin?' — FINALE':'')+'</div>';
+
+  // ── HOW RANKING WORKS — explicit explanation ──
+  h+='<div class="info" style="line-height:1.8;">'
+    +'<strong style="color:#fff;">How final Race position is decided:</strong><br>'
+    +'<strong>1st sort key:</strong> Most individual Segments won (out of 3). Whoever wins the most Segments wins the Race.<br>'
+    +'<strong>1st tiebreak:</strong> If two players won the same number of Segments, whoever has the higher total cumulative Segment Score (Seg 1 + Seg 2 + Seg 3 added together) ranks higher.<br>'
+    +'<strong>2nd tiebreak:</strong> Still tied? Higher remaining Reliability wins.<br>'
+    +'<strong>3rd tiebreak:</strong> Still tied? Lower Reckless Counter wins (cleaner Championship driving record).<br>'
+    +'<strong style="color:var(--red);">DNF players always rank last</strong>, regardless of Segments won or score earned before retiring.'
+    +'</div>';
+
+  h+='<div class="info" style="background:#0a1408;border-color:#1a3a1a;line-height:1.8;">'
+    +'<strong style="color:#6ce06c;">Championship Points (CP) — how you earn them this race:</strong><br>'
+    +'<strong>Position CP (awarded now):</strong> '+(fin?'FINALE — doubled! 1st=6 CP, 2nd=4 CP, 3rd=2 CP, 4th=0 CP.':'1st=3 CP, 2nd=2 CP, 3rd=1 CP, 4th=0 CP.')+'<br>'
+    +'<strong>Segment CP (already awarded during the race):</strong> +1 CP for each individual Segment you won — these were added live as each Segment resolved, check the Log tab to see exactly when.<br>'
+    +'<strong>Clean Run CP (awarded now):</strong> +1 CP if you made zero Reckless declarations across all 3 Segments this race — ANY finishing position qualifies.<br>'
+    +'<strong>DNF penalty:</strong> -1 CP if you retired this race (already applied when the DNF happened).'
+    +(t.sp==='albert'?'<br><strong style="color:var(--gd);">Albert Park Track Special:</strong> +1 bonus CP for the outright race winner.':'')
+    +(t.sp==='winton'?'<br><strong style="color:var(--gd);">Winton Track Special:</strong> +2 bonus CP for sweeping all 3 Segments.':'')
+    +(G.race===4?'<br><strong style="color:var(--gd);">Race 4 Milestone:</strong> +2 CP to last place (Underdog Bonus), +1 CP to whoever has won the most Segments so far (Specialist Bonus).':'')
+    +'</div>';
+
   rank.forEach((pi,pos)=>{
     const p=G.P[pi]; const dnf=G.dnf[pi];
     const cp=dnf?0:pcp[Math.min(pos,3)];
     const pres=t.sp==='albert'&&pos===0&&!dnf;
-    h+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a1a;flex-wrap:wrap;">'
+    const raceTotal=G.raceScores[pi]||0;
+    h+='<div style="background:#111;border-radius:5px;padding:8px 10px;margin-bottom:6px;">'
+      +'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">'
       +'<div style="font-size:.95rem;">'+MED[Math.min(pos,3)]+'</div>'
       +'<div style="color:'+p.col+';font-weight:700;min-width:85px;">'+p.name+(isAI(pi)?' [AI]':'')+'</div>'
       +(p.car?'<span style="font-size:.65rem;color:#666;">'+p.car.name+'</span>':'')
-      +'<div style="color:var(--gd);">+'+cp+' CP'+(pres?' +1 Albert':'')+(dnf?' (DNF)':'')+'</div>'
-      +'<div style="font-size:.65rem;color:#555;margin-left:auto;">'+G.segW[pi]+' segs | Total: '+(p.cp+cp+(pres?1:0))+' CP</div>'
+      +'<div style="color:var(--gd);font-weight:700;">+'+cp+' CP'+(pres?' +1 Albert':'')+(dnf?' (DNF — no position CP)':'')+'</div>'
+      +'<div style="font-size:.65rem;color:#555;margin-left:auto;">New Championship total: '+(p.cp+cp+(pres?1:0))+' CP</div>'
+      +'</div>'
+      +'<div style="font-size:.62rem;color:#888;margin-top:4px;padding-left:28px;">'
+      +'Race score total: <strong style="color:#aaa;">'+raceTotal+'</strong> (sum of all 3 Segments) | '
+      +'Segments won: <strong style="color:#aaa;">'+G.segW[pi]+'/3</strong> (already worth '+G.segW[pi]+' CP, added during the race) | '
+      +'Reliability: <strong style="color:#aaa;">'+p.R+'/'+p.Rb+'</strong>'
+      +'</div>'
       +'</div>';
   });
   h+='<button class="btn ok" style="margin-top:10px;" onclick="applyEnd('+JSON.stringify(rank)+')">✓ Apply'+(fin?' — Final Scoring':' — Race '+(G.race+1))+'</button></div>';
@@ -1730,13 +2098,18 @@ function phEnd(el){
 
 function applyEnd(rank){
   const t=G.cal[G.race-1]; const fin=G.race===8;
-  const pcp=fin?[6,4,2,0]:[3,2,1,0];
+  const pcp=fin?[6,4,2,0]:[3,2,1,0]; // 1st/2nd/3rd/4th, doubled on Race 8 Finale
   rank.forEach((pi,pos)=>{
     const p=G.P[pi]; if(G.dnf[pi])return;
     p.cp+=pcp[Math.min(pos,3)];
+    if(!p.reckR){p.cp++;log(p.name+': +1 CP (Clean Run — zero Reckless declarations this race)','w');} // Clean Run bonus: ANY position, +1 CP, no Reckless this race
     if(t.sp==='albert'&&pos===0){p.cp++;p.wins++;}
     if(pos===0&&!G.dnf[pi])p.wins++;
     if(pos<2&&!G.dnf[pi])p.topTwos++;
+    // Crowd Favourite (Mustang): outright race win -> +3 extra Credits
+    if(pos===0&&p.ability&&p.ability.k==='crowd_favourite'){p.creds+=3;log(p.name+': Crowd Favourite +3 Credits (won the race)','k');}
+    // Clinical Efficiency (Audi TT): won EXACTLY 1 Segment this race -> +2 Credits
+    if(p.ability&&p.ability.k==='clinical_efficiency'&&G.segW[pi]===1){p.creds+=2;log(p.name+': Clinical Efficiency +2 Credits (won exactly 1 Segment)','k');}
   });
   // Reset DNF reliability
   G.P.forEach((p,i)=>{if(G.dnf[i])p.R=p.Rb;});
@@ -1746,7 +2119,7 @@ function applyEnd(rank){
   // Fatigue decay
   G.P.forEach((p,i)=>{
     if(p.fat>0){const pos=rank.indexOf(i);const clean=pos<2&&!p.reckR&&!G.dnf[i];p.fat=Math.max(0,p.fat-(clean?2:1));}
-    p.reckR=false; p.nitrousUsed=false; p.nitroCircusUsed=false;
+    p.nitrousUsed=false; p.nitroCircusUsed=false; // reckR reset happens in next doIncome(), not here
   });
   // Milestone Race 4
   if(G.race===4){
@@ -1771,10 +2144,11 @@ function phGameOver(el){
   const mCr=Math.max(...G.P.map(p=>p.creds));
   G.P.forEach((p,i)=>{
     p._bon=[];
-    if(p.rc<=4){p.cp+=2;p._bon.push('Clean Driver +2CP ('+p.rc+' RC total)');}
-    if(p.P===mP){p.cp+=2;p._bon.push('Power Champion +2CP (P='+p.P+')');}
-    if(p.H===mH){p.cp+=2;p._bon.push('Handling Champion +2CP (H='+p.H+')');}
-    if(p.dnfs===0){p.cp+=2;p._bon.push('Reliability Master +2CP (0 DNFs)');}
+    if(p.rc<=4){p.cp+=2;p._bon.push('Clean Driver +2 CP (Reckless Counter stayed at '+p.rc+', 4 or below all Championship)');}
+    if(p.P===mP){p.cp+=2;p._bon.push('Power Champion +2 CP (highest final Power stat: '+p.P+')');}
+    if(p.H===mH){p.cp+=2;p._bon.push('Handling Champion +2 CP (highest final Handling stat: '+p.H+')');}
+    if(p.dnfs===0){p.cp+=2;p._bon.push('Reliability Master +2 CP (completed all 8 races with zero DNFs)');}
+    if(p.ability&&p.ability.k==='spec_racer'&&!p.installed.some(u=>u.tier)){p.cp+=2;p._bon.push('Spec Racer +2 CP (zero S-Tier upgrades all Championship)');}
     if(p.car){let d=0;['P','H','B','A','C'].forEach(s=>{if(p[s]>p.car[s]+2)d++;});if(d>=4){p.cp+=2;p._bon.push('Diversified Builder +2CP ('+d+' stats +2 above base)');}}
     G.activeGoals.forEach(g=>{
       let e=false;
@@ -1818,7 +2192,13 @@ function phGameOver(el){
     if(cid==='auditt'&&p.installed.filter(u=>u.cat==='Electronics').length>=2){p.cp+=3;p._bon.push('Audi TT AWD Mastery +3CP');}
   });
   const final=[...G.P.map((_,i)=>i)].sort((a,b)=>G.P[b].cp-G.P[a].cp);
-  let h='<div class="card"><div class="ct" style="font-size:.88rem;color:var(--gd);">🏆 CHAMPIONSHIP COMPLETE</div>';
+  let h='<div class="card"><div class="ct" style="font-size:.88rem;color:var(--gd);">🏆 CHAMPIONSHIP COMPLETE</div>'
+    +'<div class="info" style="background:#0a1408;border-color:#1a3a1a;line-height:1.8;">'
+    +'<strong style="color:#6ce06c;">Final Championship Points = Race CP (already earned across all 8 races) + End-Game Bonus CP (calculated once, right now).</strong><br>'
+    +'End-Game Bonuses come from 3 sources: <strong>Static Goals</strong> (always active — Power/Handling Champion, Reliability Master, Diversified Builder), '
+    +'<strong>Random Goals</strong> (2 of 6 possible, chosen at game start — see the Goals tab), and <strong>Car-Specific Achievements</strong> (unique to the car you drove, plus your Sponsor\'s end condition if you claimed one).<br>'
+    +'Each player\'s qualifying bonuses are listed under their name below.'
+    +'</div>';
   final.forEach((i,pos)=>{
     const p=G.P[i];
     h+='<div style="display:flex;align-items:start;gap:10px;padding:9px 0;border-bottom:1px solid #1a1a1a;">'
@@ -1832,11 +2212,62 @@ function phGameOver(el){
       +'</div>';
   });
   h+='<div class="warn" style="margin:10px 0;">All end-game bonuses applied. Tie-breakers: Race Wins → Segment Wins → Reliability → Reckless Counter.</div>';
+  // Full car build review
+  h+='<div style="margin-top:16px;"><div class="ct" style="font-size:.8rem;margin-bottom:10px;">Championship Car Build Review</div>';
+  final.forEach(function(pi){
+    var p=G.P[pi];
+    h+='<div style="background:var(--pn);border:2px solid '+p.col+'44;border-radius:6px;padding:12px;margin-bottom:12px;">';
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+    h+='<div><span style="font-weight:700;color:'+p.col+';font-size:.95rem;">'+p.name+'</span>';
+    h+=' <span style="font-size:.7rem;color:#888;">'+(p.car?p.car.name:'—')+'</span></div>';
+    h+='<span style="font-size:1.3rem;font-weight:700;color:var(--gd);">'+p.cp+' CP</span>';
+    h+='</div>';
+    h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">';
+    ['P','H','B','A','C','R'].forEach(function(s){
+      h+='<div style="background:#111;border-radius:4px;padding:4px 8px;text-align:center;min-width:52px;">';
+      h+='<div style="font-size:.5rem;color:#888;">'+SN[s]+'</div>';
+      h+='<div style="font-size:1.1rem;font-weight:700;color:var(--gd);">'+p[s]+'</div>';
+      h+='</div>';
+    });
+    h+='<div style="background:#111;border-radius:4px;padding:4px 8px;text-align:center;min-width:52px;">';
+    h+='<div style="font-size:.5rem;color:#ff8800;">Max Heat</div>';
+    h+='<div style="font-size:1.1rem;font-weight:700;color:#ff8800;">'+(p.maxHeat||0)+'</div>';
+    h+='</div>';
+    h+='</div>';
+    h+=renderInstalledCards(p);
+    h+='</div>';
+  });
+  h+='</div>';
   h+='<button class="btn" onclick="location.reload()">🔄 New Championship</button></div>';
   el.innerHTML=h;
 }
 
 // ── BOARDS ────────────────────────────────────────────────────────────
+
+function renderInstalledCards(p){
+  try{
+  if(!p||!p.installed||!p.installed.length)return '<div style="margin-top:8px;font-size:.62rem;color:#333;font-style:italic;">No upgrades installed yet.</div>';
+  var cards=p.installed.map(function(u){
+    var pills='';
+    if(u.stat&&u.val)pills+='<span style="background:#051005;border:1px solid #2a5a2a;border-radius:8px;padding:1px 6px;font-size:.55rem;color:#6ce06c;font-weight:700;">+'+u.val+' '+SN[u.stat]+'</span> ';
+    if(u.heat)pills+='<span style="background:#100a00;border:1px solid #5a3000;border-radius:8px;padding:1px 6px;font-size:.55rem;color:#ff8c00;">+'+u.heat+' Heat</span> ';
+    if(u.x&&u.x.indexOf('unlock')===0)pills+='<span style="background:#050a14;border:1px solid #1a3a6c;border-radius:8px;padding:1px 6px;font-size:.52rem;color:#6cb4ee;">'+u.x.replace('unlock_','Unlocks ').toUpperCase()+'</span>';
+    if(u.x==='nitrous')pills+='<span style="background:#140014;border:1px solid #6a006a;border-radius:8px;padding:1px 6px;font-size:.52rem;color:#dd88ff;">NITROUS</span>';
+    var tb=u.tier?'<span style="font-size:.45rem;background:#2a1a00;color:var(--gd);border:1px solid var(--gd);border-radius:2px;padding:1px 4px;font-weight:700;margin-right:4px;">S-TIER</span>'
+           :u.wc>=2?'<span style="font-size:.45rem;background:#050f1a;color:#6cb4ee;border:1px solid #1a3a6c;border-radius:2px;padding:1px 4px;font-weight:700;margin-right:4px;">MAJOR</span>'
+           :'<span style="font-size:.45rem;background:#051005;color:#90d090;border:1px solid #2a5a2a;border-radius:2px;padding:1px 4px;font-weight:700;margin-right:4px;">MINOR</span>';
+    return '<div style="background:#0f0f0f;border:2px solid '+(u.tier?'#5a3a00':u.wc>=2?'#1a3a6c':'#2a2a2a')+';border-radius:6px;padding:8px 10px;min-width:140px;max-width:180px;">'
+      +'<div style="display:flex;align-items:center;margin-bottom:4px;">'+tb+'<div style="font-size:.68rem;font-weight:700;color:#fff;">'+u.n+'</div></div>'
+      +'<div style="font-size:.6rem;color:#ccc;margin-bottom:5px;line-height:1.4;">'+u.eff+'</div>'
+      +'<div style="font-size:.55rem;color:#555;font-style:italic;margin-bottom:4px;">'+u.desc+'</div>'
+      +'<div style="display:flex;gap:3px;flex-wrap:wrap;">'+pills+'</div>'
+      +'</div>';
+  });
+  return '<div style="margin-top:8px;"><div style="font-size:.62rem;color:#888;margin-bottom:6px;font-weight:700;letter-spacing:.5px;">INSTALLED UPGRADES ('+p.installed.length+')</div>'
+    +'<div style="display:flex;flex-wrap:wrap;gap:6px;">'+cards.join('')+'</div></div>';
+  }catch(e){console.error('renderInstalledCards err:',e,p);return '';}
+}
+
 function renderBoards(){
   $('boardsGrid').innerHTML=G.P.map((p,i)=>{
     const mx=Math.max(8,p.heat+2);
@@ -1856,11 +2287,11 @@ function renderBoards(){
       +'<div style="color:'+(p.fat>0?'var(--red)':'#555')+'">Fat:'+p.fat+'</div>'
       +(p.fuel!=='pump98'?'<div style="color:var(--gd);">⛽ '+FUELS.find(f=>f.id===p.fuel).name+'</div>':'')
       +'</div>'
-      +(p.ability?'<div style="font-size:.6rem;color:#888;margin-bottom:2px;">★ '+p.ability.n+'</div>':'')
+      +(p.ability?'<div style="background:#1a1400;border:1px solid #5a4a00;border-radius:4px;padding:4px 7px;margin-bottom:4px;"><div style="font-size:.62rem;color:var(--gd);font-weight:700;">★ '+p.ability.n+'</div><div style="font-size:.56rem;color:#999;line-height:1.4;margin-top:1px;">'+p.ability.e+'</div></div>':'')
       +(p.sponsor?'<div style="font-size:.6rem;color:var(--gd);margin-bottom:2px;">♦ '+p.sponsor.name+'</div>':'')
       +'<div style="font-size:.6rem;color:#888;margin-bottom:2px;">Heat '+p.heat+' / Cool '+p.C+(p.heat>p.C?' ⚠ OVERHEATING!':'')+'</div>'
-      +'<div class="hbar">'+pips+'</div>'
-      +'<div class="ulist">'+(p.installed.map(u=>'<span class="uchip'+(u.tier?' st':'')+'">'+u.n+'</span>').join('')||'<span style="color:#2a2a2a;">No upgrades</span>')+'</div>'
+      +'<div style="font-size:.58rem;color:#888;margin-top:4px;margin-bottom:2px;">'+'Heat: <strong style="color:'+(p.heat>p.C?'var(--red)':'#ff8800')+';">'+p.heat+'</strong>'+' / Cooling: <strong style="color:#6cb4ee;">'+p.C+'</strong>'+(p.heat>p.C?' <span style="color:var(--red);">⚠ OVERHEATING — Overheat Check required before race starts!</span>':''+(p.heat===p.C?' <span style="color:#ff8800;">At limit — any extra Heat triggers a check</span>':' — safe'))+'</div>'+'<div style="font-size:.54rem;color:#555;margin-bottom:3px;line-height:1.5;">'+'Heat exceeds Cooling → automatic -1 Reliability + D6 roll. On fail: -2 more Reliability. '+'<strong>Heat from upgrades/fuel is permanent this race.</strong> '+'Data Logger card = reroll one failed check per race.'+'</div>'+'<div class="hbar">'+pips+'</div>'
+      +'<div style="margin-top:6px;"><div style="font-size:.6rem;color:#888;margin-bottom:4px;font-weight:700;">Installed Upgrades ('+p.installed.length+'):</div>'+'<div style="display:flex;flex-wrap:wrap;gap:3px;">'+(p.installed.map(u=>'<div style="background:#1a1a1a;border:1px solid '+(u.tier?'#5a3a00':'#2a2a2a')+';border-radius:3px;padding:3px 7px;font-size:.55rem;">'+(u.tier?'<span style="color:var(--gd);font-size:.45rem;font-weight:700;margin-right:3px;">S</span>':'')+'<span style="color:#ddd;font-weight:700;">'+u.n+'</span>'+(u.stat&&u.val?'<span style="color:#6ce06c;margin-left:3px;">+'+u.val+' '+SN[u.stat]+'</span>':'')+(u.heat?'<span style="color:#ff8800;margin-left:3px;">+'+u.heat+' Heat</span>':'')+'</div>').join('')||'<span style="color:#2a2a2a;font-size:.6rem;">None yet</span>')+'</div></div>'
       +(p.wip&&p.wip.length?'<div style="font-size:.6rem;color:#6cb4ee;margin-top:3px;">Installing: '+p.wip.map(w=>w.card.n+' ('+w.wc_paid+'/'+w.wc_total+' WC)').join(', ')+'</div>':'')
       +(p.garage.length?'<div style="font-size:.58rem;color:#444;margin-top:2px;">Workshop: '+p.garage.map(u=>u.n).join(', ')+'</div>':'')
       +'</div>';
@@ -1920,7 +2351,7 @@ function renderSponsors(){
 // ── STANDINGS ─────────────────────────────────────────────────────────
 function renderStandings(){
   const sorted=[...G.P.map((_,i)=>i)].sort((a,b)=>G.P[b].cp-G.P[a].cp);
-  $('stbl').innerHTML='<tr><th>Pos</th><th>Player</th><th>Car</th><th>CP</th><th>Cr</th><th>Heat/Cool</th><th>RC</th><th>Fat</th><th>Inst</th><th>Sponsor</th></tr>'
+  $('stbl').innerHTML='<tr><th>Pos</th><th>Player</th><th>Car</th><th>Champ. Points</th><th>Credits</th><th>Heat/Cooling</th><th>Reckless Counter</th><th>Fatigue</th><th>Upgrades</th><th>Sponsor</th></tr>'
     +sorted.map((i,pos)=>{const p=G.P[i];return '<tr>'
       +'<td>'+MED[Math.min(pos,3)]+' '+(pos+1)+'</td>'
       +'<td><span style="color:'+p.col+'"><strong>'+p.name+'</strong></span>'+(isAI(i)?'<br><span style="font-size:.58rem;color:#6cb4ee;">AI: '+AI_P[p.ai].label+'</span>':'')+'</td>'
@@ -1963,7 +2394,7 @@ function renderFuelRef(){
     +'<div class="fname">'+f.name+'</div>'
     +'<div style="font-size:.67rem;color:#bbb;margin-bottom:4px;line-height:1.4;">'+f.eff+'</div>'
     +'<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;">'+f.tags.map(t=>'<span class="badge bg" style="font-size:.5rem;">'+t+'</span>').join('')+'</div>'
-    +'<div style="font-size:.6rem;color:var(--gd);">'+(f.cost?f.cost+' Cr to swap':'Free')+'</div>'
+    +'<div style="font-size:.6rem;color:var(--gd);">'+(f.cost?'Unlock cost: '+f.cost+' Cr (one-time, then free)':'Always free')+'</div>'
     +'<div style="font-size:.58rem;color:#555;margin-top:3px;">'+f.reqText+'</div>'
     +'</div>').join('')+'</div>';
 }
@@ -1981,7 +2412,8 @@ function ST(name){
 
 // ── BOOT ──────────────────────────────────────────────────────────────
 init(); resetAuction();
-
++renderInstalledCards(p)
+      
 </script>
 </body>
 </html>
