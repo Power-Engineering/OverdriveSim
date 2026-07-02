@@ -120,6 +120,7 @@ function resetAuction(){
     p.installed=[];p.garage=[];p.wip=[];p.deck=[];p.mkt=[];
     p.rc=0;p.fat=0;p.reckR=false;p.sponsor=null;p.engs=0;p.mechs=1;p.workshopSlots=3;
     p.segW=0;p.dnfs=0;p.repairs=0;p.topTwos=0;p.wins=0;p.cp=0;
+    p.trackTypesWon=new Set();p.worstFinishPos=0;p.weatherLossesAvoided=0;p.maxStierCount=0;p.biggestMargin=0;p.maxRC=0;p.achWon=null;
   });
   renderCG(); renderAuc(); chkReady();
 }
@@ -1507,6 +1508,13 @@ function resolveSeg(){
     wins.forEach(({i})=>{
       G.segW[i]++; G.lastSegs[i]=(G.lastSegs[i]||0)+1; G.P[i].segW++;
       if(seg[0]==='P'&&t.ty.includes('High'))G.P[i].hsSegs++;
+      // Track the base track-type category (strip star rating) for GT86's Track Master achievement
+      const baseType=t.ty.replace(/\s*★+\s*$/,'').trim();
+      G.P[i].trackTypesWon.add(baseType);
+      // Track the biggest single-Segment win margin for Mustang's The Knockout achievement
+      const others=sc.filter(x=>x.i!==i); const secondBest=others.length?Math.max(...others.map(x=>x.s)):best;
+      const margin=best-secondBest;
+      if(margin>G.P[i].biggestMargin)G.P[i].biggestMargin=margin;
       const cr=hz.pace?0:1;
       if(!noAwd&&!noCp){G.P[i].cp++;G.P[i].creds+=cr;}
       else if(noCp)G.P[i].creds+=cr;
@@ -1518,6 +1526,7 @@ function resolveSeg(){
       }
       // Note: Cool Factor ability removed in favour of Gazoo Racing Discount (see ABILITIES gt86)
       log('★ Segment '+sn+' WIN: '+G.P[i].name+' (score '+best+')'+(noAwd?' — Safety Car: no CP or Credits this Segment':noCp?' — Yellow Flag: +1 Credit only, no CP':' → +1 Championship Point (Segment win) +1 Credit'+(rb?' +1 Credit (Reckless win bonus)':'')),'w');
+      if(margin>=8)log('💥 '+G.P[i].name+' KNOCKOUT MARGIN! Won by '+margin+' points — a Mustang GT achievement-tier performance.','w');
     });
     // Hazard effects post-segment
     if(hz.oil&&sn===1){const mH=Math.min(...sc.map(x=>G.P[x.i].H));sc.filter(x=>G.P[x.i].H===mH).forEach(x=>{G.P[x.i].R--;log(G.P[x.i].name+': Oil on Track → -1R','x');if(G.P[x.i].R<=0)doDNF(x.i);});}
@@ -1526,6 +1535,13 @@ function resolveSeg(){
     if(t.sp==='mountain'){sc.forEach(({s,i})=>{if(best-s>=3){G.P[i].R--;log(G.P[i].name+': The Mountain lost by '+(best-s)+' → -1R','x');if(G.P[i].R<=0)doDNF(i);}});}
     if(t.sp==='winton'&&sn===3){G.P.forEach((_,i)=>{if(G.segW[i]===3){G.P[i].cp+=2;log('★★ '+G.P[i].name+': WINTON SWEEP +2 BONUS CP!','w');}});}
     if(t.sp==='albert'&&sn===3){/* handled in end phase */}
+    // Audi TT Weatherproof achievement: did TT lose a Segment while penalty Weather was active this race?
+    const penaltyWeather=!!(w.hd_all||w.pd_all||w.bd_all||(w.score_all&&w.score_all<0)||w.rel_hit||w.cool_pen);
+    if(penaltyWeather){
+      G.P.forEach((p,i)=>{
+        if(p.carId==='auditt'&&!G.dnf[i]&&!wins.some(x=>x.i===i)){p._ttWeatherLossThisChamp=true;}
+      });
+    }
   }
 
   // Store this Segment's results for the results screen, then pause there
@@ -1704,6 +1720,12 @@ function phEnd(el){
 function applyEnd(rank){
   const t=G.cal[G.race-1]; const fin=G.race===8;
   const pcp=fin?[6,4,2,0]:[3,2,1,0]; // 1st/2nd/3rd/4th, doubled on Race 8 Finale
+  // Track worst finish position for 370Z's Iron Man achievement — runs for everyone, DNF included
+  rank.forEach((pi,pos)=>{
+    const p=G.P[pi];
+    const effectivePos=G.dnf[pi]?99:pos; // DNF counts as worse than any finish, breaking the streak
+    if(effectivePos>p.worstFinishPos)p.worstFinishPos=effectivePos;
+  });
   rank.forEach((pi,pos)=>{
     const p=G.P[pi]; if(G.dnf[pi])return;
     p.cp+=pcp[Math.min(pos,3)];
@@ -1796,35 +1818,91 @@ function phGameOver(el){
       if(sp.name==='Bridgestone'&&p.rc<=4)e=true;
       if(e){p.cp+=sp.endCp;p._bon.push(sp.name+' Sponsor +'+sp.endCp+'CP');}
     }
-    // Car achievements
+    // ── CAR ACHIEVEMENTS — alternate win conditions, not just bonus CP ──
+    // Each is a genuinely different kind of challenge matched to that car's identity.
+    // If achieved, the car WINS the Championship outright, overriding normal CP ranking
+    // (ties between multiple achieved players still fall back to CP as the tiebreak).
     const cid=p.carId;
-    if(cid==='gt86'&&p.installed.filter(u=>u.cat==='Aero').length>=3&&p.hsSegs>=2){p.cp+=3;p._bon.push('GT86 Time Attack Trophy +3CP');}
-    if(cid==='z370'&&p.dnfs===0){p.cp+=3;p._bon.push('370Z Endurance Champion +3CP');}
-    if(cid==='mx5'&&p.maxP<=7&&p.segW>=6){p.cp+=4;p._bon.push('MX-5 Pure Driver Award +4CP');}
-    if(cid==='mustang'&&p.hsSegs>=6&&p.maxHeat>=5&&p.dnfs===0){p.cp+=3;p._bon.push('Mustang King of the Strip +3CP');}
-    if(cid==='auditt'&&p.installed.filter(u=>u.cat==='Electronics').length>=2){p.cp+=3;p._bon.push('Audi TT AWD Mastery +3CP');}
+    if(cid==='gt86'){
+      // Track Master: win at least 1 Segment on every distinct base track-type category across the Championship
+      const allTypes=new Set(G.cal.map(t=>t.ty.replace(/\s*★+\s*$/,'').trim()));
+      const wonAllTypes=[...allTypes].every(ty=>p.trackTypesWon.has(ty));
+      if(wonAllTypes&&p.trackTypesWon.size>=4){
+        p.achWon='Track Master — won at least one Segment on every track type this Championship faced ('+p.trackTypesWon.size+' types)';
+        p._bon.push('🏆 GT86 TRACK MASTER — CHAMPIONSHIP WIN (adapted to every circuit type)');
+      }
+    }
+    if(cid==='z370'){
+      // Iron Man: finished every single race 3rd or better (or didn't race), zero DNFs, all 8 races
+      if(p.dnfs===0&&p.worstFinishPos<=2&&G.race>=8){
+        p.achWon='Iron Man — never finished worse than 3rd in any of the 8 races, zero DNFs';
+        p._bon.push('🏆 370Z IRON MAN — CHAMPIONSHIP WIN (flawless consistency)');
+      }
+    }
+    if(cid==='auditt'){
+      // Weatherproof: never lost a Segment while penalty Weather was active, all Championship
+      if(!p._ttWeatherLossThisChamp&&p.dnfs===0){
+        p.achWon='Weatherproof — never lost a Segment under penalty Weather conditions all Championship';
+        p._bon.push('🏆 AUDI TT WEATHERPROOF — CHAMPIONSHIP WIN (immune to the elements)');
+      }
+    }
+    if(cid==='mx5'){
+      // True to Form: zero S-Tier upgrades installed, ever, AND 8+ Segment wins on raw skill
+      const stierCount=p.installed.filter(u=>u.tier).length;
+      if(stierCount===0&&p.segW>=8){
+        p.achWon='True to Form — zero S-Tier upgrades all Championship, '+p.segW+' Segment wins on raw skill';
+        p._bon.push('🏆 MX-5 TRUE TO FORM — CHAMPIONSHIP WIN (skill over horsepower)');
+      }
+    }
+    if(cid==='mustang'){
+      // The Knockout: at least one Segment win by a margin of 8+ points over 2nd place
+      if(p.biggestMargin>=8){
+        p.achWon='The Knockout — won a Segment by '+p.biggestMargin+' points, a margin no other car could answer';
+        p._bon.push('🏆 MUSTANG THE KNOCKOUT — CHAMPIONSHIP WIN (one decisive blow)');
+      }
+    }
   });
-  const final=[...G.P.map((_,i)=>i)].sort((a,b)=>G.P[b].cp-G.P[a].cp);
-  let h='<div class="card"><div class="ct" style="font-size:.88rem;color:var(--gd);">🏆 CHAMPIONSHIP COMPLETE</div>'
-    +'<div class="info" style="background:#0a1408;border-color:#1a3a1a;line-height:1.8;">'
+  // If any player(s) hit their car's alternate win condition, they win outright — CP only breaks ties between them
+  const achievers=G.P.map((_,i)=>i).filter(i=>G.P[i].achWon);
+  if(achievers.length){
+    achievers.sort((a,b)=>G.P[b].cp-G.P[a].cp);
+    G.championAchieved=achievers[0];
+  }
+  // If a Car Achievement was triggered, that player wins outright — rank them first regardless of CP
+  let final=[...G.P.map((_,i)=>i)].sort((a,b)=>G.P[b].cp-G.P[a].cp);
+  if(typeof G.championAchieved==='number'){
+    final=[G.championAchieved,...final.filter(i=>i!==G.championAchieved)];
+  }
+  let h='<div class="card"><div class="ct" style="font-size:.88rem;color:var(--gd);">🏆 CHAMPIONSHIP COMPLETE</div>';
+  if(typeof G.championAchieved==='number'){
+    const champ=G.P[G.championAchieved];
+    h+='<div class="info" style="background:#1a1300;border-color:var(--gd);border-width:2px;line-height:1.8;">'
+      +'<strong style="color:var(--gd);font-size:.85rem;">⚡ ALTERNATE WIN CONDITION TRIGGERED ⚡</strong><br>'
+      +'<strong style="color:'+champ.col+';">'+champ.name+'</strong> won the Championship via their car\'s unique achievement, not Championship Points:<br>'
+      +'<em style="color:#ddd;">"'+champ.achWon+'"</em><br>'
+      +'<span style="font-size:.65rem;color:#999;">Normal CP standings are shown below for reference, but this result overrides them.</span>'
+      +'</div>';
+  }
+  h+='<div class="info" style="background:#0a1408;border-color:#1a3a1a;line-height:1.8;">'
     +'<strong style="color:#6ce06c;">Final Championship Points = Race CP (already earned across all 8 races) + End-Game Bonus CP (calculated once, right now).</strong><br>'
     +'End-Game Bonuses come from 3 sources: <strong>Static Goals</strong> (always active — Power/Handling Champion, Reliability Master, Diversified Builder), '
-    +'<strong>Random Goals</strong> (2 of 6 possible, chosen at game start — see the Goals tab), and <strong>Car-Specific Achievements</strong> (unique to the car you drove, plus your Sponsor\'s end condition if you claimed one).<br>'
+    +'<strong>Random Goals</strong> (2 of 6 possible, chosen at game start — see the Goals tab), and <strong>Car-Specific Achievements</strong> — each car now has one unique alternate WIN CONDITION (not just bonus CP) tied to its identity. Triggering it wins the Championship outright.<br>'
     +'Each player\'s qualifying bonuses are listed under their name below.'
     +'</div>';
   final.forEach((i,pos)=>{
     const p=G.P[i];
-    h+='<div style="display:flex;align-items:start;gap:10px;padding:9px 0;border-bottom:1px solid #1a1a1a;">'
-      +'<div style="font-size:1.3rem;">'+MED[Math.min(pos,3)]+'</div>'
+    const isChamp=i===G.championAchieved;
+    h+='<div style="display:flex;align-items:start;gap:10px;padding:9px 0;border-bottom:1px solid #1a1a1a;'+(isChamp?'background:#1a1300;border-radius:6px;padding-left:8px;':'')+'">'
+      +'<div style="font-size:1.3rem;">'+(isChamp?'⚡':MED[Math.min(pos,3)])+'</div>'
       +'<div style="flex:1;">'
-      +'<div style="color:'+p.col+';font-weight:700;font-size:.9rem;">'+p.name+(isAI(i)?'<span style="font-size:.6rem;color:#6cb4ee;"> [AI: '+AI_P[p.ai].label+']</span>':'')+'</div>'
+      +'<div style="color:'+p.col+';font-weight:700;font-size:.9rem;">'+p.name+(isAI(i)?'<span style="font-size:.6rem;color:#6cb4ee;"> [AI: '+AI_P[p.ai].label+']</span>':'')+(isChamp?'<span style="color:var(--gd);font-size:.65rem;"> — CHAMPIONSHIP WINNER (alternate)</span>':'')+'</div>'
       +'<div style="font-size:.65rem;color:#666;margin-top:1px;">'+(p.car?p.car.name:'—')+' | '+p.installed.length+' upgrades | RC:'+p.rc+' | DNFs:'+p.dnfs+'</div>'
       +(p._bon.length?'<div style="font-size:.65rem;color:#6ce06c;margin-top:2px;">'+p._bon.join(' | ')+'</div>':'<div style="font-size:.65rem;color:#555;">No end-game bonuses</div>')
       +'</div>'
       +'<div style="font-size:1.4rem;font-weight:700;color:var(--gd);">'+p.cp+'</div>'
       +'</div>';
   });
-  h+='<div class="warn" style="margin:10px 0;">All end-game bonuses applied. Tie-breakers: Race Wins → Segment Wins → Reliability → Reckless Counter.</div>';
+  h+='<div class="warn" style="margin:10px 0;">'+(typeof G.championAchieved==='number'?'Alternate win condition overrides normal CP ranking. ':'')+'Tie-breakers: Race Wins → Segment Wins → Reliability → Reckless Counter.</div>';
   // Full car build review
   h+='<div style="margin-top:16px;"><div class="ct" style="font-size:.8rem;margin-bottom:10px;">Championship Car Build Review</div>';
   final.forEach(function(pi){
