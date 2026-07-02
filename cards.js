@@ -24,27 +24,27 @@ const CARS = [
    slots:{Engine:3,Handling:4,Drivetrain:2,Brakes:2,Cooling:2,Aero:4,Fuel:2,Electronics:1},
    str:'Balanced chassis. Strong handling ceiling. Best Aero slots (4) in game — dominates crosswind circuits. Flexible FI paths.',
    weak:'Moderate base Power (3). Needs engine investment before competing on straights.',
-   ach:'Time Attack Trophy +3CP: Have 3+ Aero upgrades installed AND win 2+ Segments on High-Speed circuits.'},
+   ach:'★ TRACK MASTER (alt. win): Win at least 1 Segment on every distinct track type the calendar throws at you (4+ types). Rewards reading the board, not just stat-maxing.'},
   {id:'z370',   name:'Nissan 370Z',   sub:'The Torque Monster',  P:4,H:4,B:4,A:2,C:2,R:5,col:'#cc3333',
    slots:{Engine:4,Handling:2,Drivetrain:3,Brakes:2,Cooling:3,Fuel:2,Electronics:1},
    str:'Largest Engine slot cap (4). Best raw Cooling headroom. Real Japanese high-performance parts available (Stillen, Z1, NISMO). Endurance-ready.',
    weak:'Handling cap 2 limits technical circuit performance. Heavy chassis.',
-   ach:'Endurance Champion +3CP: Finish all 8 Races without a single DNF.'},
+   ach:'★ IRON MAN (alt. win): Never finish worse than 3rd in any of the 8 races, zero DNFs. Total risk-aversion as a viable victory path.'},
   {id:'auditt', name:'Audi TT',       sub:'The Technologist',    P:3,H:4,B:4,A:4,C:2,R:5,col:'#2266cc',
    slots:{Engine:2,Handling:3,Drivetrain:2,Brakes:2,Cooling:2,Aero:2,Fuel:2,Electronics:3},
    str:'Only car with 3 Electronics slots — AWD systems and data logging compound. Highest base Aero (4). DSG gearbox advantage.',
    weak:'Lowest Engine cap (2). Power ceiling limited without Engineer + Turbo.',
-   ach:'AWD Mastery +3CP: Have 2+ Electronics upgrades installed AND ignore 3+ Weather/Hazard penalties across Championship.'},
+   ach:'★ WEATHERPROOF (alt. win): Never lose a Segment while penalty Weather is active, the entire Championship. Makes Quattro Grip genuinely decisive, not just a minor edge case.'},
   {id:'mx5',    name:'Mazda MX-5',    sub:'The Pure Driver',     P:2,H:6,B:4,A:2,C:1,R:5,col:'#cc5522',
    slots:{Engine:2,Handling:4,Drivetrain:2,Brakes:2,Cooling:1,Fuel:1,Electronics:0},
    str:'Highest base Handling (6). Lightest build. Winton Handling Heaven. Pure Driver Achievement worth 4 CP — highest in game.',
    weak:'Fewest slots. Zero Electronics. 1 Cooling slot is very limiting. Terrible on pure Power circuits.',
-   ach:'Pure Driver Award +4CP (HIGHEST): Your Power never exceeded 7 during Championship AND you won 6+ Segments total.'},
+   ach:'★ TRUE TO FORM (alt. win): Zero S-Tier upgrades all Championship AND 8+ Segment wins. Skill over horsepower, made literal — money can\'t buy this win.'},
   {id:'mustang',name:'Mustang GT',    sub:'The Crowd Favourite', P:5,H:3,B:3,A:1,C:2,R:4,col:'#228833',
    slots:{Engine:4,Handling:2,Drivetrain:3,Brakes:3,Cooling:3,Aero:1,Fuel:3,Electronics:1},
    str:'Highest base Power (5). Huge Engine + Fuel slots. Whipple Supercharger potential is terrifying. Wins every High-Speed segment early.',
    weak:'Only 1 Aero slot. Crosswind and Headwind are genuinely dangerous. Lowest base Reliability (4). Reckless temptation is constant.',
-   ach:'King of the Strip +3CP: Win 1+ High-Speed Segment in 6 of 8 Races AND your Heat reached 5+ at least once without DNF.'},
+   ach:'★ THE KNOCKOUT (alt. win): Win any single Segment by 8+ points over 2nd place. One devastating run is all it takes — pure spectacle.'},
 ];
 
 const TRACKS = [
@@ -211,4 +211,3 @@ const AI_P = [
 const PC = ['#8B1A1A','#1a3a6c','#1a5c1a','#7c6010'];
 const MED = ['🥇','🥈','🥉','   '];
 const SN = {P:'Power',H:'Handling',B:'Brakes',A:'Aero',C:'Cooling',R:'Reliability'};
-
